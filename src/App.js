@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from "react";
+import './switcher.scss';
+import Home from "./components/Home";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    //state
+    const [colorTheme, setColorTheme] = useState('theme-white');
+
+    // effect
+    useEffect(() => {
+        const currentThemeColor = localStorage.getItem('theme-color');
+        if (currentThemeColor) {
+            setColorTheme(currentThemeColor);
+        }
+    }, []);
+
+    // set theme
+    const handleClick = (theme) => {
+        setColorTheme(theme);
+        localStorage.setItem('theme-color', theme);
+    }
+
+    return (
+        <div className={`App ${colorTheme}`}>
+
+            <Header/>
+
+            <div className='theme-options'>
+                <div id='theme-white'
+                     onClick={() => handleClick('theme-white')}
+                     className={`${colorTheme === 'theme-white' ? 'active' : ''}`}
+                >🌞
+                </div>
+                <div id='theme-black'
+                     onClick={() => handleClick('theme-black')}
+                     className={`${colorTheme === 'theme-black' ? 'active' : ''}`}
+                >🌙
+                </div>
+                <div id='theme-pink'
+                     onClick={() => handleClick('theme-pink')}
+                     className={`${colorTheme === 'theme-pink' ? 'active' : ''}`}
+                >🎀
+                </div>
+            </div>
+
+            <div className='content-box'>
+                <Home/>
+            </div>
+
+            <Footer />
+        </div>
+    );
 }
 
 export default App;
