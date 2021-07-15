@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import AuthenticationService from "./AuthenticationService.js";
 
-class Login extends Component {
+class PlayerLogin extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            username: 'Dani',
-            password: '1234',
+            username: '',
+            password: '',
             hasLoginFailed: false,
             showSuccessMessage: false
         }
@@ -41,31 +41,34 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="container">
-                <h3>Login</h3>
+            <div className="container content-box">
+                <h3>Player Login</h3>
                 {this.state.hasLoginFailed && <div className="alert alert-warning">
                                 Invalid Credentials</div>}
                 {this.state.showSuccessMessage && <div>Login Successful</div>}
                 <form>
-                User Name: <input type="text"
-                                  name="username"
-                                  value={this.state.username}
-                                  onChange={this.handleChange}
-                            />
-                    <br/>
-                Password: <input type="password"
-                                 name="password"
-                                 value={this.state.password}
-                                 onChange={this.handleChange}
-                            />
-                <button className="btn btn-success"
-                    onClick={this.loginClicked}>
-                    Login
-                </button>
+                   <label>UserName: </label>
+                       <input type="text"
+                              name="username"
+                              value={this.state.username}
+                              onChange={this.handleChange}
+                        />
+                        <br/>
+                    <label>Password: </label>
+                        <input type="password"
+                                name="password"
+                               value={this.state.password}
+                               onChange={this.handleChange}
+                        />
+
+                    <button className="btn btn-success"
+                        onClick={this.loginClicked}>
+                        Login
+                    </button>
                 </form>
             </div>
         )
     }
 }
 
-export default Login
+export default PlayerLogin

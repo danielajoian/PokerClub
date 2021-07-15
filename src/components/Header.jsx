@@ -11,7 +11,13 @@ class Header extends Component {
 
         return (
             <nav className="head navbar navbar-expand-md">
-                <div className="navbar-brand">PokerApp</div>
+                <div className="navbar-brand">
+                    <img style={{maxWidth: "30px"}}
+                         src="/cards.png"
+                         alt="cards"
+                    />
+                    PokerApp
+                </div>
                 <ul className="navbar-nav">
                         <li>
                             <Link className="nav-link" to="/" >
@@ -19,19 +25,18 @@ class Header extends Component {
                             </Link>
                         </li>
 
-                    {isUserLoggedIn &&
                         <li>
                             <Link to="/clubs" className="nav-link">
                                 Clubs
                             </Link>
-                        </li>}
+                        </li>
                 </ul>
 
                 <ul className="navbar-nav navbar-collapse justify-content-end">
-                    {!isUserLoggedIn &&
+                    {isUserLoggedIn &&
                         <li>
-                            <Link to="/login" className="nav-link">
-                                Login
+                            <Link to="/playerDetailsPage" className="nav-link">
+                                Welcome {sessionStorage.getItem('authenticatedUser')}
                             </Link>
                         </li>}
 

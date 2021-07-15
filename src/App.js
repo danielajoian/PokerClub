@@ -5,12 +5,20 @@ import Footer from "./components/Footer.jsx";
 import "bootstrap/dist/css/bootstrap.css";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import FirstPage from "./components/FirstPage";
-import Login from "./components/Login";
+import PlayerLogin from "./components/PlayerLogin";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import Logout from "./components/Logout";
-import Clubs from "./components/Clubs";
+import ClubsList from "./components/ClubsList";
 import Welcome from "./components/Welcome";
 import Error from "./components/Error";
+import ClubOwnersPage from "./components/ClubOwnersPage";
+import PlayerPage from "./components/PlayerPage";
+import PlayerDetailsPage from "./components/PlayerDetailsPage";
+import PlayerRegister from "./components/PlayerRegister";
+import ClubLogin from "./components/ClubLogin";
+import ClubRegister from "./components/ClubRegister";
+import PlayerRegisterSuccessful from "./components/PlayerRegisterSuccessful";
+import ClubRegisterSuccessful from "./components/ClubRegisterSuccessful";
 
 function App() {
 
@@ -58,9 +66,17 @@ function App() {
                         <div className='content-box'>
                             <Switch>
                                 <Route path="/" exact component={FirstPage} />
-                                <Route path="/login" component={Login} />
+                                <Route path="/playerLogin" component={PlayerLogin} />
+                                <Route path="/playerRegister" component={PlayerRegister} />
                                 <AuthenticatedRoute path="/logout" component={Logout} />
-                                <Route path="/clubs" component={Clubs} />
+                                <Route path="/clubs" component={ClubsList} />
+                                <Route path="/playerPage" component={PlayerPage} />
+                                <Route path="/clubOwner" component={ClubOwnersPage} />
+                                <Route path="/clubLogin" component={ClubLogin} />
+                                <Route path="/clubRegister" component={ClubRegister} />
+                                <Route path="/registerSuccessful" component={PlayerRegisterSuccessful} />
+                                <Route path="/clubRegisterSuccessful" component={ClubRegisterSuccessful} />
+                                <AuthenticatedRoute path="/playerDetailsPage" component={PlayerDetailsPage} />
                                 <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
                                 <Route path="*" component={Error} />
                             </Switch>

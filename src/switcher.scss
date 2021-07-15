@@ -89,10 +89,25 @@ body {
     border: none;
     transition: var(--transition-delay);
     transform: scale(1);
+    //float: left;
+    clear: left;
 
     line-height: 1.5;
     margin: 10px;
     font-size: 20px;
+  }
+  label{
+    display: inline-block;
+    margin: 5px;
+    float: left;
+    clear: left;
+    width: 150px;
+    text-align: right;
+  }
+  input {
+    display: inline-block;
+    float: left;
+    margin: 5px;
   }
 }
 
@@ -132,7 +147,7 @@ body {
   background-color: white;
   .content-box {
     background-color: tan;
-    h1, h3, h4, p, button, .link, .container {
+    h1, h3, h4, p, button, .link, .container, input, label {
       --accent-color: orangered;
       color: black;
     }
@@ -153,7 +168,7 @@ body {
   background-color: #222222;
   .content-box {
     background-color: tan;
-    h1, h3, h4, p, button, .link, .container {
+    h1, h3, h4, p, button, .link, .container, input, label {
       --accent-color: #D0D011;
       color: red;
     }
@@ -174,7 +189,7 @@ body {
   background-color: salmon;
   .content-box {
     background-color: tan;
-    h1, h3, h4, p, button, .link,.container {
+    h1, h3, h4, p, button, .link,.container, input, label {
       --accent-color: #D0D;
       color: blue;
     }
