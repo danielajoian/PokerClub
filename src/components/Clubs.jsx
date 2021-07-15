@@ -36,6 +36,15 @@ class Clubs extends Component {
                                     <p>Phone: {this.state.clubs.phone}</p>
                                 </form>
                             </div>
+
+                            <div className={"col"}>
+                                <form>
+                                    <h4>{this.state.clubs.name}</h4>
+                                    <h4>Details: {this.state.clubs.description}</h4>
+                                    <p>Address: {this.state.clubs.address}</p>
+                                    <p>Phone: {this.state.clubs.phone}</p>
+                                </form>
+                            </div>
                         </div>
                 </div>
             </div>

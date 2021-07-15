@@ -1,28 +1,31 @@
 import React, { Component } from "react";
-import '../switcher.scss';
-import Login from "./Login";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Welcome from "./Welcome";
-import Error from "./Error";
-import Clubs from "./Clubs";
-import FirstPage from "./FirstPage";
-import Logout from "./Logout";
+import '../switcher.scss';
+import Login from "./Login.jsx";
+import Welcome from "./Welcome.jsx";
+import Error from "./Error.jsx";
+import Clubs from "./Clubs.jsx";
+import FirstPage from "./FirstPage.jsx";
+import Logout from "./Logout.jsx";
+import AuthenticatedRoute from "./AuthenticatedRoute.jsx";
+import Header from "./Header";
+import Footer from "./Footer";
 
 class Home extends Component {
     render() {
         return (
-            <div className='content-box'>
+            <div className='home'>
                 <Router>
-                    {/*<>*/}
-                        <Switch>
-                            <Route path="/" exact component={FirstPage} />
-                            <Route path="/login" component={Login} />
-                            <Route path="/logout" component={Logout} />
-                            <Route path="/clubs" component={Clubs} />
-                            <Route path="/welcome/:name" component={Welcome} />
-                            <Route component={Error} />
-                        </Switch>
-                    {/*</>*/}
+                    <Header/>
+                    <Switch>
+                        <Route path="/" exact component={FirstPage} />
+                        <Route path="/login" component={Login} />
+                        <AuthenticatedRoute path="/logout" component={Logout} />
+                        <Route path="/clubs" component={Clubs} />
+                        <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
+                        <Route path="*" component={Error} />
+                    </Switch>
+                    <Footer />
                 </Router>
             </div>
         );
