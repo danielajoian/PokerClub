@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import AuthenticationService from "./AuthenticationService";
+import AuthenticationService from "../../api/services/AuthenticationService";
 
 class ClubLogin extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class ClubLogin extends Component {
         //All In, 1234
         if (this.state.clubname==='All In' && this.state.password==='1234') {
             console.log('Successful')
-            AuthenticationService.registerSuccessfulLogin(this.state.clubname, this.state.password);
+            AuthenticationService.registerClubSuccessfulLogin(this.state.clubname, this.state.password);
             this.props.history.push(`/welcome/${this.state.clubname}`)
         }else{
             console.log('Failed');

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import AuthenticationService from "../../api/services/AuthenticationService";
 
 class ClubsList extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class ClubsList extends Component {
             }
         }
     }
+
     render() {
         return (
             <div>

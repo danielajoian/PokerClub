@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import AuthenticationService from "./AuthenticationService.js";
+import AuthenticationService from "../../api/services/AuthenticationService.js";
 
 class PlayerLogin extends Component {
     constructor(props) {

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import '../switcher.scss';
-import PlayerLogin from "./PlayerLogin.jsx";
+import '../../switcher.scss';
+import PlayerLogin from "../players/PlayerLogin.jsx";
 import Welcome from "./Welcome.jsx";
 import Error from "./Error.jsx";
-import ClubsList from "./ClubsList.jsx";
+import ClubsList from "../clubs/ClubsList.jsx";
 import FirstPage from "./FirstPage.jsx";
 import Logout from "./Logout.jsx";
 import AuthenticatedRoute from "./AuthenticatedRoute.jsx";

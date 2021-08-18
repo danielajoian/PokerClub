@@ -1,23 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&disply=swap');
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&disply=swap');*/
 
-.App {
-  height: 100vh;
-  padding-top: 10px;
-  padding-bottom: 0px;
-}
+/*.App {*/
+/*  height: 100vh;*/
+/*  padding-top: 10px;*/
+/*  padding-bottom: 0px;*/
+/*}*/
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-}
+/*body {*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  font-family: 'Open Sans', sans-serif;*/
+/*  font-size: 16px;*/
+/*  line-height: 1.6;*/
+/*}*/
 
-.text-center {
-  text-align: center;
-}
+/*.text-center {*/
+/*  text-align: center;*/
+/*}*/
 
-.title {
-  font-size: 20px;
-}
+/*.title {*/
+/*  font-size: 20px;*/
+/*}*/

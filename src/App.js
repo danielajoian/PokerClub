@@ -1,24 +1,27 @@
 import React, {useEffect, useState} from "react";
 import './switcher.scss';
-import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
+import Header from "./components/pages/Header.jsx";
+import Footer from "./components/pages/Footer.jsx";
 import "bootstrap/dist/css/bootstrap.css";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import FirstPage from "./components/FirstPage";
-import PlayerLogin from "./components/PlayerLogin";
-import AuthenticatedRoute from "./components/AuthenticatedRoute";
-import Logout from "./components/Logout";
-import ClubsList from "./components/ClubsList";
-import Welcome from "./components/Welcome";
-import Error from "./components/Error";
-import ClubOwnersPage from "./components/ClubOwnersPage";
-import PlayerPage from "./components/PlayerPage";
-import PlayerDetailsPage from "./components/PlayerDetailsPage";
-import PlayerRegister from "./components/PlayerRegister";
-import ClubLogin from "./components/ClubLogin";
-import ClubRegister from "./components/ClubRegister";
-import PlayerRegisterSuccessful from "./components/PlayerRegisterSuccessful";
-import ClubRegisterSuccessful from "./components/ClubRegisterSuccessful";
+import FirstPage from "./components/pages/FirstPage";
+import PlayerLogin from "./components/players/PlayerLogin";
+import AuthenticatedRoute from "./components/pages/AuthenticatedRoute";
+import Logout from "./components/pages/Logout";
+import ClubsList from "./components/clubs/ClubsList";
+import Welcome from "./components/pages/Welcome";
+import Error from "./components/pages/Error";
+import ClubOwnersPage from "./components/clubs/ClubOwnersPage";
+import PlayerPage from "./components/players/PlayerPage";
+import PlayerDetailsPage from "./components/players/PlayerDetailsPage";
+import PlayerRegister from "./components/players/PlayerRegister";
+import ClubLogin from "./components/clubs/ClubLogin";
+import ClubRegister from "./components/clubs/ClubRegister";
+import PlayerRegisterSuccessful from "./components/players/PlayerRegisterSuccessful";
+import ClubRegisterSuccessful from "./components/clubs/ClubRegisterSuccessful";
+import GamesList from "./components/games/GamesList";
+import ClubDetailsPage from "./components/clubs/ClubDetailsPage";
+import GameComponent from "./components/games/GameComponent";
 
 function App() {
 
@@ -77,7 +80,10 @@ function App() {
                                 <Route path="/registerSuccessful" component={PlayerRegisterSuccessful} />
                                 <Route path="/clubRegisterSuccessful" component={ClubRegisterSuccessful} />
                                 <AuthenticatedRoute path="/playerDetailsPage" component={PlayerDetailsPage} />
-                                <AuthenticatedRoute path="/welcome/:name" component={Welcome} />
+                                <AuthenticatedRoute path="/clubDetailsPage" component={ClubDetailsPage} />
+                                <AuthenticatedRoute exact path="/welcome/:name" component={Welcome} />
+                                <AuthenticatedRoute exact path="/games" component={GamesList} />
+                                <AuthenticatedRoute exact path="/games/:id" component={GameComponent} />
                                 <Route path="*" component={Error} />
                             </Switch>
                         </div>
