@@ -1,8 +1,10 @@
 class AuthenticationService {
-    registerSuccessfulLogin(username, password) {
+    registerSuccessfulLogin(username) {
         console.log('registerSuccessfulLogin')
+        if (!sessionStorage.getItem(null)) {
+            this.logout();
+        }
         sessionStorage.setItem('authenticatedUser', username);
-        // sessionStorage.setItem('authenticatedUserPassword', password);
     }
 
     logout() {
@@ -16,10 +18,18 @@ class AuthenticationService {
         return user !== null;
     }
 
-    registerClubSuccessfulLogin(clubname, password) {
+    getLoggedInUserName() {
+        let user = sessionStorage.getItem('authenticatedUser')
+        if (user===null) return ''
+        return user;
+    }
+
+    registerClubSuccessfulLogin(clubname) {
         console.log('registerSuccessfulLogin')
+        if (!sessionStorage.getItem(null)) {
+            this.logout();
+        }
         sessionStorage.setItem('authenticatedClub', clubname);
-        // sessionStorage.setItem('authenticatedUserPassword', password);
     }
 
     isClubLoggedIn() {

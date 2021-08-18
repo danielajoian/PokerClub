@@ -11,6 +11,11 @@ class ClubDetailsPage extends Component {
                         Click to Add Games
                     </Link>
                 </button>
+                <button className="btn btn-success">
+                    <Link to="/clubAccount" className="link">
+                        Change Account Details
+                    </Link>
+                </button>
             </div>
         )
     }

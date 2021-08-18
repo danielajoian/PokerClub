@@ -22,6 +22,8 @@ import ClubRegisterSuccessful from "./components/clubs/ClubRegisterSuccessful";
 import GamesList from "./components/games/GamesList";
 import ClubDetailsPage from "./components/clubs/ClubDetailsPage";
 import GameComponent from "./components/games/GameComponent";
+import PlayerAccount from "./components/players/PlayerAccount";
+import ClubAccount from "./components/clubs/ClubAccount";
 
 function App() {
 
@@ -71,7 +73,7 @@ function App() {
                                 <Route path="/" exact component={FirstPage} />
                                 <Route path="/playerLogin" component={PlayerLogin} />
                                 <Route path="/playerRegister" component={PlayerRegister} />
-                                <AuthenticatedRoute path="/logout" component={Logout} />
+                                <Route path="/logout" component={Logout} />
                                 <Route path="/clubs" component={ClubsList} />
                                 <Route path="/playerPage" component={PlayerPage} />
                                 <Route path="/clubOwner" component={ClubOwnersPage} />
@@ -83,6 +85,8 @@ function App() {
                                 <AuthenticatedRoute path="/clubDetailsPage" component={ClubDetailsPage} />
                                 <AuthenticatedRoute exact path="/welcome/:name" component={Welcome} />
                                 <AuthenticatedRoute exact path="/games" component={GamesList} />
+                                <AuthenticatedRoute exact path="/playerAccount" component={PlayerAccount} />
+                                <AuthenticatedRoute exact path="/clubAccount" component={ClubAccount} />
                                 <AuthenticatedRoute exact path="/games/:id" component={GameComponent} />
                                 <Route path="*" component={Error} />
                             </Switch>

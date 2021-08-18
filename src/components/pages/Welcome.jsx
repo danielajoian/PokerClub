@@ -22,8 +22,12 @@ class Welcome extends Component {
         // HelloWorldService.executeHelloBeanService(this.props.match.params.name)
         //     .then(response => this.handleSuccessfulResponse(response))
         //
+        //
+        // HelloWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)
+        //     .then(response => this.handleSuccessfulResponse(response))
+        //     .catch(error => this.handleError(error))
 
-        HelloWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)
+        HelloWorldService.executeHelloBeanService(this.props.match.params.name)
             .then(response => this.handleSuccessfulResponse(response))
             .catch(error => this.handleError(error))
     }
@@ -46,12 +50,12 @@ class Welcome extends Component {
         return (
             <div className="container content-box">
                 <h3>Welcome to PokerApp, {this.props.match.params.name}!</h3>
-                <h4>Click here to get a customized welcome message</h4>
+                <h6>Click here to get a customized welcome message</h6>
                 <button onClick={this.retrieveWelcomeMessage}
                         className="btn btn-success">
                     Get Welcome Message
                 </button>
-                <h5>{this.state.welcomeMessage}</h5>
+                <h4>{this.state.welcomeMessage}</h4>
             </div>
         )
     }

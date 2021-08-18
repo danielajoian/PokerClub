@@ -18,7 +18,8 @@ class PlayerLogin extends Component {
 
     loginClicked() {
         //Dani, 1234
-        if (this.state.username==='Dani' && this.state.password==='1234') {
+        if ((this.state.username==='Dani' && this.state.password==='1234')
+            || (this.state.username === 'Luna' && this.state.password === '1234')) {
             console.log('Successful')
             AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
             this.props.history.push(`/welcome/${this.state.username}`)
@@ -45,7 +46,7 @@ class PlayerLogin extends Component {
                 <h3>Player Login</h3>
                 {this.state.hasLoginFailed && <div className="alert alert-warning">
                                 Invalid Credentials</div>}
-                {this.state.showSuccessMessage && <div>Login Successful</div>}
+                {/*{this.state.showSuccessMessage && <div className="alert alert-success">Login Successful</div>}*/}
                 <form>
                    <label>UserName: </label>
                        <input type="text"

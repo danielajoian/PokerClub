@@ -1,16 +1,17 @@
 import React, {Component} from "react";
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import {Link} from "react-router-dom";
-import {ErrorMessage, Form, Formik, Field} from "formik";
 
-class PlayerRegister extends Component {
+class PlayerAccount extends Component {
     constructor(props) {
         super(props);
 
         // this.state: {
-        //     username: 'fgjfj',
-        //     email: 'cncgnjx',
-        //     password: 'gmcg,kk'
+        //     username: this.props.match.params.name,
+        //     email: '',
+        //     password: ''
         // }
+
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
@@ -26,8 +27,8 @@ class PlayerRegister extends Component {
 
         if (!values.email) {
             error.email = 'Enter a email'
-        // } else if(values.username.length < 3) {
-        //     error.username = 'Username has to have at least 3 characters'
+            // } else if(values.username.length < 3) {
+            //     error.username = 'Username has to have at least 3 characters'
         }
 
         if (!values.password) {
@@ -43,14 +44,17 @@ class PlayerRegister extends Component {
     }
 
     render() {
+        let username = this.props.match.params.name;
+
         return (
-            <div className="container content-box">
-                <h3>Player Register Form</h3>
-                <Formik initialValues={{}}
-                        validate={this.validate}
+            <div>
+                <h2>Player Account Details</h2>
+                <Formik initialValues={{username}}
                         onSubmit={this.onSubmit}
-                        validateOnChange={true}
+                        validate={this.validate}
                         validateOnBlur={true}
+                        validateOnChange={true}
+                        enableReinitialize={true}
                 >{
                     (props) => (
                         <Form>
@@ -86,8 +90,8 @@ class PlayerRegister extends Component {
                                        name="password"/>
                             </fieldset>
                             <button className="btn btn-success">
-                                <Link to="/registerSuccessful" className="link">
-                                    Register
+                                <Link to="/" className="link">
+                                    Submit Changes
                                 </Link>
                             </button>
                         </Form>
@@ -99,4 +103,4 @@ class PlayerRegister extends Component {
     }
 }
 
-export default PlayerRegister
+export default PlayerAccount
