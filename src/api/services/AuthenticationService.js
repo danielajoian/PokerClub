@@ -1,3 +1,5 @@
+import axios from "axios";
+
 class AuthenticationService {
     registerSuccessfulLogin(username) {
         console.log('registerSuccessfulLogin')
@@ -5,6 +7,7 @@ class AuthenticationService {
             this.logout();
         }
         sessionStorage.setItem('authenticatedUser', username);
+        this.setupAxiosInterceptors()
     }
 
     logout() {
@@ -30,6 +33,7 @@ class AuthenticationService {
             this.logout();
         }
         sessionStorage.setItem('authenticatedClub', clubname);
+        this.setupAxiosInterceptors()
     }
 
     isClubLoggedIn() {
@@ -41,6 +45,22 @@ class AuthenticationService {
         let club = sessionStorage.getItem('authenticatedClub')
         if (club===null) return ''
         return club;
+    }
+
+    setupAxiosInterceptors() {
+        let username = 'Luna'
+        let password = '1234'
+
+        let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
+
+        axios.interceptors.request.use(
+    (config) => {
+                if (this.isUserLoggedIn() || this.isClubLoggedIn()) {
+                    config.headers.authorization = basicAuthHeader
+                }
+                return config
+            }
+        )
     }
 }
 

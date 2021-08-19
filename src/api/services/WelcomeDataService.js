@@ -9,13 +9,35 @@ class WelcomeDataService {
 
     executeHelloBeanService() {
         console.log('executed bean service')
-        return axios.get(`http://localhost:8081/welcome-bean`);
+        // let username = 'Luna'
+        // let password = '1234'
+        //
+        // let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
+
+        return axios.get(`http://localhost:8081/welcome-bean`
+        //     ,
+        // {
+        //     headers: {
+        //         authorization: basicAuthHeader
+        //     }
+        //     }
+            );
     }
 
-    executeHelloWorldPathVariableService(username) {
-        console.log('executed path variable')
-        return axios.get(`http://localhost:8081/welcome/${username}`);
-    }
+    // executeHelloWorldPathVariableService(user) {
+    //     console.log('executed path variable')
+    //     let username = 'Dani'
+    //     let password = '1234'
+    //
+    //     let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
+    //
+    //     return axios.get(`http://localhost:8081/welcome/${user}`,
+    //         {
+    //             headers: {
+    //                 authorization: basicAuthHeader
+    //             }
+    //         });
+    // }
 }
 
 export default new WelcomeDataService();
