@@ -6,10 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/services/AuthenticationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/AuthenticationService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/GameDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/GameDataService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/services/WelcomeDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/WelcomeDataService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Welcome.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Welcome.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/switcher.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/switcher.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubsList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/games/GameComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GameComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/games/GamesList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GamesList.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +34,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api/services" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -44,6 +48,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club-frontend\src\api\services" />
+      <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club-frontend\src" />
       <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club\public" />
       <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club\src\components" />
       <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club\src" />
@@ -77,7 +83,9 @@
       <workItem from="1626416051368" duration="3071000" />
       <workItem from="1629112655260" duration="8478000" />
       <workItem from="1629198146016" duration="25300000" />
-      <workItem from="1629358763284" duration="7498000" />
+      <workItem from="1629358763284" duration="10795000" />
+      <workItem from="1629439924259" duration="3633000" />
+      <workItem from="1630565166284" duration="24870000" />
     </task>
     <servers />
   </component>

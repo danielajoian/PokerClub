@@ -1,13 +1,13 @@
 import axios from "axios";
-import {API_JPA_URL} from "../../Constants";
+import {API_JPA_URL, API_URL} from "../../Constants";
 
-class GameDataService {
-    retrieveAllGames(clubName) {
-        return axios.get(`${API_JPA_URL}/${clubName}/games`)
+class ClubsDataService {
+    retrieveAllClubs() {
+        return axios.get(`${API_URL}/clubs`)
     }
 
-    retrieveGame(clubName, id) {
-        return axios.get(`${API_JPA_URL}/${clubName}/games/${id}`)
+    retrieveClub(clubUsername) {
+        return axios.get(`${API_URL}/clubs/${clubUsername}`)
     }
 
     deleteGame(clubName, id) {
@@ -23,4 +23,4 @@ class GameDataService {
     }
 }
 
-export default new GameDataService()
+export default new ClubsDataService()
