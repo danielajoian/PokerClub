@@ -3,6 +3,7 @@
 
 ## Technologies used
 * React
+* JavaScript
 * Libraries:
     * moment - for date format 
     * formik - for forms
