@@ -58,7 +58,7 @@
 * Clubs personal page
    ![club-owners-add-game](https://user-images.githubusercontent.com/57388336/132670141-71b87704-cd6a-45c9-9c06-27d386ebe3af.jpg)
 
-* List of the ganes from the club that can be modified, deleted, add a new game
+* List of the games from the club that can be modified, deleted, add a new game
    ![club-owners-list-game](https://user-images.githubusercontent.com/57388336/132670312-260a044b-c0a5-48c9-bc54-e538001f87c1.jpg)
 
 * Add new game button
