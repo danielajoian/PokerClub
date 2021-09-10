@@ -54,7 +54,7 @@ class ClubInfo extends Component {
                 <div className="container">
                     <h4 className="card-header">Club {this.state.clubUsername} Info</h4>
                     <div className="card-body">
-                        <h5 className="card-title">Country: {this.state.club.country};</h5>
+                        <h5 className="card-title">Country: {this.state.club.country}</h5>
                         <h5 className="card-title">City: {this.state.club.city}</h5>
                         <p className="card-text">Address: {this.state.club.address}</p>
                         <p className="card-text">Phone: {this.state.club.phoneNumber}</p>

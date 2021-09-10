@@ -6,6 +6,7 @@ class ClubOwnersPage extends Component {
         return (
             <div>
                 <h3> Welcome to Club Owners Page! </h3>
+               &nbsp;
                 <h6> If you already have an account then you should
                     <button className="btn btn-success">
                         <Link to="/clubLogin" className="link">
@@ -13,6 +14,7 @@ class ClubOwnersPage extends Component {
                         </Link>
                     </button>
                 </h6>
+                &nbsp;
                 <h6>If you don't then you should
                     <button className="btn btn-success">
                         <Link to="/clubRegister" className="link">

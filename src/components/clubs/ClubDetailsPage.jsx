@@ -6,14 +6,18 @@ class ClubDetailsPage extends Component {
         return (
             <div>
                 <h4>Welcome to your page, {sessionStorage.getItem('authenticatedClub')}!</h4>
-                <button className="btn btn-success">
+                &nbsp;
+                <button className="btn btn-success"
+                    style={{width: "200px"}}>
                     <Link to="/games" className="link">
-                        Click to Add Games
+                        Add Games
                     </Link>
                 </button>
-                <button className="btn btn-success">
+                &nbsp;
+                <button className="btn btn-success"
+                        style={{width: "200px"}}>
                     <Link to="/clubAccount" className="link">
-                        Change Account Details
+                        Change Details
                     </Link>
                 </button>
             </div>

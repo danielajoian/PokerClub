@@ -6,9 +6,27 @@ class PlayerDetailsPage extends Component {
         return (
             <div>
                 <h4>Welcome to your page, {sessionStorage.getItem('authenticatedUser')}!</h4>
-                <button className="btn btn-success">
+                &nbsp;
+                <button className="btn btn-success"
+                        style={{width: "300px"}}>
                     <Link to="/playerAccount" className="link">
                         Change Account Details
+                    </Link>
+                </button>
+                &nbsp;
+                <button className="btn btn-success"
+                        style={{width: "300px"}}>
+                    <a href="https://www.pokerstars.ro/poker/games/rules/"
+                          target="_blank"
+                          className="link">
+                        Check the Rules
+                    </a>
+                </button>
+                &nbsp;
+                <button className="btn btn-success"
+                        style={{width: "300px"}}>
+                    <Link to="/" className="link">
+                        Go to Private Games
                     </Link>
                 </button>
             </div>
