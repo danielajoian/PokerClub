@@ -1,10 +1,11 @@
 import axios from "axios";
+import {API_URL} from "../../Constants";
 
 
 class WelcomeDataService {
     executeHelloWorldService() {
         console.log('executed service')
-        return axios.get(`http://localhost:8081/welcome`);
+        return axios.get(`${API_URL}/welcome`);
     }
 
     executeHelloBeanService() {
@@ -14,7 +15,7 @@ class WelcomeDataService {
         //
         // let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
 
-        return axios.get(`http://localhost:8081/welcome-bean`
+        return axios.get(`${API_URL}/welcome-bean`
         //     ,
         // {
         //     headers: {

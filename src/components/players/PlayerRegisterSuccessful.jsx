@@ -5,6 +5,7 @@ class PlayerRegisterSuccessful extends Component {
         return (
             <div className="container content-box">
                 <h4>Player was registered!</h4>
+                &nbsp;
                 <img
                     style={{maxWidth: "300px"}}
                     src="/great.gif"

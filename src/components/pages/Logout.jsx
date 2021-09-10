@@ -5,6 +5,7 @@ class Logout extends Component {
         return(
             <div>
                 <h3>You are logged out</h3>
+                &nbsp;
                 <div className="container">
                     Thank you for using our App!
                 </div>

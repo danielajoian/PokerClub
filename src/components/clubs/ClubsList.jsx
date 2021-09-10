@@ -1,53 +1,73 @@
 import React, {Component} from "react";
+import ClubsDataService from "../../api/services/ClubsDataService";
 
 class ClubsList extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            clubs: {
-                name: 'Poker Club',
-                description: 'Important info',
-                address: 'Bucharest',
-                phone: '+04058963217'
-            }
+            clubs: []
+            // {
+            // clubUsername: 'Poker Club',
+            // description: 'Important info',
+            // address: 'Bucharest',
+            // phoneNumber: '+04058963217'
+            // }
         }
+
+        this.refreshClubs = this.refreshClubs.bind(this)
+        this.infoClubClicked = this.infoClubClicked.bind(this)
+    }
+
+    componentDidMount() {
+        this.refreshClubs();
+    }
+
+    refreshClubs() {
+        ClubsDataService.retrieveAllClubs()
+            .then(
+                response => {
+                    console.log(response)
+                    this.setState({clubs : response.data})
+                }
+            )
+    }
+
+    infoClubClicked(clubName) {
+        // this.refreshClubs();
+        console.log("This is the id: " + clubName)
+        this.props.history.push(`/clubs/${clubName}`)
     }
 
     render() {
         return (
             <div>
-                <h3>List of Poker Clubs</h3>
-                    <div className="container">
-                        <div className="row">
-                            <div className={"col"}>
-                                <form>
-                                    <h4>{this.state.clubs.name}</h4>
-                                    <h4>Details: {this.state.clubs.description}</h4>
-                                    <p>Address: {this.state.clubs.address}</p>
-                                    <p>Phone: {this.state.clubs.phone}</p>
-                                </form>
-                            </div>
-
-                            <div className={"col"}>
-                                <form>
-                                    <h4>{this.state.clubs.name}</h4>
-                                    <h4>Details: {this.state.clubs.description}</h4>
-                                    <p>Address: {this.state.clubs.address}</p>
-                                    <p>Phone: {this.state.clubs.phone}</p>
-                                </form>
-                            </div>
-
-                            <div className={"col"}>
-                                <form>
-                                    <h4>{this.state.clubs.name}</h4>
-                                    <h4>Details: {this.state.clubs.description}</h4>
-                                    <p>Address: {this.state.clubs.address}</p>
-                                    <p>Phone: {this.state.clubs.phone}</p>
-                                </form>
-                            </div>
+                <h3 className="card-header">List of Poker Clubs</h3>
+                    {this.state.clubs.map(
+                            club =>
+                    <div className="container" key={club.id}>
+                        <h5 className="card-header">{club.clubUsername}  Poker Club</h5>
+                        <div className="card-body">
+                            <h5 className="card-title">Country: {club.country}</h5>
+                            <h5>City: {club.city}</h5>
+                            <p className="card-text">Address: {club.address}</p>
+                            <p className="card-text">Phone: {club.phoneNumber}</p>
+                            <button className="btn btn-success btn-primary"
+                                onClick={() => this.infoClubClicked(club.clubUsername)}
+                            >
+                                Details
+                            </button>
                         </div>
-                </div>
+                    </div>
+
+                                    // <form key={club.id}>
+                                    //     <h4>{club.clubUsername}  Poker Club</h4>
+                                    //     <h6>Country: {club.country}; City: {club.city}</h6>
+                                    //     <p>Address: {club.address}</p>
+                                    //     <p>Phone: {club.phoneNumber}</p>
+                                    //     <button className="btn btn-success">Details</button>
+                                    // </form>
+                                )}
             </div>
         )
     }

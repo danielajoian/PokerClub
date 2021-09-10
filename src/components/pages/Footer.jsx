@@ -5,7 +5,7 @@ class Footer extends Component {
         return (
             <div className="foot">
                 {/*© */}
-                &copy; 2021 CodeCool & Dani
+                &copy; 2021 Daniela Joian
             </div>
         )
     }

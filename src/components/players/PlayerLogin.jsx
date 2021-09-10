@@ -44,6 +44,7 @@ class PlayerLogin extends Component {
         return (
             <div className="container content-box">
                 <h3>Player Login</h3>
+                &nbsp;
                 {this.state.hasLoginFailed && <div className="alert alert-warning">
                                 Invalid Credentials</div>}
                 {/*{this.state.showSuccessMessage && <div className="alert alert-success">Login Successful</div>}*/}

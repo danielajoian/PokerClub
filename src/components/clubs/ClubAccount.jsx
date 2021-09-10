@@ -49,6 +49,7 @@ class ClubAccount extends Component {
         return (
             <div>
                 <h2>Club Account Details</h2>
+                &nbsp;
                 <Formik initialValues={{username}}
                         onSubmit={this.onSubmit}
                         validate={this.validate}
@@ -89,7 +90,8 @@ class ClubAccount extends Component {
                                        type="password"
                                        name="password"/>
                             </fieldset>
-                            <button className="btn btn-success">
+                            <button className="btn btn-success"
+                                    style={{width: "220px"}}>
                                 <Link to="/" className="link">
                                     Submit Changes
                                 </Link>

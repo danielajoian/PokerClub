@@ -10,7 +10,8 @@ class GameComponent extends Component {
 
         this.state = {
             id: this.props.match.params.id,
-            description: '',
+            title: '',
+            details: '',
             beginDate: moment(new Date()).format('YYYY-MM-DD')
         }
         this.onSubmit = this.onSubmit.bind(this)
@@ -25,7 +26,8 @@ class GameComponent extends Component {
         let clubName = AuthenticationService.getLoggedInClubName()
         GameDataService.retrieveGame(clubName, this.state.id)
             .then(response => this.setState({
-                description: response.data.description,
+                title: response.data.title,
+                details: response.data.details,
                 beginDate: moment(response.data.beginDate).format('YYYY-MM-DD')
             }))
     }
@@ -33,10 +35,18 @@ class GameComponent extends Component {
     validate(values) {
         console.log(values)
         let errors = {}
-        if (!values.description) {
-            errors.description = 'Enter a Description'
-        } else if (values.description.length < 5) {
-            errors.description = 'Enter at least 5 characters in description'
+        if (!values.title) {
+            errors.title = 'Enter a Title'
+        } else if (values.title.length < 5) {
+            errors.title = 'Enter at least 5 characters in the title'
+        } else if (values.title.length > 25) {
+            errors.title = 'The title has too many characters!'
+        }
+
+        if (!values.details) {
+            errors.details = 'Enter details about the game'
+        } else if (values.details.length < 5) {
+            errors.details = 'Enter at least 15 characters for details'
         }
 
         if (!moment(values.beginDate).isValid()) {
@@ -51,7 +61,8 @@ class GameComponent extends Component {
 
         let game = {
             id: this.state.id,
-            description: values.description,
+            title: values.title,
+            details: values.details,
             beginDate: values.beginDate
         }
 
@@ -65,13 +76,13 @@ class GameComponent extends Component {
     }
 
     render() {
-        let {description, beginDate} = this.state;
+        let {title, details, beginDate} = this.state;
 
         return (
             <div>
                 <h3>Game Component</h3>
                 <Formik
-                    initialValues={{description, beginDate}}
+                    initialValues={{title, details, beginDate}}
                     onSubmit={this.onSubmit}
                     validateOnChange={false}
                     validateOnBlur={false}
@@ -81,7 +92,11 @@ class GameComponent extends Component {
                     {
                         (props) => (
                             <Form>
-                                <ErrorMessage name="description"
+                                <ErrorMessage name="title"
+                                              component="div"
+                                              className="alert alert-warning"
+                                />
+                                <ErrorMessage name="details"
                                               component="div"
                                               className="alert alert-warning"
                                 />
@@ -90,10 +105,18 @@ class GameComponent extends Component {
                                               className="alert alert-warning"
                                 />
                                 <fieldset className="form-group">
-                                    <label>Description</label>
+                                    <label>Title</label>
                                     <Field className="form-control"
                                            type="text"
-                                           name="description"
+                                           name="title"
+                                    />
+                                </fieldset>
+
+                                <fieldset className="form-group">
+                                    <label>Details</label>
+                                    <Field className="form-control"
+                                           type="text-area"
+                                           name="details"
                                     />
                                 </fieldset>
                                 <fieldset className="form-group">

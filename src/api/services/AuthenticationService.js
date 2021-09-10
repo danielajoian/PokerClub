@@ -7,7 +7,7 @@ class AuthenticationService {
             this.logout();
         }
         sessionStorage.setItem('authenticatedUser', username);
-        this.setupAxiosInterceptors()
+        // this.setupAxiosInterceptors()
     }
 
     logout() {
@@ -33,7 +33,7 @@ class AuthenticationService {
             this.logout();
         }
         sessionStorage.setItem('authenticatedClub', clubname);
-        this.setupAxiosInterceptors()
+        // this.setupAxiosInterceptors()
     }
 
     isClubLoggedIn() {

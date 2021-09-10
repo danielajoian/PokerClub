@@ -8,6 +8,7 @@ class GamesList extends Component {
         super(props);
 
         this.state = {
+            club: this.props.match.params.name,
             games : [],
             message: null
         }
@@ -19,6 +20,10 @@ class GamesList extends Component {
 
     componentDidMount() {
        this.refreshGames();
+    }
+
+    componentDidUpdate(){
+        this.componentDidMount();
     }
 
     refreshGames() {
@@ -35,11 +40,12 @@ class GamesList extends Component {
     deleteGameClicked(id) {
         let club = AuthenticationService.getLoggedInClubName()
         console.log(id + " " + club);
-        GameDataService.deleteGame(club, id)
-            .then(response => {
-                this.setState({message: `Delete of game ${id} successful`})
-                this.refreshGames();
-            })
+        if(window.confirm('Are you sure you want to delete this game?')) {
+            GameDataService.deleteGame(club, id)
+                .then(response => {
+                    this.setState({message: `Delete of game ${id} successful`})
+                })
+        }
     }
 
     updateGameClicked(id) {
@@ -50,15 +56,23 @@ class GamesList extends Component {
         this.props.history.push(`/games/-1`)
     }
 
+    infoGameClicked(id) {
+        // this.refreshClubs();
+        console.log("This is the id: " + id)
+        this.props.history.push(`/games/${id}/details`)
+    }
+
     render() {
         return (
             <div>
                 <h3>List Of Games for {AuthenticationService.getLoggedInClubName()}  Poker Club</h3>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
+                &nbsp;
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>Description</th>
+                                <th>Title</th>
+                                <th>Details</th>
                                 <th>Begin Date</th>
                                 <th>Has Ended?</th>
                                 <th>Update</th>
@@ -69,18 +83,25 @@ class GamesList extends Component {
                             {this.state.games.map(
                                 game =>
                                     <tr key={game.id}>
-                                        <td>{game.description}</td>
+                                        <td>{game.title}</td>
+                                        <td>
+                                            <button className="btn btn-success btn-primary"
+                                                    onClick={() => this.infoGameClicked(game.id)}
+                                            >
+                                                Details
+                                            </button>
+                                        </td>
                                         <td>{moment(game.beginDate).format('YYYY-MM-DD')}</td>
                                         <td>{game.hasEnded.toString()}</td>
                                         <td>
-                                            <button className="btn btn-success"
+                                            <button className="btn btn-success btn-primary update"
                                                     onClick={() => this.updateGameClicked(game.id)}
                                             >
                                                 Update
                                             </button>
                                         </td>
                                         <td>
-                                            <button className="btn btn-warning"
+                                            <button className="btn btn-warning btn-primary delete"
                                                     onClick={() => this.deleteGameClicked(game.id)}
                                             >
                                                 Delete
@@ -93,6 +114,7 @@ class GamesList extends Component {
                     </table>
                 <div className="row">
                     <button className="btn btn-success"
+                            style={{width: "200px"}}
                             onClick={this.addGameClicked}
                     >
                         Add New Game

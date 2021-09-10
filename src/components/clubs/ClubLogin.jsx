@@ -18,7 +18,7 @@ class ClubLogin extends Component {
 
     loginClicked() {
         //All In, 1234
-        if (this.state.clubname==='All In' && this.state.password==='1234') {
+        if ((this.state.clubname==='AllIn' || this.state.clubname==='PokerRoom') && this.state.password==='1234') {
             console.log('Successful')
             AuthenticationService.registerClubSuccessfulLogin(this.state.clubname, this.state.password);
             this.props.history.push(`/welcome/${this.state.clubname}`)
@@ -44,6 +44,7 @@ class ClubLogin extends Component {
                 <h3>Club Login</h3>
                 {this.state.hasLoginFailed && <div className="alert alert-warning">
                     Invalid Credentials</div>}
+                &nbsp;
                 <form>
                     <label>Club Name: </label>
                         <input type="text"
