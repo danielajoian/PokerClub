@@ -6,6 +6,7 @@ class ClubRegister extends Component {
         return (
             <div className="container content-box">
                 <h3>Club Register Form</h3>
+                &nbsp;
                 <form>
                     <label>Club Name: </label><input type="text" name="clubname"/>
                     <label>City: </label><input type="text" name="city"/>

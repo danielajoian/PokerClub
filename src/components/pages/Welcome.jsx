@@ -13,6 +13,10 @@ class Welcome extends Component {
         this.handleError = this.handleError.bind(this);
     }
 
+    componentDidMount() {
+        this.retrieveWelcomeMessage();
+    }
+
     retrieveWelcomeMessage() {
         console.log('retrieve message');
         /*HelloWorldService.executeHelloWorldService()
@@ -59,11 +63,12 @@ class Welcome extends Component {
         return (
             <div className="container content-box">
                 <h3>Welcome to PokerApp, {this.props.match.params.name}!</h3>
-                <h6>Click here to get a customized welcome message</h6>
-                <button onClick={this.retrieveWelcomeMessage}
-                        className="btn btn-success">
-                    Get Welcome Message
-                </button>
+                &nbsp;
+                {/*<h6>Click here to get a customized welcome message</h6>*/}
+                {/*<button onClick={this.retrieveWelcomeMessage}*/}
+                {/*        className="btn btn-success">*/}
+                {/*    Get Welcome Message*/}
+                {/*</button>*/}
                 <h4>{this.state.welcomeMessage}</h4>
             </div>
         )

@@ -40,10 +40,12 @@ class GamesList extends Component {
     deleteGameClicked(id) {
         let club = AuthenticationService.getLoggedInClubName()
         console.log(id + " " + club);
-        GameDataService.deleteGame(club, id)
-            .then(response => {
-                this.setState({message: `Delete of game ${id} successful`})
-            })
+        if(window.confirm('Are you sure you want to delete this game?')) {
+            GameDataService.deleteGame(club, id)
+                .then(response => {
+                    this.setState({message: `Delete of game ${id} successful`})
+                })
+        }
     }
 
     updateGameClicked(id) {
@@ -65,6 +67,7 @@ class GamesList extends Component {
             <div>
                 <h3>List Of Games for {AuthenticationService.getLoggedInClubName()}  Poker Club</h3>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
+                &nbsp;
                     <table className="table">
                         <thead>
                             <tr>
@@ -91,14 +94,14 @@ class GamesList extends Component {
                                         <td>{moment(game.beginDate).format('YYYY-MM-DD')}</td>
                                         <td>{game.hasEnded.toString()}</td>
                                         <td>
-                                            <button className="btn btn-success"
+                                            <button className="btn btn-success btn-primary update"
                                                     onClick={() => this.updateGameClicked(game.id)}
                                             >
                                                 Update
                                             </button>
                                         </td>
                                         <td>
-                                            <button className="btn btn-warning"
+                                            <button className="btn btn-warning btn-primary delete"
                                                     onClick={() => this.deleteGameClicked(game.id)}
                                             >
                                                 Delete
@@ -111,6 +114,7 @@ class GamesList extends Component {
                     </table>
                 <div className="row">
                     <button className="btn btn-success"
+                            style={{width: "200px"}}
                             onClick={this.addGameClicked}
                     >
                         Add New Game

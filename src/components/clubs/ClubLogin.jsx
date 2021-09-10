@@ -44,6 +44,7 @@ class ClubLogin extends Component {
                 <h3>Club Login</h3>
                 {this.state.hasLoginFailed && <div className="alert alert-warning">
                     Invalid Credentials</div>}
+                &nbsp;
                 <form>
                     <label>Club Name: </label>
                         <input type="text"

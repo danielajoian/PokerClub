@@ -42,13 +42,14 @@ class ClubsList extends Component {
     render() {
         return (
             <div>
-                <h3>List of Poker Clubs</h3>
+                <h3 className="card-header">List of Poker Clubs</h3>
                     {this.state.clubs.map(
                             club =>
                     <div className="container" key={club.id}>
                         <h5 className="card-header">{club.clubUsername}  Poker Club</h5>
                         <div className="card-body">
-                            <h5 className="card-title">Country: {club.country}; City: {club.city}</h5>
+                            <h5 className="card-title">Country: {club.country}</h5>
+                            <h5>City: {club.city}</h5>
                             <p className="card-text">Address: {club.address}</p>
                             <p className="card-text">Phone: {club.phoneNumber}</p>
                             <button className="btn btn-success btn-primary"

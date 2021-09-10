@@ -6,14 +6,31 @@
   <component name="ChangeListManager">
     <list default="true" id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/AuthenticationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/AuthenticationService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/GameDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/GameDataService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/WelcomeDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/WelcomeDataService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubInfo.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubOwnersPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubOwnersPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubRegisterSuccessful.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubRegisterSuccessful.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubsList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/games/GameComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GameComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/games/GamesList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GamesList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/FirstPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/FirstPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/Logout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Logout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/Welcome.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Welcome.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerLogin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerRegisterSuccessful.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerRegisterSuccessful.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/switcher.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/switcher.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +51,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api/services" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -48,8 +65,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club-frontend\src\api\services" />
       <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club-frontend\src" />
+      <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club-frontend\src\api\services" />
       <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club\public" />
       <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club\src\components" />
       <recent name="C:\Users\Dani\Desktop\ADVANCED JAVA\PokerClub\poker-club\src" />
@@ -86,6 +103,16 @@
       <workItem from="1629358763284" duration="10795000" />
       <workItem from="1629439924259" duration="3633000" />
       <workItem from="1630565166284" duration="24870000" />
+      <workItem from="1630643641024" duration="4132000" />
+      <workItem from="1630917116141" duration="1850000" />
+      <workItem from="1631087289739" duration="1873000" />
+      <workItem from="1631091521259" duration="25107000" />
+      <workItem from="1631178332727" duration="2974000" />
+      <workItem from="1631191000585" duration="2402000" />
+      <workItem from="1631199249037" duration="1894000" />
+      <workItem from="1631204635102" duration="1308000" />
+      <workItem from="1631217444647" duration="834000" />
+      <workItem from="1631256034466" duration="4756000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
-import './switcher.scss';
+// import './switcher.scss';
+// import './switch.scss';
+import './App.css';
 import Header from "./components/pages/Header.jsx";
 import Footer from "./components/pages/Footer.jsx";
 import "bootstrap/dist/css/bootstrap.css";

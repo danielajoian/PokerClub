@@ -7,45 +7,73 @@ class PlayerRegister extends Component {
         super(props);
 
         // this.state: {
-        //     username: 'fgjfj',
-        //     email: 'cncgnjx',
-        //     password: 'gmcg,kk'
+        //     id: this.props.match.params.id,
+        //     username: '',
+        //     email: '',
+        //     password: ''
         // }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
 
+    // componentDidMount() {
+    //     if (this.state.id !== null) {
+    //         return
+    //     }
+    //
+    //     PlayersDataService.retrievePlayer(this.state.username)
+    //         .then(() => this.setState({
+    //             username: this.state.username,
+    //             email: this.state.email,
+    //             password: this.state.password
+    //         }))
+    // }
+
     validate(values) {
         console.log(values)
-        let error = {}
-        if (!values.username) {
-            error.username = 'Enter a username'
-        } else if(values.username.length < 3) {
-            error.username = 'Username has to have at least 3 characters'
-        }
-
-        if (!values.email) {
-            error.email = 'Enter a email'
-        // } else if(values.username.length < 3) {
+        // let error = {}
+        // if (!this.state.username) {
+        //     error.username = 'Enter a username'
+        // } else if(this.state.username.length < 3) {
         //     error.username = 'Username has to have at least 3 characters'
-        }
-
-        if (!values.password) {
-            error.password = 'Enter a password'
-        } else if(values.password.length < 4) {
-            error.password = 'Password has to have at least 4 characters'
-        }
-        return error
+        // }
+        //
+        // if (!this.state.email) {
+        //     error.email = 'Enter a email'
+        //     // } else if(values.username.length < 3) {
+        //     //     error.username = 'Username has to have at least 3 characters'
+        // }
+        //
+        // if (!this.state.password) {
+        //     error.password = 'Enter a password'
+        // } else if(this.state.password.length < 4) {
+        //     error.password = 'Password has to have at least 4 characters'
+        // }
+        // return error
     }
 
     onSubmit(values) {
         console.log(values)
+        //
+        // let player = {
+        //     username: values.username,
+        //     email: values.email,
+        //     password: values.password
+        // }
+
+        // if (this.state.id === -1) {
+        //     PlayersDataService.createPlayer(this.state.username)
+        //         .then(() => this.props.history.push(`/registerSuccessful`))
+        // }
     }
 
     render() {
+        // let {username, email, password} = this.state
+
         return (
             <div className="container content-box">
                 <h3>Player Register Form</h3>
+                &nbsp;
                 <Formik initialValues={{}}
                         validate={this.validate}
                         onSubmit={this.onSubmit}
@@ -85,7 +113,8 @@ class PlayerRegister extends Component {
                                        type="password"
                                        name="password"/>
                             </fieldset>
-                            <button className="btn btn-success">
+                            <button className="btn btn-success"
+                                    type="submit">
                                 <Link to="/registerSuccessful" className="link">
                                     Register
                                 </Link>
