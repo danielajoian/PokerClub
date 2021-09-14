@@ -90,8 +90,8 @@ function App() {
                                 <AuthenticatedRoute path="/clubDetailsPage" component={ClubDetailsPage} />
                                 <AuthenticatedRoute exact path="/welcome/:name" component={Welcome} />
                                 <AuthenticatedRoute exact path="/games" component={GamesList} />
-                                <AuthenticatedRoute exact path="/playerAccount" component={PlayerAccount} />
-                                <AuthenticatedRoute exact path="/clubAccount" component={ClubAccount} />
+                                <AuthenticatedRoute exact path="/playerAccount/:name/:id" component={PlayerAccount} />
+                                <AuthenticatedRoute exact path="/clubAccount/:name/:id" component={ClubAccount} />
                                 <AuthenticatedRoute exact path="/games/:id" component={GameComponent} />
                                 <Route exact path="/games/:id/details" component={GameDetails} />
                                 <Route path="*" component={Error} />

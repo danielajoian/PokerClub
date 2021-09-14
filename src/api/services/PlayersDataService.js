@@ -9,17 +9,17 @@ class PlayersDataService {
     retrievePlayer(username) {
         return axios.get(`${API_URL}/players/${username}`);
     }
-    //
-    // deleteGame(clubName, id) {
-    //     return axios.delete(`${API_JPA_URL}/${clubName}/games/${id}`)
-    // }
-    //
-    // updateGame(clubName, id, game) {
-    //     return axios.put(`${API_JPA_URL}/${clubName}/games/${id}`, game);
-    // }
 
-    createPlayer(username) {
-        return axios.post(`${API_URL}/players/${username}`);
+    deletePlayer(username, id) {
+        return axios.delete(`${API_URL}/players/${username}/${id}`)
+    }
+
+    updatePlayer(username, id, player) {
+        return axios.put(`${API_URL}/players/${username}/${id}`, player);
+    }
+
+    createPlayer(username, player) {
+        return axios.post(`${API_URL}/players/${username}`, player);
     }
 }
 
