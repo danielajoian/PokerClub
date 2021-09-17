@@ -6,18 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/ClubsDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ClubsDataService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/services/PlayersDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/PlayersDataService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/switch.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/switch.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +91,9 @@
       <workItem from="1631256034466" duration="4077000" />
       <workItem from="1631277105150" duration="760000" />
       <workItem from="1631512803663" duration="25842000" />
-      <workItem from="1631598888628" duration="11479000" />
+      <workItem from="1631598888628" duration="12181000" />
+      <workItem from="1631678717770" duration="1312000" />
+      <workItem from="1631848448271" duration="4081000" />
     </task>
     <servers />
   </component>

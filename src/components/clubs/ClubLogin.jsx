@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import AuthenticationService from "../../api/services/AuthenticationService";
+import ClubsDataService from "../../api/services/ClubsDataService";
 
 class ClubLogin extends Component {
     constructor(props) {
@@ -14,7 +15,33 @@ class ClubLogin extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.loginClicked = this.loginClicked.bind(this);
+        this.refreshClubs = this.refreshClubs.bind(this);
     }
+
+    // componentDidMount() {
+    //     this.refreshClubs()
+    // }
+    //
+    // refreshClubs() {
+    //     let clubName = this.state.clubUsername
+    //     ClubsDataService.retrieveClub(clubName)
+    //         .then(
+    //             response => {
+    //                 console.log(response)
+    //                 this.setState({
+    //                     id : response.data.id,
+    //                     clubUsername: response.data.clubUsername,
+    //                     password: response.data.password,
+    //                     city: response.data.city,
+    //                     country: response.data.country,
+    //                     address: response.data.address,
+    //                     email: response.data.email,
+    //                     site: response.data.site,
+    //                     phoneNumber: response.data.phoneNumber
+    //                 })
+    //             }
+    //         )
+    // }
 
     loginClicked() {
         //All In, 1234
@@ -39,6 +66,7 @@ class ClubLogin extends Component {
             }
         )
     }
+
     render() {
         return (
             <div className="container content-box">
