@@ -1,0 +1,53 @@
+Index: src/api/services/AuthentificationServiceJwt.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport {API_URL} from \"../../Constants\";\r\n\r\n\r\nclass AuthenticationServiceJwt {\r\n    registerSuccessfulLogin(username) {\r\n        console.log('registerSuccessfulLogin')\r\n        if (!sessionStorage.getItem(null)) {\r\n            this.logout();\r\n        }\r\n        sessionStorage.setItem('authenticatedUser', username);\r\n        // this.setupAxiosInterceptors()\r\n    }\r\n\r\n    logout() {\r\n        sessionStorage.removeItem('authenticatedUser')\r\n        sessionStorage.removeItem('authenticatedClub')\r\n        // sessionStorage.removeItem('authenticatedUserPassword')\r\n    }\r\n\r\n    isUserLoggedIn() {\r\n        let user = sessionStorage.getItem('authenticatedUser')\r\n        return user !== null;\r\n    }\r\n\r\n    getLoggedInUserName() {\r\n        let user = sessionStorage.getItem('authenticatedUser')\r\n        if (user===null) return ''\r\n        return user;\r\n    }\r\n\r\n    registerClubSuccessfulLogin(clubname) {\r\n        console.log('registerSuccessfulLogin')\r\n        if (!sessionStorage.getItem(null)) {\r\n            this.logout();\r\n        }\r\n        sessionStorage.setItem('authenticatedClub', clubname);\r\n        // this.setupAxiosInterceptors()\r\n    }\r\n\r\n    isClubLoggedIn() {\r\n        let club = sessionStorage.getItem('authenticatedClub')\r\n        return club !== null;\r\n    }\r\n\r\n    getLoggedInClubName() {\r\n        let club = sessionStorage.getItem('authenticatedClub')\r\n        if (club===null) return ''\r\n        return club;\r\n    }\r\n\r\n    executeJwtAuthenticationService(username, password) {\r\n        return axios.post(`${API_URL}/authenticate`, {\r\n            username,\r\n            password\r\n        })\r\n    }\r\n\r\n    registerSuccessfulLoginForJwt(username, token) {\r\n        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);\r\n        this.setupAxiosInterceptors(this.createJWTToken(token))\r\n    }\r\n\r\n    createJWTToken(token) {\r\n        return 'Bearer ' + token;\r\n    }\r\n\r\n    setupAxiosInterceptors(token) {\r\n        axios.interceptors.request.use(\r\n            (config) => {\r\n                if (this.isUserLoggedIn()) {\r\n                    config.headers.authorization = token\r\n                }\r\n                return config\r\n            }\r\n        )\r\n    }\r\n}\r\n\r\nexport default new AuthenticationServiceJwt()
+===================================================================
+diff --git a/src/api/services/AuthentificationServiceJwt.js b/src/api/services/AuthentificationServiceJwt.js
+--- a/src/api/services/AuthentificationServiceJwt.js	
++++ b/src/api/services/AuthentificationServiceJwt.js	
+@@ -9,13 +9,11 @@
+             this.logout();
+         }
+         sessionStorage.setItem('authenticatedUser', username);
+-        // this.setupAxiosInterceptors()
+     }
+ 
+     logout() {
+         sessionStorage.removeItem('authenticatedUser')
+         sessionStorage.removeItem('authenticatedClub')
+-        // sessionStorage.removeItem('authenticatedUserPassword')
+     }
+ 
+     isUserLoggedIn() {
+@@ -35,7 +33,6 @@
+             this.logout();
+         }
+         sessionStorage.setItem('authenticatedClub', clubname);
+-        // this.setupAxiosInterceptors()
+     }
+ 
+     isClubLoggedIn() {
+@@ -55,9 +52,21 @@
+             password
+         })
+     }
++
++    executeClubJwtAuthenticationService(clubUsername, password) {
++        return axios.post(`${API_URL}/authenticate`, {
++            clubUsername,
++            password
++        })
++    }
+ 
+     registerSuccessfulLoginForJwt(username, token) {
+-        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);
++        sessionStorage.setItem('authenticatedUser', username);
++        this.setupAxiosInterceptors(this.createJWTToken(token))
++    }
++
++    registerClubSuccessfulLoginForJwt(clubUsername, token) {
++        sessionStorage.setItem('authenticatedClub', clubUsername);
+         this.setupAxiosInterceptors(this.createJWTToken(token))
+     }
+ 

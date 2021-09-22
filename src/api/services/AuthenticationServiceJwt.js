@@ -3,19 +3,26 @@ import {API_URL} from "../../Constants";
 
 
 class AuthenticationServiceJwt {
-    registerSuccessfulLogin(username) {
-        console.log('registerSuccessfulLogin')
+
+    registerSuccessfulLoginForJwt(username, token) {
         if (!sessionStorage.getItem(null)) {
             this.logout();
         }
         sessionStorage.setItem('authenticatedUser', username);
-        // this.setupAxiosInterceptors()
+        this.setupAxiosInterceptors(this.createJWTToken(token))
+    }
+
+    registerClubSuccessfulLogin(clubname, token) {
+        if (!sessionStorage.getItem(null)) {
+            this.logout();
+        }
+        sessionStorage.setItem('authenticatedClub', clubname);
+        this.setupAxiosInterceptors(this.createJWTToken(token))
     }
 
     logout() {
         sessionStorage.removeItem('authenticatedUser')
         sessionStorage.removeItem('authenticatedClub')
-        // sessionStorage.removeItem('authenticatedUserPassword')
     }
 
     isUserLoggedIn() {
@@ -29,15 +36,6 @@ class AuthenticationServiceJwt {
         return user;
     }
 
-    registerClubSuccessfulLogin(clubname) {
-        console.log('registerSuccessfulLogin')
-        if (!sessionStorage.getItem(null)) {
-            this.logout();
-        }
-        sessionStorage.setItem('authenticatedClub', clubname);
-        // this.setupAxiosInterceptors()
-    }
-
     isClubLoggedIn() {
         let club = sessionStorage.getItem('authenticatedClub')
         return club !== null;
@@ -49,16 +47,18 @@ class AuthenticationServiceJwt {
         return club;
     }
 
-    executeJwtAuthenticationService(username, password) {
-        return axios.post(`${API_URL}/authenticate`, {
+    executeUserJwtAuthenticationService(username, password) {
+        return axios.post(`${API_URL}/authenticatePlayer`, {
             username,
             password
         })
     }
 
-    registerSuccessfulLoginForJwt(username, token) {
-        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);
-        this.setupAxiosInterceptors(this.createJWTToken(token))
+    executeClubJwtAuthenticationService(clubUsername, password) {
+        return axios.post(`${API_URL}/authenticateClub`, {
+           clubUsername,
+            password
+        })
     }
 
     createJWTToken(token) {

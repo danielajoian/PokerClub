@@ -42,8 +42,8 @@ class ClubDetailsPage extends Component {
                 .then(response => {
                     console.log(response)
                 })
-        }
         AuthenticationService.logout();
+        }
     }
 
     handleClick = () => {

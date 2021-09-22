@@ -46,7 +46,8 @@ class ClubLogin extends Component {
     loginClicked() {
         //All In, 1234
         if ((this.state.clubname==='AllIn' || this.state.clubname==='PokerStars' ||
-            this.state.clubname==='PokerRoom') && this.state.password==='1234') {
+            this.state.clubname==='PokerRoom' || this.state.clubname==='AllStars' ||
+            this.state.clubname==='NewPokerClub') && this.state.password==='1234') {
             console.log('Successful')
             AuthenticationService.registerClubSuccessfulLogin(this.state.clubname, this.state.password);
             this.props.history.push(`/welcome/${this.state.clubname}`)

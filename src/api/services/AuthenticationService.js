@@ -7,7 +7,6 @@ class AuthenticationService {
             this.logout();
         }
         sessionStorage.setItem('authenticatedUser', username);
-        // this.setupAxiosInterceptors()
     }
 
     logout() {
