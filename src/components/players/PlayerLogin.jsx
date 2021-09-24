@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import AuthenticationService from "../../api/services/AuthenticationService.js";
+import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+import PlayersDataService from "../../api/services/PlayersDataService";
 
 class PlayerLogin extends Component {
     constructor(props) {
@@ -9,27 +11,17 @@ class PlayerLogin extends Component {
             username: '',
             password: '',
             hasLoginFailed: false,
-            showSuccessMessage: false
+            showSuccessMessage: true
         }
 
         this.handleChange = this.handleChange.bind(this);
-        this.loginClicked = this.loginClicked.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
+        // this.loginClicked = this.loginClicked.bind(this);
     }
 
-    loginClicked() {
-        //Dani, 1234
-        if ((this.state.username==='Dani' && this.state.password==='1234')
-            || (this.state.username === 'Luna' && this.state.password === '1234')) {
-            console.log('Successful')
-            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
-            this.props.history.push(`/welcome/${this.state.username}`)
-        }else{
-            console.log('Failed');
-            this.setState({showSuccessMessage: false})
-            this.setState({hasLoginFailed: true})
-        }
-        console.log(this.state);
-    }
+    // componentDidMount() {
+    //     this.props.history.push(`/welcome/${this.state.username}`)
+    // }
 
     handleChange(event) {
         console.log(event.target.name);
@@ -39,6 +31,42 @@ class PlayerLogin extends Component {
             }
         )
     }
+
+    // loginClicked() {
+    //     AuthenticationServiceJwt
+    //         .executeUserJwtAuthenticationService(this.state.username, this.state.password)
+    //         .then((response) => {
+    //             console.log(response.data.token)
+    //             console.log(response.data)
+    //             AuthenticationServiceJwt
+    //                 .registerSuccessfulLoginForJwt(this.state.username, response.data.token);
+    //             this.props.history.push(`/welcome/${this.state.username}`)
+    //         }).catch(() => {
+    //             console.log('Failed');
+    //             this.setState({showSuccessMessage: false})
+    //             this.setState({hasLoginFailed: true})
+    //     })
+    //     console.log(this.state);
+    // }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        AuthenticationServiceJwt
+            .executeUserJwtAuthenticationService(this.state.username, this.state.password)
+            .then((response) => {
+                console.log(response.data.token)
+                console.log(response.data)
+                AuthenticationServiceJwt
+                    .registerSuccessfulLoginForJwt(this.state.username, response.data.token);
+                this.props.history.push(`/welcome/${this.state.username}`)
+            }).catch(() => {
+            console.log('Failed');
+            this.setState({showSuccessMessage: false})
+            this.setState({hasLoginFailed: true})
+        })
+        console.log(this.state);
+    }
+
 
     render() {
         return (
@@ -64,7 +92,8 @@ class PlayerLogin extends Component {
                         />
 
                     <button className="btn btn-success"
-                        onClick={this.loginClicked}>
+                        // onClick={this.loginClicked}>
+                        onClick={this.handleSubmit}>
                         Login
                     </button>
                 </form>

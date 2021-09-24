@@ -16,12 +16,12 @@ class WelcomeDataService {
         // let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
 
         return axios.get(`${API_URL}/welcome-bean`
-        //     ,
-        // {
-        //     headers: {
-        //         authorization: basicAuthHeader
-        //     }
-        //     }
+            ,
+        {
+            headers: {
+                authorization: sessionStorage.getItem('token')
+            }
+            }
             );
     }
 

@@ -9,20 +9,23 @@ class AuthenticationServiceJwt {
             this.logout();
         }
         sessionStorage.setItem('authenticatedUser', username);
+        sessionStorage.setItem('token', token);
         this.setupAxiosInterceptors(this.createJWTToken(token))
     }
 
-    registerClubSuccessfulLogin(clubname, token) {
+    registerClubSuccessfulLoginForJwt(clubname, token) {
         if (!sessionStorage.getItem(null)) {
             this.logout();
         }
         sessionStorage.setItem('authenticatedClub', clubname);
+        sessionStorage.setItem('token', token);
         this.setupAxiosInterceptors(this.createJWTToken(token))
     }
 
     logout() {
         sessionStorage.removeItem('authenticatedUser')
         sessionStorage.removeItem('authenticatedClub')
+        sessionStorage.removeItem('token');
     }
 
     isUserLoggedIn() {
@@ -32,7 +35,8 @@ class AuthenticationServiceJwt {
 
     getLoggedInUserName() {
         let user = sessionStorage.getItem('authenticatedUser')
-        if (user===null) return ''
+        let token = sessionStorage.getItem('token')
+        if (user===null && token===null) return ''
         return user;
     }
 

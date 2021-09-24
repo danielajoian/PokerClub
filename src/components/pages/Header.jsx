@@ -2,12 +2,13 @@ import React, {Component} from "react";
 import "bootstrap"
 import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
-import AuthenticationService from "../../api/services/AuthenticationService.js";
+// import AuthenticationService from "../../api/services/AuthenticationService.js";
+import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
 
 class Header extends Component {
     render() {
-        const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
-        const isClubLoggedIn = AuthenticationService.isClubLoggedIn();
+        const isUserLoggedIn = AuthenticationServiceJwt.isUserLoggedIn();
+        const isClubLoggedIn = AuthenticationServiceJwt.isClubLoggedIn();
         console.log(isUserLoggedIn);
         console.log(isClubLoggedIn);
 
@@ -53,7 +54,7 @@ class Header extends Component {
                         <li>
                             <Link to="/logout"
                                   className="nav-link link"
-                                  onClick={AuthenticationService.logout}
+                                  onClick={AuthenticationServiceJwt.logout}
                             >
                                 Logout
                             </Link>
@@ -63,7 +64,7 @@ class Header extends Component {
                         <li>
                             <Link to="/logout"
                                   className="nav-link link"
-                                  onClick={AuthenticationService.logout}
+                                  onClick={AuthenticationServiceJwt.logout}
                             >
                                 Logout
                             </Link>

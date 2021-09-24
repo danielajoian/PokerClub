@@ -31,7 +31,7 @@ class Welcome extends Component {
         //     .then(response => this.handleSuccessfulResponse(response))
         //     .catch(error => this.handleError(error))
 
-        HelloWorldService.executeHelloBeanService(this.props.match.params.name)
+        HelloWorldService.executeHelloBeanService()
             .then(response => this.handleSuccessfulResponse(response))
             .catch(error => this.handleError(error))
     }

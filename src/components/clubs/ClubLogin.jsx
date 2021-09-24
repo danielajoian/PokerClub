@@ -1,21 +1,22 @@
 import React, {Component} from "react";
-import AuthenticationService from "../../api/services/AuthenticationService";
-import ClubsDataService from "../../api/services/ClubsDataService";
+// import AuthenticationService from "../../api/services/AuthenticationService";
+// import ClubsDataService from "../../api/services/ClubsDataService";
+import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
 
 class ClubLogin extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            clubname: '',
+            clubUsername: '',
             password: '',
             hasLoginFailed: false,
-            showSuccessMessage: false
+            showSuccessMessage: true
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.loginClicked = this.loginClicked.bind(this);
-        this.refreshClubs = this.refreshClubs.bind(this);
+        // this.refreshClubs = this.refreshClubs.bind(this);
     }
 
     // componentDidMount() {
@@ -43,22 +44,6 @@ class ClubLogin extends Component {
     //         )
     // }
 
-    loginClicked() {
-        //All In, 1234
-        if ((this.state.clubname==='AllIn' || this.state.clubname==='PokerStars' ||
-            this.state.clubname==='PokerRoom' || this.state.clubname==='AllStars' ||
-            this.state.clubname==='NewPokerClub') && this.state.password==='1234') {
-            console.log('Successful')
-            AuthenticationService.registerClubSuccessfulLogin(this.state.clubname, this.state.password);
-            this.props.history.push(`/welcome/${this.state.clubname}`)
-        }else{
-            console.log('Failed');
-            this.setState({showSuccessMessage: false})
-            this.setState({hasLoginFailed: true})
-        }
-        console.log(this.state);
-    }
-
     handleChange(event) {
         console.log(event.target.name);
         this.setState(
@@ -67,6 +52,23 @@ class ClubLogin extends Component {
             }
         )
     }
+
+    loginClicked() {
+        AuthenticationServiceJwt
+            .executeClubJwtAuthenticationService(this.state.clubUsername, this.state.password)
+            .then((response) => {
+                console.log(response.data.token)
+                console.log(response.data)
+                AuthenticationServiceJwt
+                    .registerClubSuccessfulLoginForJwt(this.state.clubUsername, response.data.token);
+                this.props.history.push(`/welcome/${this.state.clubUsername}`)
+            }).catch(() => {
+            console.log('Failed');
+            this.setState({showSuccessMessage: false})
+            this.setState({hasLoginFailed: true})
+        })
+        console.log(this.state);
+        }
 
     render() {
         return (
@@ -78,8 +80,8 @@ class ClubLogin extends Component {
                 <form>
                     <label>Club Name: </label>
                         <input type="text"
-                               name="clubname"
-                               value={this.state.clubname}
+                               name="clubUsername"
+                               value={this.state.clubUsername}
                                onChange={this.handleChange}
                         />
                     <label>Password: </label>

@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_12_58__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_12_58__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_13_07__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_13_07__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_13_09__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_13_09__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_13_28__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_13_28__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_13_28__Default_Changelist_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_13_28__Default_Changelist_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_14_17__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_14_17__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/AuthenticationServiceJwt.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/AuthenticationServiceJwt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/WelcomeDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/WelcomeDataService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerLogin.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +25,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1oYqQ6EKw47fnXbH6LtJxD0aBz1" />
@@ -91,9 +107,7 @@
       <workItem from="1631256034466" duration="4077000" />
       <workItem from="1631277105150" duration="760000" />
       <workItem from="1631512803663" duration="25842000" />
-      <workItem from="1631598888628" duration="12181000" />
-      <workItem from="1631678717770" duration="1312000" />
-      <workItem from="1631848448271" duration="4081000" />
+      <workItem from="1631598888628" duration="11479000" />
     </task>
     <servers />
   </component>

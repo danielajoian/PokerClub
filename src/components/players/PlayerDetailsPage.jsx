@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import AuthenticationService from "../../api/services/AuthenticationService";
+// import AuthenticationService from "../../api/services/AuthenticationService";
 import PlayersDataService from "../../api/services/PlayersDataService";
+import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
 
 class PlayerDetailsPage extends Component {
     constructor(props) {
@@ -20,8 +21,8 @@ class PlayerDetailsPage extends Component {
     }
 
     refreshPlayers() {
-        let playerName = AuthenticationService.getLoggedInUserName()
-        PlayersDataService.retrievePlayer(playerName)
+        // let playerName = AuthenticationServiceJwt.getLoggedInUserName()
+        PlayersDataService.retrievePlayer(sessionStorage.getItem('authenticatedUser'))
             .then(
                 response => {
                     console.log(response)
@@ -41,8 +42,8 @@ class PlayerDetailsPage extends Component {
                 .then(response => {
                     console.log(response)
                 })
+        AuthenticationServiceJwt.logout();
         }
-        AuthenticationService.logout();
     }
 
     handleClick = () => {
