@@ -15,7 +15,8 @@ class ClubLogin extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
-        this.loginClicked = this.loginClicked.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
+        // this.loginClicked = this.loginClicked.bind(this);
         // this.refreshClubs = this.refreshClubs.bind(this);
     }
 
@@ -53,7 +54,8 @@ class ClubLogin extends Component {
         )
     }
 
-    loginClicked() {
+    handleSubmit = (event) => {
+        event.preventDefault()
         AuthenticationServiceJwt
             .executeClubJwtAuthenticationService(this.state.clubUsername, this.state.password)
             .then((response) => {
@@ -68,7 +70,24 @@ class ClubLogin extends Component {
             this.setState({hasLoginFailed: true})
         })
         console.log(this.state);
-        }
+    }
+
+    // loginClicked() {
+    //     AuthenticationServiceJwt
+    //         .executeClubJwtAuthenticationService(this.state.clubUsername, this.state.password)
+    //         .then((response) => {
+    //             console.log(response.data.token)
+    //             console.log(response.data)
+    //             AuthenticationServiceJwt
+    //                 .registerClubSuccessfulLoginForJwt(this.state.clubUsername, response.data.token);
+    //             this.props.history.push(`/welcome/${this.state.clubUsername}`)
+    //         }).catch(() => {
+    //         console.log('Failed');
+    //         this.setState({showSuccessMessage: false})
+    //         this.setState({hasLoginFailed: true})
+    //     })
+    //     console.log(this.state);
+    //     }
 
     render() {
         return (
@@ -91,7 +110,9 @@ class ClubLogin extends Component {
                                onChange={this.handleChange}
                         />
                     <button className="btn btn-success"
-                            onClick={this.loginClicked}>
+                            // onClick={this.loginClicked}
+                            onClick={this.handleSubmit}
+                    >
                         Login
                     </button>
                 </form>

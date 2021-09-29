@@ -14,7 +14,7 @@ class PlayerAccount extends Component {
             password: ''
         }
 
-        this.validate = this.validate.bind(this)
+        // this.validate = this.validate.bind(this)
         this.refreshPlayers = this.refreshPlayers.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -40,27 +40,27 @@ class PlayerAccount extends Component {
             )
     }
 
-    validate(values) {
-        console.log(values)
-        // this.handleChange(values)
-        let error = {}
-        if (!values.username) {
-            error.username = 'Enter a username'
-        } else if(values.username.length < 3) {
-            error.username = 'Username has to have at least 3 characters'
-        }
-
-        if (!values.email) {
-            error.email = 'Enter a email'
-        }
-
-        if (!values.password) {
-            error.password = 'Enter a password'
-        } else if(values.password.length < 4) {
-            error.password = 'Password has to have at least 4 characters'
-        }
-        return error
-    }
+    // validate(values) {
+    //     console.log(values)
+    //     // this.handleChange(values)
+    //     let error = {}
+    //     if (!values.username) {
+    //         error.username = 'Enter a username'
+    //     } else if(values.username.length < 3) {
+    //         error.username = 'Username has to have at least 3 characters'
+    //     }
+    //
+    //     if (!values.email) {
+    //         error.email = 'Enter a email'
+    //     }
+    //
+    //     if (!values.password) {
+    //         error.password = 'Enter a password'
+    //     } else if(values.password.length < 4) {
+    //         error.password = 'Password has to have at least 4 characters'
+    //     }
+    //     return error
+    // }
 
     handleChange = (event) => {
         console.log(event.target.name);
@@ -80,7 +80,7 @@ class PlayerAccount extends Component {
         PlayersDataService.updatePlayer(this.state.username, this.state.id, player)
             .then(response => {
                 console.log(response)
-                this.props.history.push(`/`)
+                this.props.history.push(`/playerDetailsPage`)
             })
     }
 
@@ -115,7 +115,7 @@ class PlayerAccount extends Component {
                     <button className="btn btn-success"
                             type="submit"
                             style={{width: "220px"}}
-                            onClick={this.validate}
+                            // onClick={this.validate}
                     >
                         Submit Changes
                     </button>

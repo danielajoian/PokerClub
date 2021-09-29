@@ -14,6 +14,7 @@ class PlayerDetailsPage extends Component {
         }
         this.refreshPlayers = this.refreshPlayers.bind(this)
         this.deleteAccount = this.deleteAccount.bind(this)
+        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount() {
@@ -21,8 +22,8 @@ class PlayerDetailsPage extends Component {
     }
 
     refreshPlayers() {
-        // let playerName = AuthenticationServiceJwt.getLoggedInUserName()
-        PlayersDataService.retrievePlayer(sessionStorage.getItem('authenticatedUser'))
+        let playerName = AuthenticationServiceJwt.getLoggedInUserName()
+        PlayersDataService.retrievePlayer(playerName)
             .then(
                 response => {
                     console.log(response)
@@ -30,6 +31,7 @@ class PlayerDetailsPage extends Component {
                         id : response.data.id,
                         username: response.data.username
                     })
+                    // this.props.history.push(`/playerAccount/${this.state.username}/${this.state.id}`)
                 }
             )
     }
@@ -47,6 +49,7 @@ class PlayerDetailsPage extends Component {
     }
 
     handleClick = () => {
+        // this.refreshPlayers()
         this.props.history.push(`/playerAccount/${this.state.username}/${this.state.id}`)
     }
 

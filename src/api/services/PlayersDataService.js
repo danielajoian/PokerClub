@@ -7,7 +7,15 @@ class PlayersDataService {
     // }
     //
     retrievePlayer(username) {
-        return axios.get(`${API_URL}/players/${username}`);
+        return axios.get(`${API_URL}/players/${username}`
+            // ,
+            // {
+            //     headers: {
+            //         "Authorization": `Bearer ` `$(sessionStorage.getItem("token"))`,
+            //         'Access-Control-Allow-Origin': 'http://localhost:4000/'
+            //     }
+            // }
+        );
     }
 
     deletePlayer(username, id) {

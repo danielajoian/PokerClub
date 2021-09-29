@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import moment from "moment";
 import {Form, Formik, Field, ErrorMessage} from 'formik';
 import GameDataService from "../../api/services/GameDataService";
-import AuthenticationService from "../../api/services/AuthenticationService";
+// import AuthenticationService from "../../api/services/AuthenticationService";
+import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
 
 class GameComponent extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class GameComponent extends Component {
             return
         }
 
-        let clubName = AuthenticationService.getLoggedInClubName()
+        let clubName = AuthenticationServiceJwt.getLoggedInClubName()
         GameDataService.retrieveGame(clubName, this.state.id)
             .then(response => this.setState({
                 title: response.data.title,
@@ -57,7 +58,7 @@ class GameComponent extends Component {
 
     onSubmit(values) {
         console.log(values)
-        let clubName = AuthenticationService.getLoggedInClubName();
+        let clubName = AuthenticationServiceJwt.getLoggedInClubName();
 
         let game = {
             id: this.state.id,

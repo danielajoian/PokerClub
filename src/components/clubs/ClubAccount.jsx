@@ -19,7 +19,7 @@ class ClubAccount extends Component {
             phoneNumber: ''
         }
 
-        this.validate = this.validate.bind(this)
+        // this.validate = this.validate.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.refreshClubs = this.refreshClubs.bind(this)
@@ -50,28 +50,28 @@ class ClubAccount extends Component {
             )
     }
 
-    validate(values) {
-        console.log(values)
-        let error = {}
-        if (!values.clubUsername) {
-            error.clubUsername = 'Enter a username'
-        } else if(values.clubUsername.length < 3) {
-            error.clubUsername = 'Username has to have at least 3 characters'
-        }
-
-        if (!values.email) {
-            error.email = 'Enter a email'
-            // } else if(values.username.length < 3) {
-            //     error.username = 'Username has to have at least 3 characters'
-        }
-
-        if (!values.password) {
-            error.password = 'Enter a password'
-        } else if(values.password.length < 4) {
-            error.password = 'Password has to have at least 4 characters'
-        }
-        return error
-    }
+    // validate(values) {
+    //     console.log(values)
+    //     let error = {}
+    //     if (!values.clubUsername) {
+    //         error.clubUsername = 'Enter a username'
+    //     } else if(values.clubUsername.length < 3) {
+    //         error.clubUsername = 'Username has to have at least 3 characters'
+    //     }
+    //
+    //     if (!values.email) {
+    //         error.email = 'Enter a email'
+    //         // } else if(values.username.length < 3) {
+    //         //     error.username = 'Username has to have at least 3 characters'
+    //     }
+    //
+    //     if (!values.password) {
+    //         error.password = 'Enter a password'
+    //     } else if(values.password.length < 4) {
+    //         error.password = 'Password has to have at least 4 characters'
+    //     }
+    //     return error
+    // }
 
     handleChange = (event) => {
         console.log(event.target.name);
@@ -171,7 +171,7 @@ class ClubAccount extends Component {
                     <button className="btn btn-success"
                             type="submit"
                             style={{width: "220px"}}
-                            onClick={this.validate}
+                            // onClick={this.validate}
                     >
                         {/*<Link to="/clubRegisterSuccessful" className="link">*/}
                         Submit Changes
