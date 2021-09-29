@@ -1,0 +1,2445 @@
+Index: src/api/services/PlayersDataService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport {API_URL} from \"../../Constants\";\r\n\r\nclass PlayersDataService {\r\n    // retrieveAllClubs() {\r\n    //     return axios.get(`${API_URL}/clubs`)\r\n    // }\r\n    //\r\n    retrievePlayer(username) {\r\n        return axios.get(`${API_URL}/players/${username}`);\r\n    }\r\n    //\r\n    // deleteGame(clubName, id) {\r\n    //     return axios.delete(`${API_JPA_URL}/${clubName}/games/${id}`)\r\n    // }\r\n    //\r\n    // updateGame(clubName, id, game) {\r\n    //     return axios.put(`${API_JPA_URL}/${clubName}/games/${id}`, game);\r\n    // }\r\n\r\n    createPlayer(username) {\r\n        return axios.post(`${API_URL}/players/${username}`);\r\n    }\r\n}\r\n\r\nexport default new PlayersDataService()\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/services/PlayersDataService.js b/src/api/services/PlayersDataService.js
+--- a/src/api/services/PlayersDataService.js	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/api/services/PlayersDataService.js	(date 1632920110549)
+@@ -7,19 +7,27 @@
+     // }
+     //
+     retrievePlayer(username) {
+-        return axios.get(`${API_URL}/players/${username}`);
+-    }
+-    //
+-    // deleteGame(clubName, id) {
+-    //     return axios.delete(`${API_JPA_URL}/${clubName}/games/${id}`)
+-    // }
+-    //
+-    // updateGame(clubName, id, game) {
+-    //     return axios.put(`${API_JPA_URL}/${clubName}/games/${id}`, game);
+-    // }
++        return axios.get(`${API_URL}/players/${username}`
++            // ,
++            // {
++            //     headers: {
++            //         "Authorization": `Bearer ` `$(sessionStorage.getItem("token"))`,
++            //         'Access-Control-Allow-Origin': 'http://localhost:4000/'
++            //     }
++            // }
++        );
++    }
++
++    deletePlayer(username, id) {
++        return axios.delete(`${API_URL}/players/${username}/${id}`)
++    }
+ 
+-    createPlayer(username) {
+-        return axios.post(`${API_URL}/players/${username}`);
++    updatePlayer(username, id, player) {
++        return axios.put(`${API_URL}/players/${username}/${id}`, player);
++    }
++
++    createPlayer(username, player) {
++        return axios.post(`${API_URL}/players/${username}`, player);
+     }
+ }
+ 
+Index: src/components/clubs/ClubLogin.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport AuthenticationService from \"../../api/services/AuthenticationService\";\r\n\r\nclass ClubLogin extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n\r\n        this.state = {\r\n            clubname: '',\r\n            password: '',\r\n            hasLoginFailed: false,\r\n            showSuccessMessage: false\r\n        }\r\n\r\n        this.handleChange = this.handleChange.bind(this);\r\n        this.loginClicked = this.loginClicked.bind(this);\r\n    }\r\n\r\n    loginClicked() {\r\n        //All In, 1234\r\n        if ((this.state.clubname==='AllIn' || this.state.clubname==='PokerRoom') && this.state.password==='1234') {\r\n            console.log('Successful')\r\n            AuthenticationService.registerClubSuccessfulLogin(this.state.clubname, this.state.password);\r\n            this.props.history.push(`/welcome/${this.state.clubname}`)\r\n        }else{\r\n            console.log('Failed');\r\n            this.setState({showSuccessMessage: false})\r\n            this.setState({hasLoginFailed: true})\r\n        }\r\n        console.log(this.state);\r\n    }\r\n\r\n    handleChange(event) {\r\n        console.log(event.target.name);\r\n        this.setState(\r\n            {\r\n                [event.target.name]: event.target.value\r\n            }\r\n        )\r\n    }\r\n    render() {\r\n        return (\r\n            <div className=\"container content-box\">\r\n                <h3>Club Login</h3>\r\n                {this.state.hasLoginFailed && <div className=\"alert alert-warning\">\r\n                    Invalid Credentials</div>}\r\n                &nbsp;\r\n                <form>\r\n                    <label>Club Name: </label>\r\n                        <input type=\"text\"\r\n                               name=\"clubname\"\r\n                               value={this.state.clubname}\r\n                               onChange={this.handleChange}\r\n                        />\r\n                    <label>Password: </label>\r\n                        <input type=\"password\"\r\n                               name=\"password\"\r\n                               value={this.state.password}\r\n                               onChange={this.handleChange}\r\n                        />\r\n                    <button className=\"btn btn-success\"\r\n                            onClick={this.loginClicked}>\r\n                        Login\r\n                    </button>\r\n                </form>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default ClubLogin
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/clubs/ClubLogin.jsx b/src/components/clubs/ClubLogin.jsx
+--- a/src/components/clubs/ClubLogin.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/clubs/ClubLogin.jsx	(date 1632920110558)
+@@ -1,34 +1,49 @@
+ import React, {Component} from "react";
+-import AuthenticationService from "../../api/services/AuthenticationService";
++// import AuthenticationService from "../../api/services/AuthenticationService";
++// import ClubsDataService from "../../api/services/ClubsDataService";
++import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+ 
+ class ClubLogin extends Component {
+     constructor(props) {
+         super(props);
+ 
+         this.state = {
+-            clubname: '',
++            clubUsername: '',
+             password: '',
+             hasLoginFailed: false,
+-            showSuccessMessage: false
++            showSuccessMessage: true
+         }
+ 
+         this.handleChange = this.handleChange.bind(this);
+-        this.loginClicked = this.loginClicked.bind(this);
++        this.handleSubmit = this.handleSubmit.bind(this)
++        // this.loginClicked = this.loginClicked.bind(this);
++        // this.refreshClubs = this.refreshClubs.bind(this);
+     }
+ 
+-    loginClicked() {
+-        //All In, 1234
+-        if ((this.state.clubname==='AllIn' || this.state.clubname==='PokerRoom') && this.state.password==='1234') {
+-            console.log('Successful')
+-            AuthenticationService.registerClubSuccessfulLogin(this.state.clubname, this.state.password);
+-            this.props.history.push(`/welcome/${this.state.clubname}`)
+-        }else{
+-            console.log('Failed');
+-            this.setState({showSuccessMessage: false})
+-            this.setState({hasLoginFailed: true})
+-        }
+-        console.log(this.state);
+-    }
++    // componentDidMount() {
++    //     this.refreshClubs()
++    // }
++    //
++    // refreshClubs() {
++    //     let clubName = this.state.clubUsername
++    //     ClubsDataService.retrieveClub(clubName)
++    //         .then(
++    //             response => {
++    //                 console.log(response)
++    //                 this.setState({
++    //                     id : response.data.id,
++    //                     clubUsername: response.data.clubUsername,
++    //                     password: response.data.password,
++    //                     city: response.data.city,
++    //                     country: response.data.country,
++    //                     address: response.data.address,
++    //                     email: response.data.email,
++    //                     site: response.data.site,
++    //                     phoneNumber: response.data.phoneNumber
++    //                 })
++    //             }
++    //         )
++    // }
+ 
+     handleChange(event) {
+         console.log(event.target.name);
+@@ -38,6 +53,42 @@
+             }
+         )
+     }
++
++    handleSubmit = (event) => {
++        event.preventDefault()
++        AuthenticationServiceJwt
++            .executeClubJwtAuthenticationService(this.state.clubUsername, this.state.password)
++            .then((response) => {
++                console.log(response.data.token)
++                console.log(response.data)
++                AuthenticationServiceJwt
++                    .registerClubSuccessfulLoginForJwt(this.state.clubUsername, response.data.token);
++                this.props.history.push(`/welcome/${this.state.clubUsername}`)
++            }).catch(() => {
++            console.log('Failed');
++            this.setState({showSuccessMessage: false})
++            this.setState({hasLoginFailed: true})
++        })
++        console.log(this.state);
++    }
++
++    // loginClicked() {
++    //     AuthenticationServiceJwt
++    //         .executeClubJwtAuthenticationService(this.state.clubUsername, this.state.password)
++    //         .then((response) => {
++    //             console.log(response.data.token)
++    //             console.log(response.data)
++    //             AuthenticationServiceJwt
++    //                 .registerClubSuccessfulLoginForJwt(this.state.clubUsername, response.data.token);
++    //             this.props.history.push(`/welcome/${this.state.clubUsername}`)
++    //         }).catch(() => {
++    //         console.log('Failed');
++    //         this.setState({showSuccessMessage: false})
++    //         this.setState({hasLoginFailed: true})
++    //     })
++    //     console.log(this.state);
++    //     }
++
+     render() {
+         return (
+             <div className="container content-box">
+@@ -48,8 +99,8 @@
+                 <form>
+                     <label>Club Name: </label>
+                         <input type="text"
+-                               name="clubname"
+-                               value={this.state.clubname}
++                               name="clubUsername"
++                               value={this.state.clubUsername}
+                                onChange={this.handleChange}
+                         />
+                     <label>Password: </label>
+@@ -59,7 +110,9 @@
+                                onChange={this.handleChange}
+                         />
+                     <button className="btn btn-success"
+-                            onClick={this.loginClicked}>
++                            // onClick={this.loginClicked}
++                            onClick={this.handleSubmit}
++                    >
+                         Login
+                     </button>
+                 </form>
+Index: src/components/clubs/ClubAccount.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport {ErrorMessage, Field, Form, Formik} from \"formik\";\r\nimport {Link} from \"react-router-dom\";\r\n\r\nclass ClubAccount extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n\r\n        // this.state: {\r\n        //     username: this.props.match.params.name,\r\n        //     email: '',\r\n        //     password: ''\r\n        // }\r\n\r\n        this.validate = this.validate.bind(this)\r\n        this.onSubmit = this.onSubmit.bind(this)\r\n    }\r\n\r\n    validate(values) {\r\n        console.log(values)\r\n        let error = {}\r\n        if (!values.username) {\r\n            error.username = 'Enter a username'\r\n        } else if(values.username.length < 3) {\r\n            error.username = 'Username has to have at least 3 characters'\r\n        }\r\n\r\n        if (!values.email) {\r\n            error.email = 'Enter a email'\r\n            // } else if(values.username.length < 3) {\r\n            //     error.username = 'Username has to have at least 3 characters'\r\n        }\r\n\r\n        if (!values.password) {\r\n            error.password = 'Enter a password'\r\n        } else if(values.password.length < 4) {\r\n            error.password = 'Password has to have at least 4 characters'\r\n        }\r\n        return error\r\n    }\r\n\r\n    onSubmit(values) {\r\n        console.log(values)\r\n    }\r\n\r\n    render() {\r\n        let username = this.props.match.params.name;\r\n\r\n        return (\r\n            <div>\r\n                <h2>Club Account Details</h2>\r\n                &nbsp;\r\n                <Formik initialValues={{username}}\r\n                        onSubmit={this.onSubmit}\r\n                        validate={this.validate}\r\n                        validateOnBlur={true}\r\n                        validateOnChange={true}\r\n                        enableReinitialize={true}\r\n                >{\r\n                    (props) => (\r\n                        <Form>\r\n                            <ErrorMessage name=\"username\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <ErrorMessage name=\"email\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <ErrorMessage name=\"password\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Name: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"text\"\r\n                                       name=\"username\"/>\r\n\r\n                            </fieldset>\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Email: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"email\"\r\n                                       name=\"email\"/>\r\n                            </fieldset>\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Password: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"password\"\r\n                                       name=\"password\"/>\r\n                            </fieldset>\r\n                            <button className=\"btn btn-success\"\r\n                                    style={{width: \"220px\"}}>\r\n                                <Link to=\"/\" className=\"link\">\r\n                                    Submit Changes\r\n                                </Link>\r\n                            </button>\r\n                        </Form>\r\n                    )\r\n                }\r\n                </Formik>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default ClubAccount
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/clubs/ClubAccount.jsx b/src/components/clubs/ClubAccount.jsx
+--- a/src/components/clubs/ClubAccount.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/clubs/ClubAccount.jsx	(date 1632920110553)
+@@ -1,105 +1,234 @@
+ import React, {Component} from "react";
+-import {ErrorMessage, Field, Form, Formik} from "formik";
+-import {Link} from "react-router-dom";
++// import {ErrorMessage, Field, Form, Formik} from "formik";
++// import {Link} from "react-router-dom";
++import ClubsDataService from "../../api/services/ClubsDataService";
+ 
+ class ClubAccount extends Component {
+     constructor(props) {
+         super(props);
+ 
+-        // this.state: {
+-        //     username: this.props.match.params.name,
+-        //     email: '',
+-        //     password: ''
+-        // }
++        this.state = {
++            id: this.props.match.params.id,
++            clubUsername: this.props.match.params.name,
++            password: '',
++            city: '',
++            country: '',
++            address: '',
++            email: '',
++            site: '',
++            phoneNumber: ''
++        }
+ 
+-        this.validate = this.validate.bind(this)
+-        this.onSubmit = this.onSubmit.bind(this)
++        // this.validate = this.validate.bind(this)
++        this.handleChange = this.handleChange.bind(this)
++        this.handleSubmit = this.handleSubmit.bind(this)
++        this.refreshClubs = this.refreshClubs.bind(this)
+     }
+ 
+-    validate(values) {
+-        console.log(values)
+-        let error = {}
+-        if (!values.username) {
+-            error.username = 'Enter a username'
+-        } else if(values.username.length < 3) {
+-            error.username = 'Username has to have at least 3 characters'
+-        }
++    componentDidMount() {
++        this.refreshClubs()
++    }
+ 
+-        if (!values.email) {
+-            error.email = 'Enter a email'
+-            // } else if(values.username.length < 3) {
+-            //     error.username = 'Username has to have at least 3 characters'
+-        }
++    refreshClubs() {
++        let clubName = this.state.clubUsername
++        ClubsDataService.retrieveClub(clubName)
++            .then(
++                response => {
++                    console.log(response)
++                    this.setState({
++                        id : response.data.id,
++                        clubUsername: response.data.clubUsername,
++                        password: response.data.password,
++                        city: response.data.city,
++                        country: response.data.country,
++                        address: response.data.address,
++                        email: response.data.email,
++                        site: response.data.site,
++                        phoneNumber: response.data.phoneNumber
++                    })
++                }
++            )
++    }
+ 
+-        if (!values.password) {
+-            error.password = 'Enter a password'
+-        } else if(values.password.length < 4) {
+-            error.password = 'Password has to have at least 4 characters'
+-        }
+-        return error
++    // validate(values) {
++    //     console.log(values)
++    //     let error = {}
++    //     if (!values.clubUsername) {
++    //         error.clubUsername = 'Enter a username'
++    //     } else if(values.clubUsername.length < 3) {
++    //         error.clubUsername = 'Username has to have at least 3 characters'
++    //     }
++    //
++    //     if (!values.email) {
++    //         error.email = 'Enter a email'
++    //         // } else if(values.username.length < 3) {
++    //         //     error.username = 'Username has to have at least 3 characters'
++    //     }
++    //
++    //     if (!values.password) {
++    //         error.password = 'Enter a password'
++    //     } else if(values.password.length < 4) {
++    //         error.password = 'Password has to have at least 4 characters'
++    //     }
++    //     return error
++    // }
++
++    handleChange = (event) => {
++        console.log(event.target.name);
++        this.setState({
++            [event.target.name]: event.target.value
++        })
+     }
+ 
+-    onSubmit(values) {
+-        console.log(values)
++    handleSubmit = (event) => {
++        event.preventDefault()
++        let club = {
++            password: this.state.password,
++            city: this.state.city,
++            country: this.state.country,
++            address: this.state.address,
++            email: this.state.email,
++            site: this.state.site,
++            phoneNumber: this.state.phoneNumber
++        }
++        ClubsDataService.updateClub(this.state.clubUsername, this.state.id, club)
++            .then(response => {
++                console.log(response)
++                this.props.history.push(`/`)
++            })
+     }
+ 
+     render() {
+-        let username = this.props.match.params.name;
++        let {clubUsername,
++            password,
++            city,
++            country,
++            address,
++            email,
++            site,
++            phoneNumber} = this.state
+ 
+         return (
+             <div>
+                 <h2>Club Account Details</h2>
+                 &nbsp;
+-                <Formik initialValues={{username}}
+-                        onSubmit={this.onSubmit}
+-                        validate={this.validate}
+-                        validateOnBlur={true}
+-                        validateOnChange={true}
+-                        enableReinitialize={true}
+-                >{
+-                    (props) => (
+-                        <Form>
+-                            <ErrorMessage name="username"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <ErrorMessage name="email"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <ErrorMessage name="password"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <fieldset className="form-group">
+-                                <label>Name: </label>
+-                                <Field className="form-control"
+-                                       type="text"
+-                                       name="username"/>
++
++                <form onSubmit={this.handleSubmit}>
++                    <label>Club Name: </label>
++                    <input type="text"
++                           name="clubUsername"
++                           value={clubUsername}
++                           onChange={this.handleChange}
++                    />
++
++                    <label>City: </label>
++                    <input type="text"
++                           name="city"
++                           value={city}
++                           onChange={this.handleChange}
++                    />
++                    <label>Country: </label>
++                    <input type="text"
++                           name="country"
++                           value={country}
++                           onChange={this.handleChange}
++                    />
++
++                    <label>Site Address: </label>
++                    <input type="text"
++                           name="site"
++                           value={site}
++                           onChange={this.handleChange}
++                    />
++
++                    <label>Address: </label>
++                    <input type="text"
++                           name="address"
++                           value={address}
++                           onChange={this.handleChange}
++                    />
++
++                    <label>Phone Number: </label>
++                    <input type="number"
++                           name="phoneNumber"
++                           value={phoneNumber}
++                           onChange={this.handleChange}
++                    />
+ 
+-                            </fieldset>
+-                            <fieldset className="form-group">
+-                                <label>Email: </label>
+-                                <Field className="form-control"
+-                                       type="email"
+-                                       name="email"/>
+-                            </fieldset>
+-                            <fieldset className="form-group">
+-                                <label>Password: </label>
+-                                <Field className="form-control"
+-                                       type="password"
+-                                       name="password"/>
+-                            </fieldset>
+-                            <button className="btn btn-success"
+-                                    style={{width: "220px"}}>
+-                                <Link to="/" className="link">
+-                                    Submit Changes
+-                                </Link>
+-                            </button>
+-                        </Form>
+-                    )
+-                }
+-                </Formik>
++                    <label>Email: </label>
++                    <input type="email"
++                           name="email"
++                           value={email}
++                           onChange={this.handleChange}
++                    />
++
++                    <label>Password: </label>
++                    <input type="password"
++                           name="password"
++                           value={password}
++                           onChange={this.handleChange}
++                    />
++                    <button className="btn btn-success"
++                            type="submit"
++                            style={{width: "220px"}}
++                            // onClick={this.validate}
++                    >
++                        {/*<Link to="/clubRegisterSuccessful" className="link">*/}
++                        Submit Changes
++                        {/*</Link>*/}
++                    </button>
++                </form>
++
++                {/*<Formik initialValues={{username}}*/}
++                {/*        onSubmit={this.onSubmit}*/}
++                {/*        validate={this.validate}*/}
++                {/*        validateOnBlur={true}*/}
++                {/*        validateOnChange={true}*/}
++                {/*        enableReinitialize={true}*/}
++                {/*>{*/}
++                {/*    (props) => (*/}
++                {/*        <Form>*/}
++                {/*            <ErrorMessage name="username"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++                {/*            <ErrorMessage name="email"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++                {/*            <ErrorMessage name="password"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Name: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="text"*/}
++                {/*                       name="username"/>*/}
++
++                {/*            </fieldset>*/}
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Email: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="email"*/}
++                {/*                       name="email"/>*/}
++                {/*            </fieldset>*/}
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Password: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="password"*/}
++                {/*                       name="password"/>*/}
++                {/*            </fieldset>*/}
++                {/*            <button className="btn btn-success"*/}
++                {/*                    style={{width: "220px"}}>*/}
++                {/*                <Link to="/" className="link">*/}
++                {/*                    Submit Changes*/}
++                {/*                </Link>*/}
++                {/*            </button>*/}
++                {/*        </Form>*/}
++                {/*    )*/}
++                {/*}*/}
++                {/*</Formik>*/}
+             </div>
+         )
+     }
+Index: src/components/clubs/ClubDetailsPage.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport {Link} from \"react-router-dom\";\r\n\r\nclass ClubDetailsPage extends Component {\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h4>Welcome to your page, {sessionStorage.getItem('authenticatedClub')}!</h4>\r\n                &nbsp;\r\n                <button className=\"btn btn-success\"\r\n                    style={{width: \"200px\"}}>\r\n                    <Link to=\"/games\" className=\"link\">\r\n                        Add Games\r\n                    </Link>\r\n                </button>\r\n                &nbsp;\r\n                <button className=\"btn btn-success\"\r\n                        style={{width: \"200px\"}}>\r\n                    <Link to=\"/clubAccount\" className=\"link\">\r\n                        Change Details\r\n                    </Link>\r\n                </button>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default ClubDetailsPage
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/clubs/ClubDetailsPage.jsx b/src/components/clubs/ClubDetailsPage.jsx
+--- a/src/components/clubs/ClubDetailsPage.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/clubs/ClubDetailsPage.jsx	(date 1632922240739)
+@@ -1,8 +1,58 @@
+ import React, {Component} from "react";
+ import {Link} from "react-router-dom";
++import AuthenticationService from "../../api/services/AuthenticationService";
++import ClubsDataService from "../../api/services/ClubsDataService";
+ 
+ class ClubDetailsPage extends Component {
++    constructor(props) {
++        super(props);
++
++        this.state = {
++            id: '',
++            clubUsername: ''
++        }
++        this.refreshClubs = this.refreshClubs.bind(this)
++        this.deleteAccount = this.deleteAccount.bind(this)
++        this.handleClick = this.handleClick.bind(this)
++    }
++
++    componentDidMount() {
++        this.refreshClubs()
++    }
++
++    refreshClubs() {
++        let clubName = AuthenticationService.getLoggedInClubName()
++        ClubsDataService.retrieveClub(clubName)
++            .then(
++                response => {
++                    console.log(response)
++                    this.setState({
++                        id : response.data.id,
++                        clubUsername: response.data.clubUsername
++                    })
++                }
++            )
++    }
++
++    deleteAccount(id) {
++        let clubName = this.state.clubUsername
++        console.log(id + " " + clubName);
++        if(window.confirm('Are you sure you want to delete this account?')) {
++            ClubsDataService.deleteClub(clubName, id)
++                .then(response => {
++                    console.log(response)
++                })
++        }
++        AuthenticationService.logout();
++    }
++
++    handleClick = () => {
++        this.props.history.push(`/clubAccount/${this.state.clubUsername}/${this.state.id}`)
++    }
++
+     render() {
++        let {id} = this.state
++
+         return (
+             <div>
+                 <h4>Welcome to your page, {sessionStorage.getItem('authenticatedClub')}!</h4>
+@@ -15,9 +65,20 @@
+                 </button>
+                 &nbsp;
+                 <button className="btn btn-success"
++                        onClick={this.handleClick}
+                         style={{width: "200px"}}>
+-                    <Link to="/clubAccount" className="link">
++                    {/*<Link to="/clubAccount" className="link">*/}
+                         Change Details
++                    {/*</Link>*/}
++                </button>
++                &nbsp;
++                <button className="btn btn-warning"
++                        type="submit"
++                        style={{width: "200px"}}
++                        onClick={() => this.deleteAccount(id)}
++                >
++                    <Link to="/" className="link">
++                        Delete Account
+                     </Link>
+                 </button>
+             </div>
+Index: src/components/players/PlayerLogin.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport AuthenticationService from \"../../api/services/AuthenticationService.js\";\r\n\r\nclass PlayerLogin extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n\r\n        this.state = {\r\n            username: '',\r\n            password: '',\r\n            hasLoginFailed: false,\r\n            showSuccessMessage: false\r\n        }\r\n\r\n        this.handleChange = this.handleChange.bind(this);\r\n        this.loginClicked = this.loginClicked.bind(this);\r\n    }\r\n\r\n    loginClicked() {\r\n        //Dani, 1234\r\n        if ((this.state.username==='Dani' && this.state.password==='1234')\r\n            || (this.state.username === 'Luna' && this.state.password === '1234')) {\r\n            console.log('Successful')\r\n            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);\r\n            this.props.history.push(`/welcome/${this.state.username}`)\r\n        }else{\r\n            console.log('Failed');\r\n            this.setState({showSuccessMessage: false})\r\n            this.setState({hasLoginFailed: true})\r\n        }\r\n        console.log(this.state);\r\n    }\r\n\r\n    handleChange(event) {\r\n        console.log(event.target.name);\r\n        this.setState(\r\n            {\r\n                [event.target.name]: event.target.value\r\n            }\r\n        )\r\n    }\r\n\r\n    render() {\r\n        return (\r\n            <div className=\"container content-box\">\r\n                <h3>Player Login</h3>\r\n                &nbsp;\r\n                {this.state.hasLoginFailed && <div className=\"alert alert-warning\">\r\n                                Invalid Credentials</div>}\r\n                {/*{this.state.showSuccessMessage && <div className=\"alert alert-success\">Login Successful</div>}*/}\r\n                <form>\r\n                   <label>UserName: </label>\r\n                       <input type=\"text\"\r\n                              name=\"username\"\r\n                              value={this.state.username}\r\n                              onChange={this.handleChange}\r\n                        />\r\n                        <br/>\r\n                    <label>Password: </label>\r\n                        <input type=\"password\"\r\n                                name=\"password\"\r\n                               value={this.state.password}\r\n                               onChange={this.handleChange}\r\n                        />\r\n\r\n                    <button className=\"btn btn-success\"\r\n                        onClick={this.loginClicked}>\r\n                        Login\r\n                    </button>\r\n                </form>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default PlayerLogin
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/players/PlayerLogin.jsx b/src/components/players/PlayerLogin.jsx
+--- a/src/components/players/PlayerLogin.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/players/PlayerLogin.jsx	(date 1632920110570)
+@@ -1,5 +1,7 @@
+ import React, {Component} from "react";
+ import AuthenticationService from "../../api/services/AuthenticationService.js";
++import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
++import PlayersDataService from "../../api/services/PlayersDataService";
+ 
+ class PlayerLogin extends Component {
+     constructor(props) {
+@@ -9,36 +11,62 @@
+             username: '',
+             password: '',
+             hasLoginFailed: false,
+-            showSuccessMessage: false
++            showSuccessMessage: true
+         }
+ 
+         this.handleChange = this.handleChange.bind(this);
+-        this.loginClicked = this.loginClicked.bind(this);
++        this.handleSubmit = this.handleSubmit.bind(this)
++        // this.loginClicked = this.loginClicked.bind(this);
+     }
+ 
+-    loginClicked() {
+-        //Dani, 1234
+-        if ((this.state.username==='Dani' && this.state.password==='1234')
+-            || (this.state.username === 'Luna' && this.state.password === '1234')) {
+-            console.log('Successful')
+-            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+-            this.props.history.push(`/welcome/${this.state.username}`)
+-        }else{
++    // componentDidMount() {
++    //     this.props.history.push(`/welcome/${this.state.username}`)
++    // }
++
++    handleChange(event) {
++        console.log(event.target.name);
++        this.setState(
++            {
++                [event.target.name]: event.target.value
++            }
++        )
++    }
++
++    // loginClicked() {
++    //     AuthenticationServiceJwt
++    //         .executeUserJwtAuthenticationService(this.state.username, this.state.password)
++    //         .then((response) => {
++    //             console.log(response.data.token)
++    //             console.log(response.data)
++    //             AuthenticationServiceJwt
++    //                 .registerSuccessfulLoginForJwt(this.state.username, response.data.token);
++    //             this.props.history.push(`/welcome/${this.state.username}`)
++    //         }).catch(() => {
++    //             console.log('Failed');
++    //             this.setState({showSuccessMessage: false})
++    //             this.setState({hasLoginFailed: true})
++    //     })
++    //     console.log(this.state);
++    // }
++
++    handleSubmit = (event) => {
++        event.preventDefault()
++        AuthenticationServiceJwt
++            .executeUserJwtAuthenticationService(this.state.username, this.state.password)
++            .then((response) => {
++                console.log(response.data.token)
++                console.log(response.data)
++                AuthenticationServiceJwt
++                    .registerSuccessfulLoginForJwt(this.state.username, response.data.token);
++                this.props.history.push(`/welcome/${this.state.username}`)
++            }).catch(() => {
+             console.log('Failed');
+             this.setState({showSuccessMessage: false})
+             this.setState({hasLoginFailed: true})
+-        }
++        })
+         console.log(this.state);
+     }
+ 
+-    handleChange(event) {
+-        console.log(event.target.name);
+-        this.setState(
+-            {
+-                [event.target.name]: event.target.value
+-            }
+-        )
+-    }
+ 
+     render() {
+         return (
+@@ -64,7 +92,8 @@
+                         />
+ 
+                     <button className="btn btn-success"
+-                        onClick={this.loginClicked}>
++                        // onClick={this.loginClicked}>
++                        onClick={this.handleSubmit}>
+                         Login
+                     </button>
+                 </form>
+Index: src/components/players/PlayerDetailsPage.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport {Link} from \"react-router-dom\";\r\n\r\nclass PlayerDetailsPage extends Component {\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h4>Welcome to your page, {sessionStorage.getItem('authenticatedUser')}!</h4>\r\n                &nbsp;\r\n                <button className=\"btn btn-success\"\r\n                        style={{width: \"300px\"}}>\r\n                    <Link to=\"/playerAccount\" className=\"link\">\r\n                        Change Account Details\r\n                    </Link>\r\n                </button>\r\n                &nbsp;\r\n                <button className=\"btn btn-success\"\r\n                        style={{width: \"300px\"}}>\r\n                    <a href=\"https://www.pokerstars.ro/poker/games/rules/\"\r\n                          target=\"_blank\"\r\n                          className=\"link\">\r\n                        Check the Rules\r\n                    </a>\r\n                </button>\r\n                &nbsp;\r\n                <button className=\"btn btn-success\"\r\n                        style={{width: \"300px\"}}>\r\n                    <Link to=\"/\" className=\"link\">\r\n                        Go to Private Games\r\n                    </Link>\r\n                </button>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default PlayerDetailsPage
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/players/PlayerDetailsPage.jsx b/src/components/players/PlayerDetailsPage.jsx
+--- a/src/components/players/PlayerDetailsPage.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/players/PlayerDetailsPage.jsx	(date 1632920110568)
+@@ -1,23 +1,78 @@
+ import React, {Component} from "react";
+ import {Link} from "react-router-dom";
++// import AuthenticationService from "../../api/services/AuthenticationService";
++import PlayersDataService from "../../api/services/PlayersDataService";
++import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+ 
+ class PlayerDetailsPage extends Component {
++    constructor(props) {
++        super(props);
++
++        this.state = {
++            id: '',
++            username: ''
++        }
++        this.refreshPlayers = this.refreshPlayers.bind(this)
++        this.deleteAccount = this.deleteAccount.bind(this)
++        this.handleClick = this.handleClick.bind(this)
++    }
++
++    componentDidMount() {
++        this.refreshPlayers()
++    }
++
++    refreshPlayers() {
++        let playerName = AuthenticationServiceJwt.getLoggedInUserName()
++        PlayersDataService.retrievePlayer(playerName)
++            .then(
++                response => {
++                    console.log(response)
++                    this.setState({
++                        id : response.data.id,
++                        username: response.data.username
++                    })
++                    // this.props.history.push(`/playerAccount/${this.state.username}/${this.state.id}`)
++                }
++            )
++    }
++
++    deleteAccount(id) {
++        let playerName = this.state.username
++        console.log(id + " " + playerName);
++        if(window.confirm('Are you sure you want to delete this account?')) {
++            PlayersDataService.deletePlayer(playerName, id)
++                .then(response => {
++                    console.log(response)
++                })
++        AuthenticationServiceJwt.logout();
++        }
++    }
++
++    handleClick = () => {
++        // this.refreshPlayers()
++        this.props.history.push(`/playerAccount/${this.state.username}/${this.state.id}`)
++    }
++
+     render() {
++        let {id} = this.state
++
+         return (
+             <div>
+                 <h4>Welcome to your page, {sessionStorage.getItem('authenticatedUser')}!</h4>
+                 &nbsp;
+                 <button className="btn btn-success"
++                        onClick={this.handleClick}
+                         style={{width: "300px"}}>
+-                    <Link to="/playerAccount" className="link">
++                    {/*<Link to="/playerAccount" className="link">*/}
+                         Change Account Details
+-                    </Link>
++                    {/*</Link>*/}
+                 </button>
+                 &nbsp;
+                 <button className="btn btn-success"
+                         style={{width: "300px"}}>
+                     <a href="https://www.pokerstars.ro/poker/games/rules/"
+                           target="_blank"
++                            rel="noreferrer"
+                           className="link">
+                         Check the Rules
+                     </a>
+@@ -27,6 +82,16 @@
+                         style={{width: "300px"}}>
+                     <Link to="/" className="link">
+                         Go to Private Games
++                    </Link>
++                </button>
++                &nbsp;
++                <button className="btn btn-warning"
++                        type="submit"
++                        style={{width: "300px"}}
++                        onClick={() => this.deleteAccount(id)}
++                >
++                    <Link to="/" className="link">
++                        Delete Account
+                     </Link>
+                 </button>
+             </div>
+Index: src/components/players/PlayerAccount.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport {ErrorMessage, Field, Form, Formik} from 'formik';\r\nimport {Link} from \"react-router-dom\";\r\n\r\nclass PlayerAccount extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n\r\n        // this.state: {\r\n        //     username: this.props.match.params.name,\r\n        //     email: '',\r\n        //     password: ''\r\n        // }\r\n\r\n        this.validate = this.validate.bind(this)\r\n        this.onSubmit = this.onSubmit.bind(this)\r\n    }\r\n\r\n    validate(values) {\r\n        console.log(values)\r\n        let error = {}\r\n        if (!values.username) {\r\n            error.username = 'Enter a username'\r\n        } else if(values.username.length < 3) {\r\n            error.username = 'Username has to have at least 3 characters'\r\n        }\r\n\r\n        if (!values.email) {\r\n            error.email = 'Enter a email'\r\n            // } else if(values.username.length < 3) {\r\n            //     error.username = 'Username has to have at least 3 characters'\r\n        }\r\n\r\n        if (!values.password) {\r\n            error.password = 'Enter a password'\r\n        } else if(values.password.length < 4) {\r\n            error.password = 'Password has to have at least 4 characters'\r\n        }\r\n        return error\r\n    }\r\n\r\n    onSubmit(values) {\r\n        console.log(values)\r\n    }\r\n\r\n    render() {\r\n        let username = this.props.match.params.name;\r\n\r\n        return (\r\n            <div>\r\n                <h2>Player Account Details</h2>\r\n                &nbsp;\r\n                <Formik initialValues={{username}}\r\n                        onSubmit={this.onSubmit}\r\n                        validate={this.validate}\r\n                        validateOnBlur={true}\r\n                        validateOnChange={true}\r\n                        enableReinitialize={true}\r\n                >{\r\n                    (props) => (\r\n                        <Form>\r\n                            <ErrorMessage name=\"username\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <ErrorMessage name=\"email\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <ErrorMessage name=\"password\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Name: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"text\"\r\n                                       name=\"username\"/>\r\n\r\n                            </fieldset>\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Email: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"email\"\r\n                                       name=\"email\"/>\r\n                            </fieldset>\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Password: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"password\"\r\n                                       name=\"password\"/>\r\n                            </fieldset>\r\n                            <button className=\"btn btn-success\"\r\n                                    style={{width: \"220px\"}}>\r\n                                <Link to=\"/\" className=\"link\">\r\n                                    Submit Changes\r\n                                </Link>\r\n                            </button>\r\n                        </Form>\r\n                    )\r\n                }\r\n                </Formik>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default PlayerAccount
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/players/PlayerAccount.jsx b/src/components/players/PlayerAccount.jsx
+--- a/src/components/players/PlayerAccount.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/players/PlayerAccount.jsx	(date 1632920110567)
+@@ -1,105 +1,186 @@
+ import React, {Component} from "react";
+-import {ErrorMessage, Field, Form, Formik} from 'formik';
+-import {Link} from "react-router-dom";
++// import {ErrorMessage, Field, Form, Formik} from 'formik';
++// import {Link} from "react-router-dom";
++import PlayersDataService from "../../api/services/PlayersDataService";
+ 
+ class PlayerAccount extends Component {
+     constructor(props) {
+         super(props);
+ 
+-        // this.state: {
+-        //     username: this.props.match.params.name,
+-        //     email: '',
+-        //     password: ''
+-        // }
++        this.state = {
++            id: this.props.match.params.id,
++            username: this.props.match.params.name,
++            email: '',
++            password: ''
++        }
++
++        // this.validate = this.validate.bind(this)
++        this.refreshPlayers = this.refreshPlayers.bind(this)
++        this.handleChange = this.handleChange.bind(this)
++        this.handleSubmit = this.handleSubmit.bind(this)
++    }
+ 
+-        this.validate = this.validate.bind(this)
+-        this.onSubmit = this.onSubmit.bind(this)
++    componentDidMount() {
++        this.refreshPlayers()
+     }
+ 
+-    validate(values) {
+-        console.log(values)
+-        let error = {}
+-        if (!values.username) {
+-            error.username = 'Enter a username'
+-        } else if(values.username.length < 3) {
+-            error.username = 'Username has to have at least 3 characters'
+-        }
++    refreshPlayers() {
++        let playerName = this.state.username
++        PlayersDataService.retrievePlayer(playerName)
++            .then(
++                response => {
++                    console.log(response)
++                    this.setState({
++                        id : response.data.id,
++                        username: response.data.username,
++                        email: response.data.email,
++                        password: response.data.password
++                    })
++                }
++            )
++    }
+ 
+-        if (!values.email) {
+-            error.email = 'Enter a email'
+-            // } else if(values.username.length < 3) {
+-            //     error.username = 'Username has to have at least 3 characters'
+-        }
++    // validate(values) {
++    //     console.log(values)
++    //     // this.handleChange(values)
++    //     let error = {}
++    //     if (!values.username) {
++    //         error.username = 'Enter a username'
++    //     } else if(values.username.length < 3) {
++    //         error.username = 'Username has to have at least 3 characters'
++    //     }
++    //
++    //     if (!values.email) {
++    //         error.email = 'Enter a email'
++    //     }
++    //
++    //     if (!values.password) {
++    //         error.password = 'Enter a password'
++    //     } else if(values.password.length < 4) {
++    //         error.password = 'Password has to have at least 4 characters'
++    //     }
++    //     return error
++    // }
+ 
+-        if (!values.password) {
+-            error.password = 'Enter a password'
+-        } else if(values.password.length < 4) {
+-            error.password = 'Password has to have at least 4 characters'
+-        }
+-        return error
++    handleChange = (event) => {
++        console.log(event.target.name);
++        this.setState(
++            {
++                [event.target.name]: event.target.value
++            }
++        )
+     }
+ 
+-    onSubmit(values) {
+-        console.log(values)
++    handleSubmit = (event) => {
++        event.preventDefault()
++        let player = {
++            email: this.state.email,
++            password: this.state.password
++        }
++        PlayersDataService.updatePlayer(this.state.username, this.state.id, player)
++            .then(response => {
++                console.log(response)
++                this.props.history.push(`/playerDetailsPage`)
++            })
+     }
+ 
+     render() {
+-        let username = this.props.match.params.name;
+-
++        let {username, email, password} = this.state
+         return (
+             <div>
+                 <h2>Player Account Details</h2>
+                 &nbsp;
+-                <Formik initialValues={{username}}
+-                        onSubmit={this.onSubmit}
+-                        validate={this.validate}
+-                        validateOnBlur={true}
+-                        validateOnChange={true}
+-                        enableReinitialize={true}
+-                >{
+-                    (props) => (
+-                        <Form>
+-                            <ErrorMessage name="username"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <ErrorMessage name="email"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <ErrorMessage name="password"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <fieldset className="form-group">
+-                                <label>Name: </label>
+-                                <Field className="form-control"
+-                                       type="text"
+-                                       name="username"/>
+-
+-                            </fieldset>
+-                            <fieldset className="form-group">
+-                                <label>Email: </label>
+-                                <Field className="form-control"
+-                                       type="email"
+-                                       name="email"/>
+-                            </fieldset>
+-                            <fieldset className="form-group">
+-                                <label>Password: </label>
+-                                <Field className="form-control"
+-                                       type="password"
+-                                       name="password"/>
+-                            </fieldset>
+-                            <button className="btn btn-success"
+-                                    style={{width: "220px"}}>
+-                                <Link to="/" className="link">
+-                                    Submit Changes
+-                                </Link>
+-                            </button>
+-                        </Form>
+-                    )
+-                }
+-                </Formik>
++                <form onSubmit={this.handleSubmit}>
++                    <label>UserName: </label>
++                    <input type="text"
++                           name="username"
++                           value={username}
++                           onChange={this.handleChange}
++                    />
++                    <label>Email: </label>
++                    <input type="text"
++                           name="email"
++                           value={email}
++                           onChange={this.handleChange}
++                    />
++                    <br/>
++                    <label>Password: </label>
++                    <input type="password"
++                           name="password"
++                           value={password}
++                           onChange={this.handleChange}
++                    />
++                    &nbsp;
++                    &nbsp;
++                    <button className="btn btn-success"
++                            type="submit"
++                            style={{width: "220px"}}
++                            // onClick={this.validate}
++                    >
++                        Submit Changes
++                    </button>
++                </form>
++
++                {/*<Formik initialValues={{username, email, password}}*/}
++                {/*        onSubmit={this.handleSubmit}*/}
++                {/*        validate={this.validate}*/}
++                {/*        validateOnBlur={false}*/}
++                {/*        validateOnChange={true}*/}
++                {/*        enableReinitialize={false}*/}
++                {/*>{*/}
++                {/*    (props) => (*/}
++                {/*        <Form>*/}
++                {/*            <ErrorMessage name="username"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++                {/*            <ErrorMessage name="email"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++                {/*            <ErrorMessage name="password"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Name: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="text"*/}
++                {/*                       name="username"*/}
++                {/*                       // value={username}*/}
++                {/*                       // onChange={this.handleChange}*/}
++                {/*                />*/}
++
++                {/*            </fieldset>*/}
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Email: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="email"*/}
++                {/*                       name="email"*/}
++                {/*                       // value={email}*/}
++                {/*                       // onChange={this.handleChange}*/}
++                {/*                />*/}
++                {/*            </fieldset>*/}
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Password: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="password"*/}
++                {/*                       name="password"*/}
++                {/*                       // value={password}*/}
++                {/*                       // onChange={this.handleChange}*/}
++                {/*                />*/}
++                {/*            </fieldset>*/}
++                {/*            <button className="btn btn-success"*/}
++                {/*                    style={{width: "220px"}}>*/}
++                {/*                /!*<Link to="/" className="link">*!/*/}
++                {/*                    Submit Changes*/}
++                {/*                /!*</Link>*!/*/}
++                {/*            </button>*/}
++                {/*        </Form>*/}
++                {/*    )*/}
++                {/*}*/}
++                {/*</Formik>*/}
+             </div>
+         )
+     }
+Index: .idea/poker-club.iml
+===================================================================
+diff --git a/.idea/poker-club.iml b/.idea/poker-club.iml
+deleted file mode 100644
+--- a/.idea/poker-club.iml	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ /dev/null	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
+@@ -1,16 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+-  <component name="TemplatesService">
+-    <option name="TEMPLATE_FOLDERS">
+-      <list>
+-        <option value="$MODULE_DIR$/node_modules/workbox-build/src/templates" />
+-      </list>
+-    </option>
+-  </component>
+-</module>
+\ No newline at end of file
+Index: src/api/services/WelcomeDataService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport {API_URL} from \"../../Constants\";\r\n\r\n\r\nclass WelcomeDataService {\r\n    executeHelloWorldService() {\r\n        console.log('executed service')\r\n        return axios.get(`${API_URL}/welcome`);\r\n    }\r\n\r\n    executeHelloBeanService() {\r\n        console.log('executed bean service')\r\n        // let username = 'Luna'\r\n        // let password = '1234'\r\n        //\r\n        // let basicAuthHeader = 'Basic ' + window.btoa(username + \":\" + password)\r\n\r\n        return axios.get(`${API_URL}/welcome-bean`\r\n        //     ,\r\n        // {\r\n        //     headers: {\r\n        //         authorization: basicAuthHeader\r\n        //     }\r\n        //     }\r\n            );\r\n    }\r\n\r\n    // executeHelloWorldPathVariableService(user) {\r\n    //     console.log('executed path variable')\r\n    //     let username = 'Dani'\r\n    //     let password = '1234'\r\n    //\r\n    //     let basicAuthHeader = 'Basic ' + window.btoa(username + \":\" + password)\r\n    //\r\n    //     return axios.get(`http://localhost:8081/welcome/${user}`,\r\n    //         {\r\n    //             headers: {\r\n    //                 authorization: basicAuthHeader\r\n    //             }\r\n    //         });\r\n    // }\r\n}\r\n\r\nexport default new WelcomeDataService();
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/services/WelcomeDataService.js b/src/api/services/WelcomeDataService.js
+--- a/src/api/services/WelcomeDataService.js	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/api/services/WelcomeDataService.js	(date 1632920110551)
+@@ -19,7 +19,8 @@
+         //     ,
+         // {
+         //     headers: {
+-        //         authorization: basicAuthHeader
++        //         "Authorization": `Bearer $(sessionStorage.getItem("token"))`,
++        //         'Access-Control-Allow-Origin': 'http://localhost:4000'
+         //     }
+         //     }
+             );
+Index: src/components/pages/Welcome.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport HelloWorldService from \"../../api/services/WelcomeDataService\";\r\n\r\nclass Welcome extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            welcomeMessage: ''\r\n        }\r\n\r\n        this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);\r\n        this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this);\r\n        this.handleError = this.handleError.bind(this);\r\n    }\r\n\r\n    componentDidMount() {\r\n        this.retrieveWelcomeMessage();\r\n    }\r\n\r\n    retrieveWelcomeMessage() {\r\n        console.log('retrieve message');\r\n        /*HelloWorldService.executeHelloWorldService()\r\n            .then(response => this.handleSuccessfulResponse(response))\r\n            .catch(error => this.handleError(error));*/\r\n\r\n        // HelloWorldService.executeHelloBeanService(this.props.match.params.name)\r\n        //     .then(response => this.handleSuccessfulResponse(response))\r\n        //\r\n        //\r\n        // HelloWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)\r\n        //     .then(response => this.handleSuccessfulResponse(response))\r\n        //     .catch(error => this.handleError(error))\r\n\r\n        HelloWorldService.executeHelloBeanService(this.props.match.params.name)\r\n            .then(response => this.handleSuccessfulResponse(response))\r\n            .catch(error => this.handleError(error))\r\n    }\r\n\r\n    handleSuccessfulResponse(response) {\r\n        console.log(response)\r\n        this.setState({\r\n            welcomeMessage: response.data.message\r\n        })\r\n    }\r\n\r\n    handleError(error) {\r\n        console.log(error.response)\r\n        let errorMessage = '';\r\n\r\n        if (error.message) {\r\n            errorMessage += error.message;\r\n        }\r\n\r\n        if (error.response && error.response.data) {\r\n            errorMessage += error.response.data.message()\r\n        }\r\n        this.setState({\r\n            welcomeMessage: errorMessage\r\n        })\r\n    }\r\n\r\n    render() {\r\n        return (\r\n            <div className=\"container content-box\">\r\n                <h3>Welcome to PokerApp, {this.props.match.params.name}!</h3>\r\n                &nbsp;\r\n                {/*<h6>Click here to get a customized welcome message</h6>*/}\r\n                {/*<button onClick={this.retrieveWelcomeMessage}*/}\r\n                {/*        className=\"btn btn-success\">*/}\r\n                {/*    Get Welcome Message*/}\r\n                {/*</button>*/}\r\n                <h4>{this.state.welcomeMessage}</h4>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default Welcome
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/pages/Welcome.jsx b/src/components/pages/Welcome.jsx
+--- a/src/components/pages/Welcome.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/pages/Welcome.jsx	(date 1632920110565)
+@@ -31,7 +31,7 @@
+         //     .then(response => this.handleSuccessfulResponse(response))
+         //     .catch(error => this.handleError(error))
+ 
+-        HelloWorldService.executeHelloBeanService(this.props.match.params.name)
++        HelloWorldService.executeHelloBeanService()
+             .then(response => this.handleSuccessfulResponse(response))
+             .catch(error => this.handleError(error))
+     }
+Index: src/components/pages/Header.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport \"bootstrap\"\r\nimport {Link} from \"react-router-dom\";\r\nimport { withRouter } from \"react-router\";\r\nimport AuthenticationService from \"../../api/services/AuthenticationService.js\";\r\n\r\nclass Header extends Component {\r\n    render() {\r\n        const isUserLoggedIn = AuthenticationService.isUserLoggedIn();\r\n        const isClubLoggedIn = AuthenticationService.isClubLoggedIn();\r\n        console.log(isUserLoggedIn);\r\n        console.log(isClubLoggedIn);\r\n\r\n        return (\r\n            <nav className=\"head navbar navbar-expand-md\">\r\n                <div className=\"navbar-brand\">\r\n                    <img style={{maxWidth: \"30px\"}}\r\n                         src=\"/cards.png\"\r\n                         alt=\"cards\"\r\n                    />\r\n                    PokerApp\r\n                </div>\r\n                <ul className=\"navbar-nav\">\r\n                        <li>\r\n                            <Link className=\"nav-link link\" to=\"/\" >\r\n                                Home\r\n                            </Link>\r\n                        </li>\r\n\r\n                        <li>\r\n                            <Link to=\"/clubs\" className=\"nav-link link\">\r\n                                Clubs\r\n                            </Link>\r\n                        </li>\r\n                </ul>\r\n\r\n                <ul className=\"navbar-nav navbar-collapse justify-content-end\">\r\n                    {isUserLoggedIn &&\r\n                        <li>\r\n                            <Link to=\"/playerDetailsPage\" className=\"nav-link link\">\r\n                                Welcome {sessionStorage.getItem('authenticatedUser')}\r\n                            </Link>\r\n                        </li>}\r\n\r\n                    {isClubLoggedIn &&\r\n                        <li>\r\n                            <Link to=\"/clubDetailsPage\" className=\"nav-link link\">\r\n                                Welcome {sessionStorage.getItem('authenticatedClub')}\r\n                            </Link>\r\n                        </li>}\r\n\r\n                    {isUserLoggedIn &&\r\n                        <li>\r\n                            <Link to=\"/logout\"\r\n                                  className=\"nav-link link\"\r\n                                  onClick={AuthenticationService.logout}\r\n                            >\r\n                                Logout\r\n                            </Link>\r\n                        </li>}\r\n\r\n                    {isClubLoggedIn &&\r\n                        <li>\r\n                            <Link to=\"/logout\"\r\n                                  className=\"nav-link link\"\r\n                                  onClick={AuthenticationService.logout}\r\n                            >\r\n                                Logout\r\n                            </Link>\r\n                        </li>}\r\n                </ul>\r\n            </nav>\r\n        )\r\n    }\r\n}\r\n\r\n// export default Header;\r\nexport default withRouter(Header);
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/pages/Header.jsx b/src/components/pages/Header.jsx
+--- a/src/components/pages/Header.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/pages/Header.jsx	(date 1632920110563)
+@@ -2,12 +2,13 @@
+ import "bootstrap"
+ import {Link} from "react-router-dom";
+ import { withRouter } from "react-router";
+-import AuthenticationService from "../../api/services/AuthenticationService.js";
++// import AuthenticationService from "../../api/services/AuthenticationService.js";
++import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+ 
+ class Header extends Component {
+     render() {
+-        const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+-        const isClubLoggedIn = AuthenticationService.isClubLoggedIn();
++        const isUserLoggedIn = AuthenticationServiceJwt.isUserLoggedIn();
++        const isClubLoggedIn = AuthenticationServiceJwt.isClubLoggedIn();
+         console.log(isUserLoggedIn);
+         console.log(isClubLoggedIn);
+ 
+@@ -53,7 +54,7 @@
+                         <li>
+                             <Link to="/logout"
+                                   className="nav-link link"
+-                                  onClick={AuthenticationService.logout}
++                                  onClick={AuthenticationServiceJwt.logout}
+                             >
+                                 Logout
+                             </Link>
+@@ -63,7 +64,7 @@
+                         <li>
+                             <Link to="/logout"
+                                   className="nav-link link"
+-                                  onClick={AuthenticationService.logout}
++                                  onClick={AuthenticationServiceJwt.logout}
+                             >
+                                 Logout
+                             </Link>
+Index: src/components/clubs/ClubRegister.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport {Link} from \"react-router-dom\";\r\n\r\nclass ClubRegister extends Component {\r\n    render() {\r\n        return (\r\n            <div className=\"container content-box\">\r\n                <h3>Club Register Form</h3>\r\n                &nbsp;\r\n                <form>\r\n                    <label>Club Name: </label><input type=\"text\" name=\"clubname\"/>\r\n                    <label>City: </label><input type=\"text\" name=\"city\"/>\r\n                    <label>Country: </label><input type=\"text\" name=\"country\"/>\r\n                    <label>Site Address: </label><input type=\"text\" name=\"site\"/>\r\n                    <label>Address: </label><input type=\"text\" name=\"site\"/>\r\n                    <label>Phone Number: </label><input type=\"text\" name=\"site\"/>\r\n                    <label>Email: </label><input type=\"email\" name=\"email\"/>\r\n                    <label>Password: </label><input type=\"password\" name=\"password\"/>\r\n                    <button className=\"btn btn-success\">\r\n                        <Link to=\"/clubRegisterSuccessful\" className=\"link\">\r\n                            Register\r\n                        </Link>\r\n                    </button>\r\n                </form>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default ClubRegister
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/clubs/ClubRegister.jsx b/src/components/clubs/ClubRegister.jsx
+--- a/src/components/clubs/ClubRegister.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/clubs/ClubRegister.jsx	(date 1632922240751)
+@@ -1,25 +1,282 @@
+ import React, {Component} from "react";
+-import {Link} from "react-router-dom";
++// import {Link} from "react-router-dom";
++import ClubsDataService from "../../api/services/ClubsDataService";
++import PlayersDataService from "../../api/services/PlayersDataService";
+ 
+ class ClubRegister extends Component {
++    constructor(props) {
++        super(props);
++
++        this.state = {
++            clubUsername: '',
++            password: '',
++            confirmPassword: '',
++            city: '',
++            country: '',
++            address: '',
++            email: '',
++            site: '',
++            phoneNumber: '',
++            errors: {
++                clubUsername: '',
++                password: '',
++                confirmPassword: '',
++                city: '',
++                country: '',
++                address: '',
++                email: '',
++                site: '',
++                phoneNumber: ''
++            }
++        }
++        this.handleChange = this.handleChange.bind(this)
++        this.handleSubmit = this.handleSubmit.bind(this)
++        this.validateUsername = this.validateUsername.bind(this)
++        this.validateCity= this.validateCity.bind(this)
++        this.validatePassword = this.validatePassword.bind(this)
++        this.validateCountry = this.validateCountry.bind(this)
++        this.validateAddress = this.validateAddress.bind(this)
++        this.validatePhoneNumber = this.validatePhoneNumber.bind(this)
++        this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
++    }
++
++    componentDidMount() {
++        console.log("component did mount")
++        if (this.state.id !== null) {
++            return
++        }
++
++        this.onSubmit(this.values);
++    }
++
++    validateUsername= () => {
++        let error = this.state.errors
++        if (!this.state.clubUsername) {
++            error.clubUsername = 'Required'
++        } else if(this.state.clubUsername.length < 3) {
++            error.clubUsername= 'Username has to have at least 3 characters'
++        }else {
++            error.clubUsername = ''
++        }
++    }
++
++    validateCity= () => {
++        let error = this.state.errors
++        if (!this.state.city) {
++            error.city = 'Required'
++        } else if(this.state.city.length < 3) {
++            error.city= 'City has to have at least 3 characters'
++        }else {
++            error.city = ''
++        }
++    }
++
++    validateCountry= () => {
++        let error = this.state.errors
++        if (!this.state.country) {
++            error.country = 'Required'
++        } else if(this.state.country.length < 3) {
++            error.country= 'Country has to have at least 3 characters'
++        }else {
++            error.country = ''
++        }
++    }
++
++    validateAddress= () => {
++        let error = this.state.errors
++        if (!this.state.address) {
++            error.address = 'Required'
++        } else if(this.state.address.length < 3) {
++            error.address= 'Address has to have at least 3 characters'
++        }else {
++            error.address = ''
++        }
++    }
++
++    validatePhoneNumber= () => {
++        let error = this.state.errors
++        if (!this.state.phoneNumber) {
++            error.phoneNumber = 'Required'
++        } else if(this.state.phoneNumber.length < 3) {
++            error.phoneNumber= 'Phone Number has to have at least 3 characters'
++        }else if(!(this.state.phoneNumber.match(/^[0-9]+$/))) {
++            error.phoneNumber= 'Phone Number has to have only digits'
++        }else {
++            error.phoneNumber = ''
++        }
++    }
++
++    validatePassword= () => {
++        let error = this.state.errors
++        if (!this.state.password) {
++            error.password = 'Required'
++        } else if(this.state.password.length < 4) {
++            error.password = 'Password has to have at least 4 characters'
++        }else {
++            error.password = ''
++        }
++    }
++
++    validateConfirmPassword= () => {
++        let error = this.state.errors
++        if (!this.state.confirmPassword) {
++            error.confirmPassword = 'Required'
++        } else if(!(this.state.confirmPassword === this.state.password)) {
++            error.confirmPassword = 'Passwords have to match'
++        }else {
++            error.confirmPassword = ''
++        }
++    }
++
++
++    handleChange = (event) => {
++        this.setState({
++            [event.target.name]: event.target.value
++        })
++    }
++
++    handleSubmit = (event) => {
++        event.preventDefault()
++        let club = {
++            password: this.state.password,
++            city: this.state.city,
++            country: this.state.country,
++            address: this.state.address,
++            email: this.state.email,
++            site: this.state.site,
++            phoneNumber: this.state.phoneNumber
++        }
++
++        ClubsDataService.createClub(this.state.clubUsername, club)
++            .then(response => {
++                console.log(response)
++                this.props.history.push(`/clubRegisterSuccessful`)
++            })
++    }
++
+     render() {
++        let {clubUsername,
++            password,
++            confirmPassword,
++            city,
++            country,
++            address,
++            email,
++            site,
++            phoneNumber} = this.state
++
+         return (
+             <div className="container content-box">
+                 <h3>Club Register Form</h3>
+                 &nbsp;
+-                <form>
+-                    <label>Club Name: </label><input type="text" name="clubname"/>
+-                    <label>City: </label><input type="text" name="city"/>
+-                    <label>Country: </label><input type="text" name="country"/>
+-                    <label>Site Address: </label><input type="text" name="site"/>
+-                    <label>Address: </label><input type="text" name="site"/>
+-                    <label>Phone Number: </label><input type="text" name="site"/>
+-                    <label>Email: </label><input type="email" name="email"/>
+-                    <label>Password: </label><input type="password" name="password"/>
+-                    <button className="btn btn-success">
+-                        <Link to="/clubRegisterSuccessful" className="link">
++                <form onSubmit={this.handleSubmit}>
++                    <label>Club Name: </label>
++                    <input type="text"
++                           name="clubUsername"
++                           value={clubUsername}
++                           onChange={this.handleChange}
++                           required={this.validateUsername()}
++                    />
++                    {this.state.errors.clubUsername &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.clubUsername}</p>}
++                    <br/>
++                    <br/>
++
++                    <label>City: </label>
++                    <input type="text"
++                           name="city"
++                           value={city}
++                           onChange={this.handleChange}
++                           required={this.validateCity()}
++                    />
++                    {this.state.errors.city &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.city}</p>}
++                    <br/>
++                    <br/>
++
++
++                    <label>Country: </label>
++                    <input type="text"
++                           name="country"
++                           value={country}
++                           onChange={this.handleChange}
++                           required={this.validateCountry()}
++                    />
++                    {this.state.errors.country &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.country}</p>}
++                    <br/>
++                    <br/>
++
++                    <label>Site Address: </label>
++                    <input type="text"
++                           name="site"
++                           value={site}
++                           onChange={this.handleChange}
++                    />
++                    <br/>
++                    <br/>
++
++                    <label>Address: </label>
++                    <input type="text"
++                           name="address"
++                           value={address}
++                           onChange={this.handleChange}
++                           required={this.validateAddress()}
++                    />
++                    {this.state.errors.address &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.address}</p>}
++                    <br/>
++                    <br/>
++
++                    <label>Phone Number: </label>
++                    <input type="text"
++                           name="phoneNumber"
++                           value={phoneNumber}
++                           onChange={this.handleChange}
++                           required={this.validatePhoneNumber()}
++                    />
++                    {this.state.errors.phoneNumber &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.phoneNumber}</p>}
++                    <br/>
++                    <br/>
++
++
++                    <label>Email: </label>
++                    <input type="email"
++                           name="email"
++                           value={email}
++                           onChange={this.handleChange}
++                    />
++                    <br/>
++                    <br/>
++
++                    <label>Password: </label>
++                    <input type="password"
++                           name="password"
++                           value={password}
++                           onChange={this.handleChange}
++                           required={this.validatePassword()}
++                    />
++                    {this.state.errors.password &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.password}</p>}
++                    <br/>
++                    <br/>
++                    <label>Confirm Password: </label>
++                    <input type="password"
++                           name="confirmPassword"
++                           value={confirmPassword}
++                           onChange={this.handleChange}
++                           required={this.validateConfirmPassword()}
++                    />
++                    {this.state.errors.confirmPassword &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.confirmPassword}</p>}
++                    <br/>
++                    <button className="btn btn-success"
++                            type="submit"
++                    >
++                        {/*<Link to="/clubRegisterSuccessful" className="link">*/}
+                             Register
+-                        </Link>
++                        {/*</Link>*/}
+                     </button>
+                 </form>
+             </div>
+Index: src/components/games/GamesList.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport GameDataService from \"../../api/services/GameDataService\";\r\nimport AuthenticationService from \"../../api/services/AuthenticationService\";\r\nimport moment from \"moment\";\r\n\r\nclass GamesList extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n\r\n        this.state = {\r\n            club: this.props.match.params.name,\r\n            games : [],\r\n            message: null\r\n        }\r\n        this.deleteGameClicked = this.deleteGameClicked.bind(this);\r\n        this.updateGameClicked = this.updateGameClicked.bind(this)\r\n        this.refreshGames = this.refreshGames.bind(this)\r\n        this.addGameClicked = this.addGameClicked.bind(this)\r\n    }\r\n\r\n    componentDidMount() {\r\n       this.refreshGames();\r\n    }\r\n\r\n    componentDidUpdate(){\r\n        this.componentDidMount();\r\n    }\r\n\r\n    refreshGames() {\r\n        let clubname = AuthenticationService.getLoggedInClubName()\r\n        GameDataService.retrieveAllGames(clubname)\r\n            .then(\r\n                response => {\r\n                    console.log(response)\r\n                    this.setState({games : response.data})\r\n                }\r\n            )\r\n    }\r\n\r\n    deleteGameClicked(id) {\r\n        let club = AuthenticationService.getLoggedInClubName()\r\n        console.log(id + \" \" + club);\r\n        if(window.confirm('Are you sure you want to delete this game?')) {\r\n            GameDataService.deleteGame(club, id)\r\n                .then(response => {\r\n                    this.setState({message: `Delete of game ${id} successful`})\r\n                })\r\n        }\r\n    }\r\n\r\n    updateGameClicked(id) {\r\n        this.props.history.push(`/games/${id}`)\r\n    }\r\n\r\n    addGameClicked() {\r\n        this.props.history.push(`/games/-1`)\r\n    }\r\n\r\n    infoGameClicked(id) {\r\n        // this.refreshClubs();\r\n        console.log(\"This is the id: \" + id)\r\n        this.props.history.push(`/games/${id}/details`)\r\n    }\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h3>List Of Games for {AuthenticationService.getLoggedInClubName()}  Poker Club</h3>\r\n                {this.state.message && <div className=\"alert alert-success\">{this.state.message}</div>}\r\n                &nbsp;\r\n                    <table className=\"table\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th>Title</th>\r\n                                <th>Details</th>\r\n                                <th>Begin Date</th>\r\n                                <th>Has Ended?</th>\r\n                                <th>Update</th>\r\n                                <th>Delete</th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            {this.state.games.map(\r\n                                game =>\r\n                                    <tr key={game.id}>\r\n                                        <td>{game.title}</td>\r\n                                        <td>\r\n                                            <button className=\"btn btn-success btn-primary\"\r\n                                                    onClick={() => this.infoGameClicked(game.id)}\r\n                                            >\r\n                                                Details\r\n                                            </button>\r\n                                        </td>\r\n                                        <td>{moment(game.beginDate).format('YYYY-MM-DD')}</td>\r\n                                        <td>{game.hasEnded.toString()}</td>\r\n                                        <td>\r\n                                            <button className=\"btn btn-success btn-primary update\"\r\n                                                    onClick={() => this.updateGameClicked(game.id)}\r\n                                            >\r\n                                                Update\r\n                                            </button>\r\n                                        </td>\r\n                                        <td>\r\n                                            <button className=\"btn btn-warning btn-primary delete\"\r\n                                                    onClick={() => this.deleteGameClicked(game.id)}\r\n                                            >\r\n                                                Delete\r\n                                            </button>\r\n                                        </td>\r\n\r\n                                    </tr>\r\n                            )}\r\n                        </tbody>\r\n                    </table>\r\n                <div className=\"row\">\r\n                    <button className=\"btn btn-success\"\r\n                            style={{width: \"200px\"}}\r\n                            onClick={this.addGameClicked}\r\n                    >\r\n                        Add New Game\r\n                    </button>\r\n                </div>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default GamesList
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/games/GamesList.jsx b/src/components/games/GamesList.jsx
+--- a/src/components/games/GamesList.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/games/GamesList.jsx	(date 1632920110561)
+@@ -1,7 +1,8 @@
+ import React, {Component} from "react";
+ import GameDataService from "../../api/services/GameDataService";
+-import AuthenticationService from "../../api/services/AuthenticationService";
++// import AuthenticationService from "../../api/services/AuthenticationService";
+ import moment from "moment";
++import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+ 
+ class GamesList extends Component {
+     constructor(props) {
+@@ -22,12 +23,12 @@
+        this.refreshGames();
+     }
+ 
+-    componentDidUpdate(){
+-        this.componentDidMount();
+-    }
++    // componentDidUpdate(){
++    //     this.componentDidMount();
++    // }
+ 
+     refreshGames() {
+-        let clubname = AuthenticationService.getLoggedInClubName()
++        let clubname = AuthenticationServiceJwt.getLoggedInClubName()
+         GameDataService.retrieveAllGames(clubname)
+             .then(
+                 response => {
+@@ -38,7 +39,7 @@
+     }
+ 
+     deleteGameClicked(id) {
+-        let club = AuthenticationService.getLoggedInClubName()
++        let club = AuthenticationServiceJwt.getLoggedInClubName()
+         console.log(id + " " + club);
+         if(window.confirm('Are you sure you want to delete this game?')) {
+             GameDataService.deleteGame(club, id)
+@@ -65,7 +66,7 @@
+     render() {
+         return (
+             <div>
+-                <h3>List Of Games for {AuthenticationService.getLoggedInClubName()}  Poker Club</h3>
++                <h3>List Of Games for {AuthenticationServiceJwt.getLoggedInClubName()}  Poker Club</h3>
+                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
+                 &nbsp;
+                     <table className="table">
+Index: src/components/players/PlayerRegister.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport {Link} from \"react-router-dom\";\r\nimport {ErrorMessage, Form, Formik, Field} from \"formik\";\r\n\r\nclass PlayerRegister extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n\r\n        // this.state: {\r\n        //     id: this.props.match.params.id,\r\n        //     username: '',\r\n        //     email: '',\r\n        //     password: ''\r\n        // }\r\n        this.validate = this.validate.bind(this)\r\n        this.onSubmit = this.onSubmit.bind(this)\r\n    }\r\n\r\n    // componentDidMount() {\r\n    //     if (this.state.id !== null) {\r\n    //         return\r\n    //     }\r\n    //\r\n    //     PlayersDataService.retrievePlayer(this.state.username)\r\n    //         .then(() => this.setState({\r\n    //             username: this.state.username,\r\n    //             email: this.state.email,\r\n    //             password: this.state.password\r\n    //         }))\r\n    // }\r\n\r\n    validate(values) {\r\n        console.log(values)\r\n        // let error = {}\r\n        // if (!this.state.username) {\r\n        //     error.username = 'Enter a username'\r\n        // } else if(this.state.username.length < 3) {\r\n        //     error.username = 'Username has to have at least 3 characters'\r\n        // }\r\n        //\r\n        // if (!this.state.email) {\r\n        //     error.email = 'Enter a email'\r\n        //     // } else if(values.username.length < 3) {\r\n        //     //     error.username = 'Username has to have at least 3 characters'\r\n        // }\r\n        //\r\n        // if (!this.state.password) {\r\n        //     error.password = 'Enter a password'\r\n        // } else if(this.state.password.length < 4) {\r\n        //     error.password = 'Password has to have at least 4 characters'\r\n        // }\r\n        // return error\r\n    }\r\n\r\n    onSubmit(values) {\r\n        console.log(values)\r\n        //\r\n        // let player = {\r\n        //     username: values.username,\r\n        //     email: values.email,\r\n        //     password: values.password\r\n        // }\r\n\r\n        // if (this.state.id === -1) {\r\n        //     PlayersDataService.createPlayer(this.state.username)\r\n        //         .then(() => this.props.history.push(`/registerSuccessful`))\r\n        // }\r\n    }\r\n\r\n    render() {\r\n        // let {username, email, password} = this.state\r\n\r\n        return (\r\n            <div className=\"container content-box\">\r\n                <h3>Player Register Form</h3>\r\n                &nbsp;\r\n                <Formik initialValues={{}}\r\n                        validate={this.validate}\r\n                        onSubmit={this.onSubmit}\r\n                        validateOnChange={true}\r\n                        validateOnBlur={true}\r\n                >{\r\n                    (props) => (\r\n                        <Form>\r\n                            <ErrorMessage name=\"username\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <ErrorMessage name=\"email\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <ErrorMessage name=\"password\"\r\n                                          component=\"div\"\r\n                                          className=\"alert alert-warning\"\r\n                            />\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Name: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"text\"\r\n                                       name=\"username\"/>\r\n\r\n                            </fieldset>\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Email: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"email\"\r\n                                       name=\"email\"/>\r\n                            </fieldset>\r\n                            <fieldset className=\"form-group\">\r\n                                <label>Password: </label>\r\n                                <Field className=\"form-control\"\r\n                                       type=\"password\"\r\n                                       name=\"password\"/>\r\n                            </fieldset>\r\n                            <button className=\"btn btn-success\"\r\n                                    type=\"submit\">\r\n                                <Link to=\"/registerSuccessful\" className=\"link\">\r\n                                    Register\r\n                                </Link>\r\n                            </button>\r\n                        </Form>\r\n                    )\r\n                }\r\n                </Formik>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default PlayerRegister\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/players/PlayerRegister.jsx b/src/components/players/PlayerRegister.jsx
+--- a/src/components/players/PlayerRegister.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/players/PlayerRegister.jsx	(date 1632922240772)
+@@ -1,128 +1,273 @@
+ import React, {Component} from "react";
+-import {Link} from "react-router-dom";
+-import {ErrorMessage, Form, Formik, Field} from "formik";
++// import {ErrorMessage, Form, Formik, Field} from "formik";
++import PlayersDataService from "../../api/services/PlayersDataService";
+ 
+ class PlayerRegister extends Component {
+     constructor(props) {
+         super(props);
+ 
+-        // this.state: {
+-        //     id: this.props.match.params.id,
+-        //     username: '',
+-        //     email: '',
+-        //     password: ''
+-        // }
+-        this.validate = this.validate.bind(this)
+-        this.onSubmit = this.onSubmit.bind(this)
++        this.state = {
++            // id: this.props.match.params.id,
++            // id: -1,
++            username: '',
++            email: '',
++            password: '',
++            confirmPassword: '',
++            errors: {
++                username: '',
++                email: '',
++                password: '',
++                confirmPassword: ''
++            }
++        }
++        // this.validate = this.validate.bind(this)
++        // this.onSubmit = this.onSubmit.bind(this)
++        this.handleChange = this.handleChange.bind(this)
++        this.handleSubmit = this.handleSubmit.bind(this)
++        this.validateUsername = this.validateUsername.bind(this)
++        this.validateEmail= this.validateEmail.bind(this)
++        this.validatePassword = this.validatePassword.bind(this)
++        this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
+     }
+ 
+     // componentDidMount() {
+-    //     if (this.state.id !== null) {
+-    //         return
+-    //     }
+-    //
+-    //     PlayersDataService.retrievePlayer(this.state.username)
+-    //         .then(() => this.setState({
+-    //             username: this.state.username,
+-    //             email: this.state.email,
+-    //             password: this.state.password
+-    //         }))
++    //     this.handleSubmit();
+     // }
++
++    componentDidMount() {
++        console.log("component did mount")
++        if (this.state.id !== null) {
++            return
++        }
++
++        this.onSubmit(this.values);
++    }
++
++    validateUsername= () => {
++        let error = this.state.errors
++            if (!this.state.username) {
++                error.username = 'Required'
++            } else if(this.state.username.length < 3) {
++                error.username = 'Username has to have at least 3 characters'
++            }else {
++                error.username = ''
++            }
++    }
++
++    validateEmail= () => {
++        let error = this.state.errors
++        let lastAtPos = this.state.email.lastIndexOf("@");
++        let lastDotPos = this.state.email.lastIndexOf(".");
++            if (!this.state.email) {
++                error.email = 'Required'
++            } else if(!(
++                lastAtPos < lastDotPos &&
++                lastAtPos > 0 &&
++                this.state.email.indexOf("@@") === -1 &&
++                lastDotPos > 2 &&
++                this.state.email.length - lastDotPos > 2
++            )) {
++                error.email = 'Email is not valid'
++            }else {
++                error.email = ''
++            }
++    }
++
++    validatePassword= () => {
++        let error = this.state.errors
++            if (!this.state.password) {
++                error.password = 'Required'
++            } else if(this.state.password.length < 4) {
++                error.password = 'Password has to have at least 4 characters'
++            }else {
++                error.password = ''
++            }
++    }
++
++    validateConfirmPassword= () => {
++        let error = this.state.errors
++            if (!this.state.confirmPassword) {
++                error.confirmPassword = 'Required'
++            } else if(!(this.state.confirmPassword === this.state.password)) {
++                error.confirmPassword = 'Passwords have to match'
++            }else {
++                error.confirmPassword = ''
++            }
++    }
+ 
+-    validate(values) {
+-        console.log(values)
+-        // let error = {}
+-        // if (!this.state.username) {
+-        //     error.username = 'Enter a username'
+-        // } else if(this.state.username.length < 3) {
+-        //     error.username = 'Username has to have at least 3 characters'
+-        // }
+-        //
+-        // if (!this.state.email) {
+-        //     error.email = 'Enter a email'
+-        //     // } else if(values.username.length < 3) {
+-        //     //     error.username = 'Username has to have at least 3 characters'
+-        // }
+-        //
+-        // if (!this.state.password) {
+-        //     error.password = 'Enter a password'
+-        // } else if(this.state.password.length < 4) {
+-        //     error.password = 'Password has to have at least 4 characters'
+-        // }
+-        // return error
+-    }
++    // validate(values) {
++    //     console.log("Validate " + values)
++    //     let error = {}
++    //     if (!this.state.username) {
++    //         error.username = 'Enter a username'
++    //     } else if(this.state.username.length < 3) {
++    //         error.username = 'Username has to have at least 3 characters'
++    //     }
++    //
++    //     if (!this.state.email) {
++    //         error.email = 'Enter a email'
++    //         // } else if(values.username.length < 3) {
++    //         //     error.username = 'Username has to have at least 3 characters'
++    //     }
++    //
++    //     if (!this.state.password) {
++    //         error.password = 'Enter a password'
++    //     } else if(this.state.password.length < 4) {
++    //         error.password = 'Password has to have at least 4 characters'
++    //     }
++    //     return error
++    // }
+ 
+-    onSubmit(values) {
+-        console.log(values)
+-        //
+-        // let player = {
+-        //     username: values.username,
+-        //     email: values.email,
+-        //     password: values.password
+-        // }
++    // onSubmit(values) {
++    //     console.log("on submit" + values)
++    //
++    //     let player = {
++    //         username: values.username,
++    //         email: values.email,
++    //         password: values.password
++    //     }
++    //
++    //     // if (this.state.id === -1) {
++    //         PlayersDataService.createPlayer(player.username)
++    //             // .then(() => this.props.history.push(`/registerSuccessful`))
++    //             .then(() => console.log(player))
++    //     // }
++    // }
+ 
+-        // if (this.state.id === -1) {
+-        //     PlayersDataService.createPlayer(this.state.username)
+-        //         .then(() => this.props.history.push(`/registerSuccessful`))
+-        // }
++    handleChange = (event) => {
++        this.setState({
++            [event.target.name]: event.target.value
++        })
++    }
++
++    handleSubmit = (event) => {
++        event.preventDefault()
++        let player = {
++            email: this.state.email,
++            password: this.state.password
++        }
++        PlayersDataService.createPlayer(this.state.username, player)
++            .then(response => {
++                console.log(response)
++                this.props.history.push(`/registerSuccessful`)
++            })
+     }
+ 
+     render() {
+-        // let {username, email, password} = this.state
++        let {username, email, password, confirmPassword} = this.state
+ 
+         return (
+             <div className="container content-box">
+                 <h3>Player Register Form</h3>
+                 &nbsp;
+-                <Formik initialValues={{}}
+-                        validate={this.validate}
+-                        onSubmit={this.onSubmit}
+-                        validateOnChange={true}
+-                        validateOnBlur={true}
+-                >{
+-                    (props) => (
+-                        <Form>
+-                            <ErrorMessage name="username"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <ErrorMessage name="email"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <ErrorMessage name="password"
+-                                          component="div"
+-                                          className="alert alert-warning"
+-                            />
+-                            <fieldset className="form-group">
+-                                <label>Name: </label>
+-                                <Field className="form-control"
+-                                       type="text"
+-                                       name="username"/>
++                <form onSubmit={this.handleSubmit}>
++                    <label>UserName:</label>
++                    <input type="text"
++                           name="username"
++                           value={username}
++                           onChange={this.handleChange}
++                           required={this.validateUsername()}
++                    />
++                    {this.state.errors.username &&
++                            <p style={{color: "red", display: "inline"}}>{this.state.errors.username}</p>}
++                    <br/>
++                    <br/>
+ 
+-                            </fieldset>
+-                            <fieldset className="form-group">
+-                                <label>Email: </label>
+-                                <Field className="form-control"
+-                                       type="email"
+-                                       name="email"/>
+-                            </fieldset>
+-                            <fieldset className="form-group">
+-                                <label>Password: </label>
+-                                <Field className="form-control"
+-                                       type="password"
+-                                       name="password"/>
+-                            </fieldset>
+-                            <button className="btn btn-success"
+-                                    type="submit">
+-                                <Link to="/registerSuccessful" className="link">
+-                                    Register
+-                                </Link>
+-                            </button>
+-                        </Form>
+-                    )
+-                }
+-                </Formik>
++                    <label>Email:</label>
++                    <input type="email"
++                           name="email"
++                           value={email}
++                           onChange={this.handleChange}
++                           required={this.validateEmail()}
++                    />
++                    {this.state.errors.email &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.email}</p>}
++                    <br/>
++                    <br/>
++
++                    <label>Password:</label>
++                    <input type="password"
++                           name="password"
++                           value={password}
++                           onChange={this.handleChange}
++                           required={this.validatePassword()}
++                    />
++                    {this.state.errors.password &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.password}</p>}
++                    <br/>
++                    <br/>
++
++
++                    <label>Confirm Password:</label>
++                    <input type="password"
++                           name="confirmPassword"
++                           value={confirmPassword}
++                           onChange={this.handleChange}
++                           required={this.validateConfirmPassword()}
++                    />
++                    {this.state.errors.confirmPassword &&
++                    <p style={{color: "red", display: "inline"}}>{this.state.errors.confirmPassword}</p>}
++                    <br/>
++                    <br/>
++
++                    <button className="btn btn-success"
++                            type="submit"
++                            // onClick={this.loginClicked}
++                            // onClick={this.handleSubmit}
++                    >
++                        Register
++                    </button>
++                </form>
++                {/*<Formik initialValues={{}}*/}
++                {/*        onSubmit={this.onSubmit}*/}
++                {/*        validate={this.validate}*/}
++                {/*        validateOnChange={true}*/}
++                {/*        validateOnBlur={true}*/}
++                {/*        enableReinitialize={false}*/}
++                {/*>{*/}
++                {/*    (props) => (*/}
++                {/*        <Form>*/}
++                {/*            <ErrorMessage name="username"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++                {/*            <ErrorMessage name="email"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++                {/*            <ErrorMessage name="password"*/}
++                {/*                          component="div"*/}
++                {/*                          className="alert alert-warning"*/}
++                {/*            />*/}
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Name: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="text"*/}
++                {/*                       name="username"/>*/}
++
++                {/*            </fieldset>*/}
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Email: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="email"*/}
++                {/*                       name="email"/>*/}
++                {/*            </fieldset>*/}
++                {/*            <fieldset className="form-group">*/}
++                {/*                <label>Password: </label>*/}
++                {/*                <Field className="form-control"*/}
++                {/*                       type="password"*/}
++                {/*                       name="password"/>*/}
++                {/*            </fieldset>*/}
++                {/*            <button className="btn btn-success"*/}
++                {/*                    type="submit">*/}
++                {/*                /!*<Link to="/registerSuccessful" className="link">*!/*/}
++                {/*                    Register*/}
++                {/*                /!*</Link>*!/*/}
++                {/*            </button>*/}
++                {/*        </Form>*/}
++                {/*    )*/}
++                {/*}*/}
++                {/*</Formik>*/}
+             </div>
+         )
+     }
+Index: src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useEffect, useState} from \"react\";\r\n// import './switcher.scss';\r\n// import './switch.scss';\r\nimport './App.css';\r\nimport Header from \"./components/pages/Header.jsx\";\r\nimport Footer from \"./components/pages/Footer.jsx\";\r\nimport \"bootstrap/dist/css/bootstrap.css\";\r\nimport {BrowserRouter as Router, Route, Switch} from \"react-router-dom\";\r\nimport FirstPage from \"./components/pages/FirstPage\";\r\nimport PlayerLogin from \"./components/players/PlayerLogin\";\r\nimport AuthenticatedRoute from \"./components/pages/AuthenticatedRoute\";\r\nimport Logout from \"./components/pages/Logout\";\r\nimport ClubsList from \"./components/clubs/ClubsList\";\r\nimport Welcome from \"./components/pages/Welcome\";\r\nimport Error from \"./components/pages/Error\";\r\nimport ClubOwnersPage from \"./components/clubs/ClubOwnersPage\";\r\nimport PlayerPage from \"./components/players/PlayerPage\";\r\nimport PlayerDetailsPage from \"./components/players/PlayerDetailsPage\";\r\nimport PlayerRegister from \"./components/players/PlayerRegister\";\r\nimport ClubLogin from \"./components/clubs/ClubLogin\";\r\nimport ClubRegister from \"./components/clubs/ClubRegister\";\r\nimport PlayerRegisterSuccessful from \"./components/players/PlayerRegisterSuccessful\";\r\nimport ClubRegisterSuccessful from \"./components/clubs/ClubRegisterSuccessful\";\r\nimport GamesList from \"./components/games/GamesList\";\r\nimport ClubDetailsPage from \"./components/clubs/ClubDetailsPage\";\r\nimport GameComponent from \"./components/games/GameComponent\";\r\nimport PlayerAccount from \"./components/players/PlayerAccount\";\r\nimport ClubAccount from \"./components/clubs/ClubAccount\";\r\nimport ClubInfo from \"./components/clubs/ClubInfo\";\r\nimport GameDetails from \"./components/games/GameDetails\";\r\n\r\nfunction App() {\r\n\r\n    //state\r\n    const [colorTheme, setColorTheme] = useState('theme-white');\r\n\r\n    // effect\r\n    useEffect(() => {\r\n        const currentThemeColor = localStorage.getItem('theme-color');\r\n        if (currentThemeColor) {\r\n            setColorTheme(currentThemeColor);\r\n        }\r\n    }, []);\r\n\r\n    // set theme\r\n    const handleClick = (theme) => {\r\n        setColorTheme(theme);\r\n        localStorage.setItem('theme-color', theme);\r\n    }\r\n\r\n    return (\r\n        <div className={`App ${colorTheme}`}>\r\n            <Router>\r\n                <>\r\n                    <Header/>\r\n\r\n                        <div className='theme-options'>\r\n                            <div id='theme-white'\r\n                                 onClick={() => handleClick('theme-white')}\r\n                                 className={`${colorTheme === 'theme-white' ? 'active' : ''}`}\r\n                            >\uD83C\uDF1E\r\n                            </div>\r\n                            <div id='theme-black'\r\n                                 onClick={() => handleClick('theme-black')}\r\n                                 className={`${colorTheme === 'theme-black' ? 'active' : ''}`}\r\n                            >\uD83C\uDF19\r\n                            </div>\r\n                            <div id='theme-pink'\r\n                                 onClick={() => handleClick('theme-pink')}\r\n                                 className={`${colorTheme === 'theme-pink' ? 'active' : ''}`}\r\n                            >\uD83C\uDF80\r\n                            </div>\r\n                        </div>\r\n\r\n                        <div className='content-box'>\r\n                            <Switch>\r\n                                <Route path=\"/\" exact component={FirstPage} />\r\n                                <Route path=\"/playerLogin\" component={PlayerLogin} />\r\n                                <Route path=\"/playerRegister\" component={PlayerRegister} />\r\n                                <Route path=\"/logout\" component={Logout} />\r\n                                <Route exact path=\"/clubs\" component={ClubsList} />\r\n                                <Route path=\"/playerPage\" component={PlayerPage} />\r\n                                <Route path=\"/clubOwner\" component={ClubOwnersPage} />\r\n                                <Route exact path=\"/clubs/:name\" component={ClubInfo} />\r\n                                <Route path=\"/clubLogin\" component={ClubLogin} />\r\n                                <Route path=\"/clubRegister\" component={ClubRegister} />\r\n                                <Route path=\"/registerSuccessful\" component={PlayerRegisterSuccessful} />\r\n                                <Route path=\"/clubRegisterSuccessful\" component={ClubRegisterSuccessful} />\r\n                                <AuthenticatedRoute path=\"/playerDetailsPage\" component={PlayerDetailsPage} />\r\n                                <AuthenticatedRoute path=\"/clubDetailsPage\" component={ClubDetailsPage} />\r\n                                <AuthenticatedRoute exact path=\"/welcome/:name\" component={Welcome} />\r\n                                <AuthenticatedRoute exact path=\"/games\" component={GamesList} />\r\n                                <AuthenticatedRoute exact path=\"/playerAccount\" component={PlayerAccount} />\r\n                                <AuthenticatedRoute exact path=\"/clubAccount\" component={ClubAccount} />\r\n                                <AuthenticatedRoute exact path=\"/games/:id\" component={GameComponent} />\r\n                                <Route exact path=\"/games/:id/details\" component={GameDetails} />\r\n                                <Route path=\"*\" component={Error} />\r\n                            </Switch>\r\n                        </div>\r\n\r\n                    <Footer />\r\n                </>\r\n            </Router>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/App.js b/src/App.js
+--- a/src/App.js	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/App.js	(date 1632465205158)
+@@ -90,8 +90,8 @@
+                                 <AuthenticatedRoute path="/clubDetailsPage" component={ClubDetailsPage} />
+                                 <AuthenticatedRoute exact path="/welcome/:name" component={Welcome} />
+                                 <AuthenticatedRoute exact path="/games" component={GamesList} />
+-                                <AuthenticatedRoute exact path="/playerAccount" component={PlayerAccount} />
+-                                <AuthenticatedRoute exact path="/clubAccount" component={ClubAccount} />
++                                <AuthenticatedRoute exact path="/playerAccount/:name/:id" component={PlayerAccount} />
++                                <AuthenticatedRoute exact path="/clubAccount/:name/:id" component={ClubAccount} />
+                                 <AuthenticatedRoute exact path="/games/:id" component={GameComponent} />
+                                 <Route exact path="/games/:id/details" component={GameDetails} />
+                                 <Route path="*" component={Error} />
+Index: src/components/games/GameComponent.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport moment from \"moment\";\r\nimport {Form, Formik, Field, ErrorMessage} from 'formik';\r\nimport GameDataService from \"../../api/services/GameDataService\";\r\nimport AuthenticationService from \"../../api/services/AuthenticationService\";\r\n\r\nclass GameComponent extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n\r\n        this.state = {\r\n            id: this.props.match.params.id,\r\n            title: '',\r\n            details: '',\r\n            beginDate: moment(new Date()).format('YYYY-MM-DD')\r\n        }\r\n        this.onSubmit = this.onSubmit.bind(this)\r\n        this.validate = this.validate.bind(this)\r\n    }\r\n\r\n    componentDidMount() {\r\n        if (this.state.id === -1) {\r\n            return\r\n        }\r\n\r\n        let clubName = AuthenticationService.getLoggedInClubName()\r\n        GameDataService.retrieveGame(clubName, this.state.id)\r\n            .then(response => this.setState({\r\n                title: response.data.title,\r\n                details: response.data.details,\r\n                beginDate: moment(response.data.beginDate).format('YYYY-MM-DD')\r\n            }))\r\n    }\r\n\r\n    validate(values) {\r\n        console.log(values)\r\n        let errors = {}\r\n        if (!values.title) {\r\n            errors.title = 'Enter a Title'\r\n        } else if (values.title.length < 5) {\r\n            errors.title = 'Enter at least 5 characters in the title'\r\n        } else if (values.title.length > 25) {\r\n            errors.title = 'The title has too many characters!'\r\n        }\r\n\r\n        if (!values.details) {\r\n            errors.details = 'Enter details about the game'\r\n        } else if (values.details.length < 5) {\r\n            errors.details = 'Enter at least 15 characters for details'\r\n        }\r\n\r\n        if (!moment(values.beginDate).isValid()) {\r\n            errors.beginDate = 'Enter a valid begin date'\r\n        }\r\n        return errors\r\n    }\r\n\r\n    onSubmit(values) {\r\n        console.log(values)\r\n        let clubName = AuthenticationService.getLoggedInClubName();\r\n\r\n        let game = {\r\n            id: this.state.id,\r\n            title: values.title,\r\n            details: values.details,\r\n            beginDate: values.beginDate\r\n        }\r\n\r\n        if (this.state.id === -1) {\r\n            GameDataService.createGame(clubName, game)\r\n                .then(() => this.props.history.push('/games'))\r\n        } else {\r\n            GameDataService.updateGame(clubName, this.state.id, game)\r\n                .then(() => this.props.history.push(`/games`))\r\n        }\r\n    }\r\n\r\n    render() {\r\n        let {title, details, beginDate} = this.state;\r\n\r\n        return (\r\n            <div>\r\n                <h3>Game Component</h3>\r\n                <Formik\r\n                    initialValues={{title, details, beginDate}}\r\n                    onSubmit={this.onSubmit}\r\n                    validateOnChange={false}\r\n                    validateOnBlur={false}\r\n                    validate={this.validate}\r\n                    enableReinitialize={true}\r\n                >\r\n                    {\r\n                        (props) => (\r\n                            <Form>\r\n                                <ErrorMessage name=\"title\"\r\n                                              component=\"div\"\r\n                                              className=\"alert alert-warning\"\r\n                                />\r\n                                <ErrorMessage name=\"details\"\r\n                                              component=\"div\"\r\n                                              className=\"alert alert-warning\"\r\n                                />\r\n                                <ErrorMessage name=\"beginDate\"\r\n                                              component=\"div\"\r\n                                              className=\"alert alert-warning\"\r\n                                />\r\n                                <fieldset className=\"form-group\">\r\n                                    <label>Title</label>\r\n                                    <Field className=\"form-control\"\r\n                                           type=\"text\"\r\n                                           name=\"title\"\r\n                                    />\r\n                                </fieldset>\r\n\r\n                                <fieldset className=\"form-group\">\r\n                                    <label>Details</label>\r\n                                    <Field className=\"form-control\"\r\n                                           type=\"text-area\"\r\n                                           name=\"details\"\r\n                                    />\r\n                                </fieldset>\r\n                                <fieldset className=\"form-group\">\r\n                                    <label>Begin Date</label>\r\n                                    <Field className=\"form-control\"\r\n                                           type=\"date\"\r\n                                           name=\"beginDate\"\r\n                                    />\r\n                                </fieldset>\r\n                                <button className=\"btn btn-success\"\r\n                                        type=\"submit\"\r\n                                        >\r\n                                    Save\r\n                                </button>\r\n                            </Form>\r\n                        )\r\n                    }\r\n                </Formik>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default GameComponent
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/games/GameComponent.jsx b/src/components/games/GameComponent.jsx
+--- a/src/components/games/GameComponent.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/games/GameComponent.jsx	(date 1632920110559)
+@@ -2,7 +2,8 @@
+ import moment from "moment";
+ import {Form, Formik, Field, ErrorMessage} from 'formik';
+ import GameDataService from "../../api/services/GameDataService";
+-import AuthenticationService from "../../api/services/AuthenticationService";
++// import AuthenticationService from "../../api/services/AuthenticationService";
++import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+ 
+ class GameComponent extends Component {
+     constructor(props) {
+@@ -23,7 +24,7 @@
+             return
+         }
+ 
+-        let clubName = AuthenticationService.getLoggedInClubName()
++        let clubName = AuthenticationServiceJwt.getLoggedInClubName()
+         GameDataService.retrieveGame(clubName, this.state.id)
+             .then(response => this.setState({
+                 title: response.data.title,
+@@ -57,7 +58,7 @@
+ 
+     onSubmit(values) {
+         console.log(values)
+-        let clubName = AuthenticationService.getLoggedInClubName();
++        let clubName = AuthenticationServiceJwt.getLoggedInClubName();
+ 
+         let game = {
+             id: this.state.id,
+Index: src/api/services/ClubsDataService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport {API_JPA_URL, API_URL} from \"../../Constants\";\r\n\r\nclass ClubsDataService {\r\n    retrieveAllClubs() {\r\n        return axios.get(`${API_URL}/clubs`)\r\n    }\r\n\r\n    retrieveClub(clubUsername) {\r\n        return axios.get(`${API_URL}/clubs/${clubUsername}`)\r\n    }\r\n\r\n    deleteGame(clubName, id) {\r\n        return axios.delete(`${API_JPA_URL}/${clubName}/games/${id}`)\r\n    }\r\n\r\n    updateGame(clubName, id, game) {\r\n        return axios.put(`${API_JPA_URL}/${clubName}/games/${id}`, game);\r\n    }\r\n\r\n    createGame(clubName, game) {\r\n        return axios.post(`${API_JPA_URL}/${clubName}/games`, game);\r\n    }\r\n}\r\n\r\nexport default new ClubsDataService()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/services/ClubsDataService.js b/src/api/services/ClubsDataService.js
+--- a/src/api/services/ClubsDataService.js	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/api/services/ClubsDataService.js	(date 1632465205174)
+@@ -10,16 +10,16 @@
+         return axios.get(`${API_URL}/clubs/${clubUsername}`)
+     }
+ 
+-    deleteGame(clubName, id) {
+-        return axios.delete(`${API_JPA_URL}/${clubName}/games/${id}`)
++    deleteClub(clubUsername, id) {
++        return axios.delete(`${API_URL}/clubs/${clubUsername}/${id}`)
+     }
+ 
+-    updateGame(clubName, id, game) {
+-        return axios.put(`${API_JPA_URL}/${clubName}/games/${id}`, game);
++    updateClub(clubUsername, id, club) {
++        return axios.put(`${API_URL}/clubs/${clubUsername}/${id}`, club);
+     }
+ 
+-    createGame(clubName, game) {
+-        return axios.post(`${API_JPA_URL}/${clubName}/games`, game);
++    createClub(clubUsername, club) {
++        return axios.post(`${API_URL}/clubs/${clubUsername}`, club);
+     }
+ }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2307688c-85a4-477c-9157-0f1b5423bb45\" name=\"Default Changelist\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/public/index.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/public/index.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/App.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/App.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubInfo.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubInfo.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubOwnersPage.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubOwnersPage.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubRegisterSuccessful.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubRegisterSuccessful.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubsList.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubsList.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/games/GamesList.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/games/GamesList.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/pages/FirstPage.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/pages/FirstPage.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/pages/Footer.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/pages/Footer.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/pages/Logout.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/pages/Logout.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/pages/Welcome.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/pages/Welcome.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerAccount.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerAccount.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerLogin.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerLogin.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerPage.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerPage.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerRegister.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerRegister.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerRegisterSuccessful.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerRegisterSuccessful.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/index.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/index.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/index.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/index.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/switcher.scss\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/switcher.scss\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1oYqQ6EKw47fnXbH6LtJxD0aBz1\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/src\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.standard\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.tslint\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.standard\" value=\"\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"editor.preferences.fonts.default\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club-frontend\\src\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club-frontend\\src\\api\\services\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\public\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\pages\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\players\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\games\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\clubs\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\api\\clubs\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2307688c-85a4-477c-9157-0f1b5423bb45\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1613473869090</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1613473869090</updated>\r\n      <workItem from=\"1613473886378\" duration=\"1144000\" />\r\n      <workItem from=\"1613475313729\" duration=\"14235000\" />\r\n      <workItem from=\"1619151077003\" duration=\"4555000\" />\r\n      <workItem from=\"1620315608665\" duration=\"12443000\" />\r\n      <workItem from=\"1620915673236\" duration=\"1087000\" />\r\n      <workItem from=\"1622707298674\" duration=\"364000\" />\r\n      <workItem from=\"1622786059493\" duration=\"11128000\" />\r\n      <workItem from=\"1626257819529\" duration=\"24033000\" />\r\n      <workItem from=\"1626289474419\" duration=\"682000\" />\r\n      <workItem from=\"1626328757016\" duration=\"27099000\" />\r\n      <workItem from=\"1626416051368\" duration=\"3071000\" />\r\n      <workItem from=\"1629112655260\" duration=\"8478000\" />\r\n      <workItem from=\"1629198146016\" duration=\"25300000\" />\r\n      <workItem from=\"1629358763284\" duration=\"10795000\" />\r\n      <workItem from=\"1629439924259\" duration=\"3633000\" />\r\n      <workItem from=\"1630565166284\" duration=\"24870000\" />\r\n      <workItem from=\"1630643641024\" duration=\"4132000\" />\r\n      <workItem from=\"1630917116141\" duration=\"1850000\" />\r\n      <workItem from=\"1631087289739\" duration=\"1873000\" />\r\n      <workItem from=\"1631091521259\" duration=\"25107000\" />\r\n      <workItem from=\"1631178332727\" duration=\"2974000\" />\r\n      <workItem from=\"1631191000585\" duration=\"2402000\" />\r\n      <workItem from=\"1631199249037\" duration=\"1894000\" />\r\n      <workItem from=\"1631204635102\" duration=\"1308000\" />\r\n      <workItem from=\"1631217444647\" duration=\"834000\" />\r\n      <workItem from=\"1631256034466\" duration=\"4077000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/.idea/workspace.xml	(date 1632922974388)
+@@ -4,33 +4,34 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="">
++    <list default="true" id="76b8a8be-4afa-450c-8ac3-dc40f90cf579" name="Changes" comment="Merging jwt">
++      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/poker-club.iml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_17_09_2021_09_40__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_16_05__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_16_05__Default_Changelist_1.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_17_35__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_22_09_2021_19_42__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_09_2021_09_21__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_09_2021_09_21__Default_Changelist_1.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_09_2021_09_24__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_09_2021_09_25__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_09_2021_09_31__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_09_2021_09_32__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_09_2021_09_33__Default_Changelist_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/services/AuthenticationService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/AuthenticationService.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/services/PlayersDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/PlayersDataService.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/services/WelcomeDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/WelcomeDataService.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubInfo.jsx" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubOwnersPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubOwnersPage.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubRegisterSuccessful.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubRegisterSuccessful.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubsList.jsx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/components/games/GameComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GameComponent.jsx" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/components/games/GamesList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GamesList.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/pages/FirstPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/FirstPage.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/pages/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Footer.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/pages/Logout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Logout.jsx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/components/pages/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Header.jsx" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/components/pages/Welcome.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Welcome.jsx" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/components/players/PlayerLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerLogin.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerRegisterSuccessful.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerRegisterSuccessful.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/switcher.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/switcher.scss" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -82,7 +83,7 @@
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="" />
++      <changelist id="76b8a8be-4afa-450c-8ac3-dc40f90cf579" name="Changes" comment="Merging jwt" />
+       <created>1613473869090</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+@@ -113,6 +114,10 @@
+       <workItem from="1631204635102" duration="1308000" />
+       <workItem from="1631217444647" duration="834000" />
+       <workItem from="1631256034466" duration="4077000" />
++      <workItem from="1631277105150" duration="760000" />
++      <workItem from="1631512803663" duration="25842000" />
++      <workItem from="1631598888628" duration="11479000" />
++      <workItem from="1632922804343" duration="169000" />
+     </task>
+     <servers />
+   </component>
+Index: package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/package-lock.json b/package-lock.json
+--- a/package-lock.json	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/package-lock.json	(date 1632922240719)
+@@ -5,6 +5,7 @@
+   "requires": true,
+   "packages": {
+     "": {
++      "name": "poker-club",
+       "version": "0.1.0",
+       "dependencies": {
+         "@testing-library/jest-dom": "^5.12.0",
+@@ -19,9 +20,12 @@
+         "react": "^17.0.2",
+         "react-bootstrap": "^1.5.2",
+         "react-dom": "^17.0.2",
++        "react-form-with-constraints-bootstrap4": "^0.16.1",
+         "react-router": "^5.2.0",
+         "react-router-dom": "^5.2.0",
+         "react-scripts": "4.0.3",
++        "react-validation": "^3.0.7",
++        "validator": "^13.6.0",
+         "web-vitals": "^1.1.2"
+       },
+       "devDependencies": {
+@@ -12948,6 +12952,11 @@
+       "resolved": "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz",
+       "integrity": "sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4="
+     },
++    "node_modules/lodash.omit": {
++      "version": "4.5.0",
++      "resolved": "https://registry.npmjs.org/lodash.omit/-/lodash.omit-4.5.0.tgz",
++      "integrity": "sha1-brGa5aHuHdnfC5aeZs4Lf6MLXmA="
++    },
+     "node_modules/lodash.sortby": {
+       "version": "4.7.0",
+       "resolved": "https://registry.npmjs.org/lodash.sortby/-/lodash.sortby-4.7.0.tgz",
+@@ -16771,6 +16780,27 @@
+       "resolved": "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz",
+       "integrity": "sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw=="
+     },
++    "node_modules/react-form-with-constraints": {
++      "version": "0.16.1",
++      "resolved": "https://registry.npmjs.org/react-form-with-constraints/-/react-form-with-constraints-0.16.1.tgz",
++      "integrity": "sha512-SWlErEffFTYdW8BoFYAs4rn2PSmbAylLKNgYzh2/cMZYetSy4pM7MDMMVoy1+GOMuI4jc1axdNSH5MF0LUrGFQ==",
++      "peer": true,
++      "dependencies": {
++        "prop-types": "^15.7.2"
++      },
++      "peerDependencies": {
++        "react": ">=16"
++      }
++    },
++    "node_modules/react-form-with-constraints-bootstrap4": {
++      "version": "0.16.1",
++      "resolved": "https://registry.npmjs.org/react-form-with-constraints-bootstrap4/-/react-form-with-constraints-bootstrap4-0.16.1.tgz",
++      "integrity": "sha512-ayuGiel/WTuavgEtX71TcRlA9hG+r/W5+2zum4w2Y1Qq2yMf3I2HbcsABkl/0uACfdAeuVGKJHpuS3uE+HjGXw==",
++      "deprecated": "Use react-form-with-constraints-bootstrap instead",
++      "peerDependencies": {
++        "react-form-with-constraints": "^0.16.0"
++      }
++    },
+     "node_modules/react-is": {
+       "version": "17.0.1",
+       "resolved": "https://registry.npmjs.org/react-is/-/react-is-17.0.1.tgz",
+@@ -16969,6 +16999,40 @@
+         "react-dom": ">=16.6.0"
+       }
+     },
++    "node_modules/react-validation": {
++      "version": "3.0.7",
++      "resolved": "https://registry.npmjs.org/react-validation/-/react-validation-3.0.7.tgz",
++      "integrity": "sha1-tQcL+KbnN7hw2Hu/tyzMpys/N1A=",
++      "dependencies": {
++        "lodash.omit": "^4.5.0",
++        "prop-types": "^15.6.0",
++        "react": "^16.0.0",
++        "shallow-equal": "^1.0.0",
++        "uuid": "^3.1.0"
++      }
++    },
++    "node_modules/react-validation/node_modules/react": {
++      "version": "16.14.0",
++      "resolved": "https://registry.npmjs.org/react/-/react-16.14.0.tgz",
++      "integrity": "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==",
++      "dependencies": {
++        "loose-envify": "^1.1.0",
++        "object-assign": "^4.1.1",
++        "prop-types": "^15.6.2"
++      },
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
++    "node_modules/react-validation/node_modules/uuid": {
++      "version": "3.4.0",
++      "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz",
++      "integrity": "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==",
++      "deprecated": "Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.",
++      "bin": {
++        "uuid": "bin/uuid"
++      }
++    },
+     "node_modules/read-pkg": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/read-pkg/-/read-pkg-2.0.0.tgz",
+@@ -18528,6 +18592,11 @@
+         "sha.js": "bin.js"
+       }
+     },
++    "node_modules/shallow-equal": {
++      "version": "1.2.1",
++      "resolved": "https://registry.npmjs.org/shallow-equal/-/shallow-equal-1.2.1.tgz",
++      "integrity": "sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA=="
++    },
+     "node_modules/shebang-command": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+@@ -20600,6 +20669,14 @@
+         "spdx-expression-parse": "^3.0.0"
+       }
+     },
++    "node_modules/validator": {
++      "version": "13.6.0",
++      "resolved": "https://registry.npmjs.org/validator/-/validator-13.6.0.tgz",
++      "integrity": "sha512-gVgKbdbHgtxpRyR8K0O6oFZPhhB5tT1jeEHZR0Znr9Svg03U0+r9DXWMrnRAB+HtCStDQKlaIZm42tVsVjqtjg==",
++      "engines": {
++        "node": ">= 0.10"
++      }
++    },
+     "node_modules/value-equal": {
+       "version": "1.0.1",
+       "resolved": "https://registry.npmjs.org/value-equal/-/value-equal-1.0.1.tgz",
+@@ -32615,6 +32692,11 @@
+       "resolved": "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz",
+       "integrity": "sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4="
+     },
++    "lodash.omit": {
++      "version": "4.5.0",
++      "resolved": "https://registry.npmjs.org/lodash.omit/-/lodash.omit-4.5.0.tgz",
++      "integrity": "sha1-brGa5aHuHdnfC5aeZs4Lf6MLXmA="
++    },
+     "lodash.sortby": {
+       "version": "4.7.0",
+       "resolved": "https://registry.npmjs.org/lodash.sortby/-/lodash.sortby-4.7.0.tgz",
+@@ -35670,6 +35752,21 @@
+       "resolved": "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz",
+       "integrity": "sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw=="
+     },
++    "react-form-with-constraints": {
++      "version": "0.16.1",
++      "resolved": "https://registry.npmjs.org/react-form-with-constraints/-/react-form-with-constraints-0.16.1.tgz",
++      "integrity": "sha512-SWlErEffFTYdW8BoFYAs4rn2PSmbAylLKNgYzh2/cMZYetSy4pM7MDMMVoy1+GOMuI4jc1axdNSH5MF0LUrGFQ==",
++      "peer": true,
++      "requires": {
++        "prop-types": "^15.7.2"
++      }
++    },
++    "react-form-with-constraints-bootstrap4": {
++      "version": "0.16.1",
++      "resolved": "https://registry.npmjs.org/react-form-with-constraints-bootstrap4/-/react-form-with-constraints-bootstrap4-0.16.1.tgz",
++      "integrity": "sha512-ayuGiel/WTuavgEtX71TcRlA9hG+r/W5+2zum4w2Y1Qq2yMf3I2HbcsABkl/0uACfdAeuVGKJHpuS3uE+HjGXw==",
++      "requires": {}
++    },
+     "react-is": {
+       "version": "17.0.1",
+       "resolved": "https://registry.npmjs.org/react-is/-/react-is-17.0.1.tgz",
+@@ -35838,6 +35935,35 @@
+         "prop-types": "^15.6.2"
+       }
+     },
++    "react-validation": {
++      "version": "3.0.7",
++      "resolved": "https://registry.npmjs.org/react-validation/-/react-validation-3.0.7.tgz",
++      "integrity": "sha1-tQcL+KbnN7hw2Hu/tyzMpys/N1A=",
++      "requires": {
++        "lodash.omit": "^4.5.0",
++        "prop-types": "^15.6.0",
++        "react": "^16.0.0",
++        "shallow-equal": "^1.0.0",
++        "uuid": "^3.1.0"
++      },
++      "dependencies": {
++        "react": {
++          "version": "16.14.0",
++          "resolved": "https://registry.npmjs.org/react/-/react-16.14.0.tgz",
++          "integrity": "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==",
++          "requires": {
++            "loose-envify": "^1.1.0",
++            "object-assign": "^4.1.1",
++            "prop-types": "^15.6.2"
++          }
++        },
++        "uuid": {
++          "version": "3.4.0",
++          "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz",
++          "integrity": "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
++        }
++      }
++    },
+     "read-pkg": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/read-pkg/-/read-pkg-2.0.0.tgz",
+@@ -37063,6 +37189,11 @@
+         "safe-buffer": "^5.0.1"
+       }
+     },
++    "shallow-equal": {
++      "version": "1.2.1",
++      "resolved": "https://registry.npmjs.org/shallow-equal/-/shallow-equal-1.2.1.tgz",
++      "integrity": "sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA=="
++    },
+     "shebang-command": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+@@ -38721,6 +38852,11 @@
+         "spdx-expression-parse": "^3.0.0"
+       }
+     },
++    "validator": {
++      "version": "13.6.0",
++      "resolved": "https://registry.npmjs.org/validator/-/validator-13.6.0.tgz",
++      "integrity": "sha512-gVgKbdbHgtxpRyR8K0O6oFZPhhB5tT1jeEHZR0Znr9Svg03U0+r9DXWMrnRAB+HtCStDQKlaIZm42tVsVjqtjg=="
++    },
+     "value-equal": {
+       "version": "1.0.1",
+       "resolved": "https://registry.npmjs.org/value-equal/-/value-equal-1.0.1.tgz",
+Index: src/components/pages/AuthenticatedRoute.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport AuthenticationService from \"../../api/services/AuthenticationService.js\";\r\nimport {Redirect, Route} from \"react-router-dom\";\r\n\r\nclass AuthenticatedRoute extends Component {\r\n    render() {\r\n        if (AuthenticationService.isUserLoggedIn() || AuthenticationService.isClubLoggedIn()){\r\n           return <Route {...this.props}/>\r\n        }else {\r\n           return <Redirect to=\"/\" />\r\n        }\r\n    }\r\n}\r\n\r\nexport default AuthenticatedRoute
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/pages/AuthenticatedRoute.jsx b/src/components/pages/AuthenticatedRoute.jsx
+--- a/src/components/pages/AuthenticatedRoute.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/pages/AuthenticatedRoute.jsx	(date 1632922240756)
+@@ -1,6 +1,7 @@
+ import React, {Component} from "react";
+ import AuthenticationService from "../../api/services/AuthenticationService.js";
+ import {Redirect, Route} from "react-router-dom";
++// import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+ 
+ class AuthenticatedRoute extends Component {
+     render() {
+Index: src/switch.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');\r\n\r\n* {\r\n    box-sizing: border-box;\r\n}\r\n\r\nhtml {\r\n    height: auto;\r\n//min-height: auto;\r\n//min-width: auto;\r\n//overflow: paged-x;\r\n}\r\n\r\nbody {\r\n    font-family: 'Merienda', cursive;\r\n    //background-image: url(\"./pictures/background-cards1.png\");\r\n    //background-image: url(\"./pictures/full-house.png\");\r\n    //background-image: url(\"./pictures/ace.jpg\");\r\n    //background-image: url(\"./pictures/ace1.jpg\");\r\n    background-image: url(\"./pictures/ace-spades-flower.jpg\");\r\n    background-repeat: round;\r\n    background-color: var(--background-color);\r\n    //transition: background-color 0.5s ease;\r\n    margin: 0;\r\n    padding: 0;\r\n    font-weight: 400;\r\n    font-size: 16px;\r\n    line-height: 1.6;\r\n    height: auto;\r\n//background-color: #fff;\r\n//color: #222;\r\n//height: 100%;\r\n    align-content: center;\r\n    text-align: left;\r\n}\r\n\r\n.App {\r\n    text-align: left;\r\n    min-height: 100vh;\r\n    padding-top: 10px;\r\n}\r\n\r\n.theme-options {\r\n//min-width: auto;\r\n    max-width: 800px;\r\n    margin: 0 auto;\r\n    text-align: right;\r\n    padding: 20px 0;\r\ndiv {\r\n    cursor: pointer;\r\n    width: 20px;\r\n    height: 20px;\r\n//border-radius: 4px;\r\n    margin: 2px 10px;\r\n//border: 1px solid blue;\r\n    display: inline-block;\r\n    opacity: 0.5;\r\n&.active {\r\n     opacity: 1;\r\n }\r\n}\r\n}\r\n\r\n.content-box {\r\n    --transition-delay: 1s;\r\n\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    overflow: auto;\r\n\r\n    transition: var(--transition-delay);\r\n    background-color: var(--background-color);\r\n    color: var(--text-color);\r\n\r\n    margin: 0 auto;\r\n    border-radius: 8px;\r\n    padding: 30px 30px 40px 30px;\r\n    max-width: 80%;\r\n    max-height: 80%;\r\n    min-height: 50%;\r\n    opacity: 0.9;\r\nh1 {\r\n    margin: 10px;\r\n    padding: 10px;\r\n    line-height: 1.2;\r\n    font-size: 5rem;\r\n    transition: var(--transition-delay);\r\n    text-align: right;\r\n}\r\nbutton {\r\n    background-color: var(--accent-color);\r\n    color: var(--button-text-color);\r\n\r\n    display: flex;\r\n    width: 110px;\r\n    justify-content: center;\r\n    align-items: center;\r\n    cursor: pointer;\r\n    padding: .1em 1em;\r\n    border-radius: .3em;\r\n    outline: none;\r\n    border: none;\r\n    transition: var(--transition-delay);\r\n    transform: scale(1);\r\n//float: left;\r\n    clear: left;\r\n\r\n    line-height: 1.5em;\r\n    margin: 10px;\r\n    font-size: 1.3em;\r\n    font-weight: bolder;\r\n}\r\nlabel{\r\n    display: inline-block;\r\n    margin: 5px;\r\n    float: left;\r\n    clear: left;\r\n    width: 150px;\r\n    text-align: left;\r\n}\r\ninput {\r\n    display: inline-block;\r\n    float: left;\r\n    margin: 5px;\r\n}\r\n}\r\n\r\n.foot {\r\n    position: fixed;\r\n    padding: 10px 10px 0 10px;\r\n    bottom: 0;\r\n    width: 100%;\r\n    /* Height of the footer*/\r\n    height: 40px;\r\n\r\n//position: sticky;\r\n    display: flex;\r\n    margin: 0;\r\n//padding-top: 10px;\r\n    line-height: 1.2;\r\n    font-size: 1rem;\r\n    transition: var(--transition-delay);\r\n}\r\n\r\n.head {\r\n    position: fixed;\r\n    padding: 10px 10px 0 10px;\r\n    top: 0;\r\n    bottom: 10px;\r\n    width: 100%;\r\n    height: 40px;\r\n    display: flex;\r\n    margin: 0;\r\n//padding-bottom: 10px;\r\n    line-height: 1.2;\r\n    font-size: 1rem;\r\n    transition: var(--transition-delay);\r\n}\r\n\r\n.App.theme-white {\r\n\r\n    //background: url(\"./pictures/Poker Wallpapers HD.jpg\") no-repeat transparent;\r\n    background: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.96),\r\n            rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.92));\r\n.content-box {\r\n    //background-color: tan;\r\n    //background: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));\r\n    //background-color: rgba(255, 255, 255, 0.5);\r\nh1, h2, h3, h4, h5, h6, p, tr, td, th, button, .link, .container, input, label {\r\n    --accent-color: #B03F03;\r\n    color: black;\r\n    .card-body {\r\n        background-color: rgba(84, 84, 84, 0.2);\r\n    }\r\n    .delete {\r\n        background-color: #f32424;\r\n    }\r\n    .update {\r\n        background-color: rgb(1, 133, 10);\r\n    }\r\n}\r\n}\r\n .head {\r\n    .nav-link, .link, .navbar-brand {\r\n        //background-color: white;\r\n        --accent-color: #B03F03;\r\n        color: #B03F03;\r\n    }\r\n}\r\n    .foot {\r\n        //background-color: white;\r\n        --accent-color: #B03F03;\r\n        color: #B03F03;\r\n  }\r\n}\r\n\r\n.App.theme-black {\r\n    //background-color: rgba(0, 0, 0);\r\n    background: radial-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.98),\r\n            rgba(0, 0, 0, 0.96),\r\n            rgba(0, 0, 0, 0.94),\r\n         rgba(0, 0, 0, 0.92)\r\n    );\r\n.content-box {\r\n    //background-color: tan;\r\n    //background-color: rgba(34, 34, 34, 0.5);\r\nh1, h2, h3, h4, h5, h6, p, tr, td, th, button, .container, .link, input, label {\r\n    //--accent-color: #FD4E5A;\r\n    --accent-color: #80010A;\r\n    //color: #80010A;\r\n    color: #FD4E5A;\r\n    .card-body {\r\n        background-color: rgba(86, 85, 85, 0.3);\r\n    }\r\n    .delete {\r\n        background-color: #f32424;\r\n    }\r\n    .update {\r\n        background-color: rgb(1, 133, 10);\r\n    }\r\n    //.delete {\r\n    //    background-color: red;\r\n    //}\r\n    //.update {\r\n    //    background-color: aqua;\r\n    //}\r\n}\r\n}\r\n     .head {\r\n    .nav-link, .link, .navbar-brand {\r\n        //background-color: #222222;\r\n        //background-color: rgba(34, 34, 34, 0.5);\r\n        --accent-color: #80010A;\r\n        color: #FD4E5A;\r\n    }\r\n}\r\n    .foot {\r\n        //background-color: #222222;\r\n        //background-color: rgba(34, 34, 34, 0.5);\r\n        --accent-color: #80010A;\r\n        color: #FD4E5A;\r\n    }\r\n}\r\n\r\n.App.theme-pink {\r\n    //background-color: salmon;\r\n    background: radial-gradient(rgba(250, 128, 114, 1), rgba(250, 128, 114, 0.98),\r\n            rgba(250, 128, 114, 0.96), rgba(250, 128, 114, 0.94), rgba(250, 128, 114, 0.92));\r\n.content-box {\r\n    //background-color: tan;\r\n    //background-color: salmon;\r\nh1, h2, h3, h4, h5, h6, p, tr, td, th, button, .link, .container, input, label {\r\n    --accent-color: #FF3479;\r\n    color: #400D1E;\r\n    .card-body {\r\n        background-color: rgba(253, 78, 90, 0.3);\r\n        //min-width: 120%;\r\n    }\r\n    .delete {\r\n        background-color: #f32424;\r\n    }\r\n    .update {\r\n        background-color: rgb(1, 133, 10);\r\n    }\r\n    //.delete {\r\n    //    background-color: red;\r\n    //}\r\n    //.update {\r\n    //    background-color: aqua;\r\n    //}\r\n}\r\n}\r\n .head {\r\n        .nav-link, .link, .navbar-brand {\r\n            //background-color: salmon;\r\n            --accent-color: #FF3479;\r\n            color: #400D1E;\r\n        }\r\n}\r\n    .foot {\r\n        //background-color: salmon;\r\n        --accent-color: #FF3479;\r\n        color: #400D1E;\r\n  }\r\n}\r\n\r\n.link:hover {\r\n    text-decoration-line: none;\r\n}\r\n\r\n.card-body {\r\n    //min-width: 150%;\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/switch.scss b/src/switch.scss
+--- a/src/switch.scss	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/switch.scss	(date 1632465205283)
+@@ -178,7 +178,7 @@
+         background-color: #f32424;
+     }
+     .update {
+-        background-color: rgb(1, 133, 10);
++        background-color: rgb(21, 141, 28);
+     }
+ }
+ }
+Index: src/components/clubs/ClubsList.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport ClubsDataService from \"../../api/services/ClubsDataService\";\r\n\r\nclass ClubsList extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n\r\n        this.state = {\r\n            clubs: []\r\n            // {\r\n            // clubUsername: 'Poker Club',\r\n            // description: 'Important info',\r\n            // address: 'Bucharest',\r\n            // phoneNumber: '+04058963217'\r\n            // }\r\n        }\r\n\r\n        this.refreshClubs = this.refreshClubs.bind(this)\r\n        this.infoClubClicked = this.infoClubClicked.bind(this)\r\n    }\r\n\r\n    componentDidMount() {\r\n        this.refreshClubs();\r\n    }\r\n\r\n    refreshClubs() {\r\n        ClubsDataService.retrieveAllClubs()\r\n            .then(\r\n                response => {\r\n                    console.log(response)\r\n                    this.setState({clubs : response.data})\r\n                }\r\n            )\r\n    }\r\n\r\n    infoClubClicked(clubName) {\r\n        // this.refreshClubs();\r\n        console.log(\"This is the id: \" + clubName)\r\n        this.props.history.push(`/clubs/${clubName}`)\r\n    }\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <h3 className=\"card-header\">List of Poker Clubs</h3>\r\n                    {this.state.clubs.map(\r\n                            club =>\r\n                    <div className=\"container\" key={club.id}>\r\n                        <h5 className=\"card-header\">{club.clubUsername}  Poker Club</h5>\r\n                        <div className=\"card-body\">\r\n                            <h5 className=\"card-title\">Country: {club.country}</h5>\r\n                            <h5>City: {club.city}</h5>\r\n                            <p className=\"card-text\">Address: {club.address}</p>\r\n                            <p className=\"card-text\">Phone: {club.phoneNumber}</p>\r\n                            <button className=\"btn btn-success btn-primary\"\r\n                                onClick={() => this.infoClubClicked(club.clubUsername)}\r\n                            >\r\n                                Details\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n\r\n                                    // <form key={club.id}>\r\n                                    //     <h4>{club.clubUsername}  Poker Club</h4>\r\n                                    //     <h6>Country: {club.country}; City: {club.city}</h6>\r\n                                    //     <p>Address: {club.address}</p>\r\n                                    //     <p>Phone: {club.phoneNumber}</p>\r\n                                    //     <button className=\"btn btn-success\">Details</button>\r\n                                    // </form>\r\n                                )}\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\nexport default ClubsList
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/clubs/ClubsList.jsx b/src/components/clubs/ClubsList.jsx
+--- a/src/components/clubs/ClubsList.jsx	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/components/clubs/ClubsList.jsx	(date 1632922240754)
+@@ -45,9 +45,9 @@
+                 <h3 className="card-header">List of Poker Clubs</h3>
+                     {this.state.clubs.map(
+                             club =>
+-                    <div className="container" key={club.id}>
++                    <div className="container col" style={{display: "inline-block"}} key={club.id}>
+                         <h5 className="card-header">{club.clubUsername}  Poker Club</h5>
+-                        <div className="card-body">
++                        <div className="card-body " >
+                             <h5 className="card-title">Country: {club.country}</h5>
+                             <h5>City: {club.city}</h5>
+                             <p className="card-text">Address: {club.address}</p>
+Index: src/api/services/AuthenticationService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\n\r\nclass AuthenticationService {\r\n    registerSuccessfulLogin(username) {\r\n        console.log('registerSuccessfulLogin')\r\n        if (!sessionStorage.getItem(null)) {\r\n            this.logout();\r\n        }\r\n        sessionStorage.setItem('authenticatedUser', username);\r\n        // this.setupAxiosInterceptors()\r\n    }\r\n\r\n    logout() {\r\n        sessionStorage.removeItem('authenticatedUser')\r\n        sessionStorage.removeItem('authenticatedClub')\r\n        // sessionStorage.removeItem('authenticatedUserPassword')\r\n    }\r\n\r\n    isUserLoggedIn() {\r\n        let user = sessionStorage.getItem('authenticatedUser')\r\n        return user !== null;\r\n    }\r\n\r\n    getLoggedInUserName() {\r\n        let user = sessionStorage.getItem('authenticatedUser')\r\n        if (user===null) return ''\r\n        return user;\r\n    }\r\n\r\n    registerClubSuccessfulLogin(clubname) {\r\n        console.log('registerSuccessfulLogin')\r\n        if (!sessionStorage.getItem(null)) {\r\n            this.logout();\r\n        }\r\n        sessionStorage.setItem('authenticatedClub', clubname);\r\n        // this.setupAxiosInterceptors()\r\n    }\r\n\r\n    isClubLoggedIn() {\r\n        let club = sessionStorage.getItem('authenticatedClub')\r\n        return club !== null;\r\n    }\r\n\r\n    getLoggedInClubName() {\r\n        let club = sessionStorage.getItem('authenticatedClub')\r\n        if (club===null) return ''\r\n        return club;\r\n    }\r\n\r\n    setupAxiosInterceptors() {\r\n        let username = 'Luna'\r\n        let password = '1234'\r\n\r\n        let basicAuthHeader = 'Basic ' + window.btoa(username + \":\" + password)\r\n\r\n        axios.interceptors.request.use(\r\n    (config) => {\r\n                if (this.isUserLoggedIn() || this.isClubLoggedIn()) {\r\n                    config.headers.authorization = basicAuthHeader\r\n                }\r\n                return config\r\n            }\r\n        )\r\n    }\r\n}\r\n\r\nexport default new AuthenticationService()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/services/AuthenticationService.js b/src/api/services/AuthenticationService.js
+--- a/src/api/services/AuthenticationService.js	(revision fe6f70ff9fce25761d6e353b8cc0c34f4874cef9)
++++ b/src/api/services/AuthenticationService.js	(date 1632920110519)
+@@ -7,7 +7,6 @@
+             this.logout();
+         }
+         sessionStorage.setItem('authenticatedUser', username);
+-        // this.setupAxiosInterceptors()
+     }
+ 
+     logout() {

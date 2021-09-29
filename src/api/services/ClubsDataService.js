@@ -1,5 +1,5 @@
 import axios from "axios";
-import {API_JPA_URL, API_URL} from "../../Constants";
+import {API_URL} from "../../Constants";
 
 class ClubsDataService {
     retrieveAllClubs() {
@@ -10,16 +10,16 @@ class ClubsDataService {
         return axios.get(`${API_URL}/clubs/${clubUsername}`)
     }
 
-    deleteGame(clubName, id) {
-        return axios.delete(`${API_JPA_URL}/${clubName}/games/${id}`)
+    deleteClub(clubUsername, id) {
+        return axios.delete(`${API_URL}/${clubUsername}/${id}`)
     }
 
-    updateGame(clubName, id, game) {
-        return axios.put(`${API_JPA_URL}/${clubName}/games/${id}`, game);
+    updateClub(clubUsername, id, club) {
+        return axios.put(`${API_URL}/${clubUsername}/${id}`, club);
     }
 
-    createGame(clubName, game) {
-        return axios.post(`${API_JPA_URL}/${clubName}/games`, game);
+    createClub(clubUsername, club) {
+        return axios.post(`${API_URL}/${clubUsername}`, club);
     }
 }
 

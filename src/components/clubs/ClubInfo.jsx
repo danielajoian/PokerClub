@@ -22,7 +22,8 @@ class ClubInfo extends Component {
     }
 
     refreshClub() {
-        ClubsDataService.retrieveClub(this.state.clubUsername)
+        ClubsDataService
+            .retrieveClub(this.state.clubUsername)
             .then(response => {
                 this.setState({club: response.data})
             }
@@ -30,8 +31,8 @@ class ClubInfo extends Component {
     }
 
     refreshGames() {
-        // this.refreshClub()
-        GameDataService.retrieveAllGames(this.state.clubUsername)
+        GameDataService
+            .retrieveAllGames(this.state.clubUsername)
             .then(
                 response => {
                     console.log(response)
@@ -42,7 +43,6 @@ class ClubInfo extends Component {
 
 
     infoGameClicked(id) {
-        // this.refreshClubs();
         console.log("This is the id: " + id)
         this.props.history.push(`/games/${id}/details`)
     }

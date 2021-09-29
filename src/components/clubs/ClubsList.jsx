@@ -7,12 +7,6 @@ class ClubsList extends Component {
 
         this.state = {
             clubs: []
-            // {
-            // clubUsername: 'Poker Club',
-            // description: 'Important info',
-            // address: 'Bucharest',
-            // phoneNumber: '+04058963217'
-            // }
         }
 
         this.refreshClubs = this.refreshClubs.bind(this)
@@ -28,13 +22,14 @@ class ClubsList extends Component {
             .then(
                 response => {
                     console.log(response)
-                    this.setState({clubs : response.data})
+                    this.setState({
+                        clubs : response.data
+                    })
                 }
             )
     }
 
     infoClubClicked(clubName) {
-        // this.refreshClubs();
         console.log("This is the id: " + clubName)
         this.props.history.push(`/clubs/${clubName}`)
     }
@@ -45,7 +40,7 @@ class ClubsList extends Component {
                 <h3 className="card-header">List of Poker Clubs</h3>
                     {this.state.clubs.map(
                             club =>
-                    <div className="container" key={club.id}>
+                    <div className="container col" style={{display: "inline-block"}} key={club.id}>
                         <h5 className="card-header">{club.clubUsername}  Poker Club</h5>
                         <div className="card-body">
                             <h5 className="card-title">Country: {club.country}</h5>
@@ -59,14 +54,6 @@ class ClubsList extends Component {
                             </button>
                         </div>
                     </div>
-
-                                    // <form key={club.id}>
-                                    //     <h4>{club.clubUsername}  Poker Club</h4>
-                                    //     <h6>Country: {club.country}; City: {club.city}</h6>
-                                    //     <p>Address: {club.address}</p>
-                                    //     <p>Phone: {club.phoneNumber}</p>
-                                    //     <button className="btn btn-success">Details</button>
-                                    // </form>
                                 )}
             </div>
         )

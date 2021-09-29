@@ -1,25 +1,281 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import ClubsDataService from "../../api/services/ClubsDataService";
 
 class ClubRegister extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            clubUsername: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            city: '',
+            country: '',
+            address: '',
+            site: '',
+            phoneNumber: '',
+            errors: {
+                clubUsername: '',
+                password: '',
+                confirmPassword: '',
+                city: '',
+                country: '',
+                address: '',
+                email: '',
+                site: '',
+                phoneNumber: ''
+            }
+        }
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.validateUsername = this.validateUsername.bind(this)
+        this.validateCity= this.validateCity.bind(this)
+        this.validatePassword = this.validatePassword.bind(this)
+        this.validateCountry = this.validateCountry.bind(this)
+        this.validateAddress = this.validateAddress.bind(this)
+        this.validatePhoneNumber = this.validatePhoneNumber.bind(this)
+        this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
+    }
+
+    // componentDidMount() {
+    //     console.log("component did mount")
+    //     if (this.state.id !== null) {
+    //         return
+    //     }
+    //
+    //     this.onSubmit(this.values);
+    // }
+
+    validateUsername= () => {
+        let error = this.state.errors
+        if (!this.state.clubUsername) {
+            error.clubUsername = 'Required'
+        } else if(this.state.clubUsername.length < 3) {
+            error.clubUsername= 'Username has to have at least 3 characters'
+        }else {
+            error.clubUsername = ''
+        }
+    }
+
+    validateCity= () => {
+        let error = this.state.errors
+        if (!this.state.city) {
+            error.city = 'Required'
+        } else if(this.state.city.length < 3) {
+            error.city= 'City has to have at least 3 characters'
+        }else {
+            error.city = ''
+        }
+    }
+
+    validateCountry= () => {
+        let error = this.state.errors
+        if (!this.state.country) {
+            error.country = 'Required'
+        } else if(this.state.country.length < 3) {
+            error.country= 'Country has to have at least 3 characters'
+        }else {
+            error.country = ''
+        }
+    }
+
+    validateAddress= () => {
+        let error = this.state.errors
+        if (!this.state.address) {
+            error.address = 'Required'
+        } else if(this.state.address.length < 3) {
+            error.address= 'Address has to have at least 3 characters'
+        }else {
+            error.address = ''
+        }
+    }
+
+    validatePhoneNumber= () => {
+        let error = this.state.errors
+        if (!this.state.phoneNumber) {
+            error.phoneNumber = 'Required'
+        } else if(this.state.phoneNumber.length < 3) {
+            error.phoneNumber= 'Phone Number has to have at least 3 characters'
+        }else if(!(this.state.phoneNumber.match(/^[0-9]+$/))) {
+            error.phoneNumber= 'Phone Number has to have only digits'
+        }else {
+            error.phoneNumber = ''
+        }
+    }
+
+    validatePassword= () => {
+        let error = this.state.errors
+        if (!this.state.password) {
+            error.password = 'Required'
+        } else if(this.state.password.length < 4) {
+            error.password = 'Password has to have at least 4 characters'
+        }else {
+            error.password = ''
+        }
+    }
+
+    validateConfirmPassword= () => {
+        let error = this.state.errors
+        if (!this.state.confirmPassword) {
+            error.confirmPassword = 'Required'
+        } else if(!(this.state.confirmPassword === this.state.password)) {
+            error.confirmPassword = 'Passwords have to match'
+        }else {
+            error.confirmPassword = ''
+        }
+    }
+
+    handleChange = (event) => {
+        console.log(event.target.name);
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        let club = {
+            email: this.state.email,
+            password: this.state.password,
+            city: this.state.city,
+            country: this.state.country,
+            address: this.state.address,
+            site: this.state.site,
+            phoneNumber: this.state.phoneNumber
+        }
+        ClubsDataService
+            .createClub(this.state.clubUsername, club)
+            .then(response => {
+                console.log(response)
+                this.props.history.push(`/clubRegisterSuccessful`)
+            })
+    }
+
     render() {
+        let {
+            clubUsername,
+            password,
+            confirmPassword,
+            city,
+            country,
+            address,
+            email,
+            site,
+            phoneNumber
+        } = this.state;
+
         return (
             <div className="container content-box">
                 <h3>Club Register Form</h3>
                 &nbsp;
-                <form>
-                    <label>Club Name: </label><input type="text" name="clubname"/>
-                    <label>City: </label><input type="text" name="city"/>
-                    <label>Country: </label><input type="text" name="country"/>
-                    <label>Site Address: </label><input type="text" name="site"/>
-                    <label>Address: </label><input type="text" name="site"/>
-                    <label>Phone Number: </label><input type="text" name="site"/>
-                    <label>Email: </label><input type="email" name="email"/>
-                    <label>Password: </label><input type="password" name="password"/>
-                    <button className="btn btn-success">
-                        <Link to="/clubRegisterSuccessful" className="link">
-                            Register
-                        </Link>
+                <form onSubmit={this.handleSubmit}>
+                    <label>Club Name: </label>
+                    <input type="text"
+                           name="clubUsername"
+                           value={clubUsername}
+                           onChange={this.handleChange}
+                           required={this.validateUsername()}
+                    />
+                    {this.state.errors.clubUsername &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.clubUsername}</p>}
+                    <br/>
+                    <br/>
+
+                    <label>City: </label>
+                    <input type="text"
+                           name="city"
+                           value={city}
+                           onChange={this.handleChange}
+                           required={this.validateCity()}
+                    />
+                    {this.state.errors.city &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.city}</p>}
+                    <br/>
+                    <br/>
+
+
+                    <label>Country: </label>
+                    <input type="text"
+                           name="country"
+                           value={country}
+                           onChange={this.handleChange}
+                           required={this.validateCountry()}
+                    />
+                    {this.state.errors.country &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.country}</p>}
+                    <br/>
+                    <br/>
+
+                    <label>Site Address: </label>
+                    <input type="text"
+                           name="site"
+                           value={site}
+                           onChange={this.handleChange}
+                    />
+                    <br/>
+                    <br/>
+
+                    <label>Address: </label>
+                    <input type="text"
+                           name="address"
+                           value={address}
+                           onChange={this.handleChange}
+                           required={this.validateAddress()}
+                    />
+                    {this.state.errors.address &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.address}</p>}
+                    <br/>
+                    <br/>
+
+                    <label>Phone Number: </label>
+                    <input type="text"
+                           name="phoneNumber"
+                           value={phoneNumber}
+                           onChange={this.handleChange}
+                           required={this.validatePhoneNumber()}
+                    />
+                    {this.state.errors.phoneNumber &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.phoneNumber}</p>}
+                    <br/>
+                    <br/>
+
+
+                    <label>Email: </label>
+                    <input type="email"
+                           name="email"
+                           value={email}
+                           onChange={this.handleChange}
+                    />
+                    <br/>
+                    <br/>
+
+                    <label>Password: </label>
+                    <input type="password"
+                           name="password"
+                           value={password}
+                           onChange={this.handleChange}
+                           required={this.validatePassword()}
+                    />
+                    {this.state.errors.password &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.password}</p>}
+                    <br/>
+                    <br/>
+                    <label>Confirm Password: </label>
+                    <input type="password"
+                           name="confirmPassword"
+                           value={confirmPassword}
+                           onChange={this.handleChange}
+                           required={this.validateConfirmPassword()}
+                    />
+                    {this.state.errors.confirmPassword &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.confirmPassword}</p>}
+                    <br/>
+                    <button className="btn btn-success"
+                            type="submit"
+                    >
+                        Register
                     </button>
                 </form>
             </div>

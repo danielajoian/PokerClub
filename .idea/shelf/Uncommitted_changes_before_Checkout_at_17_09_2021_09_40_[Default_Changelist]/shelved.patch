@@ -1,0 +1,200 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2307688c-85a4-477c-9157-0f1b5423bb45\" name=\"Default Changelist\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1oYqQ6EKw47fnXbH6LtJxD0aBz1\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/src\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.standard\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.tslint\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.standard\" value=\"\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"editor.preferences.fonts.default\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club-frontend\\src\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club-frontend\\src\\api\\services\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\public\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\pages\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\players\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\games\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\clubs\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\api\\clubs\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2307688c-85a4-477c-9157-0f1b5423bb45\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1613473869090</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1613473869090</updated>\r\n      <workItem from=\"1613473886378\" duration=\"1144000\" />\r\n      <workItem from=\"1613475313729\" duration=\"14235000\" />\r\n      <workItem from=\"1619151077003\" duration=\"4555000\" />\r\n      <workItem from=\"1620315608665\" duration=\"12443000\" />\r\n      <workItem from=\"1620915673236\" duration=\"1087000\" />\r\n      <workItem from=\"1622707298674\" duration=\"364000\" />\r\n      <workItem from=\"1622786059493\" duration=\"11128000\" />\r\n      <workItem from=\"1626257819529\" duration=\"24033000\" />\r\n      <workItem from=\"1626289474419\" duration=\"682000\" />\r\n      <workItem from=\"1626328757016\" duration=\"27099000\" />\r\n      <workItem from=\"1626416051368\" duration=\"3071000\" />\r\n      <workItem from=\"1629112655260\" duration=\"8478000\" />\r\n      <workItem from=\"1629198146016\" duration=\"25300000\" />\r\n      <workItem from=\"1629358763284\" duration=\"10795000\" />\r\n      <workItem from=\"1629439924259\" duration=\"3633000\" />\r\n      <workItem from=\"1630565166284\" duration=\"24870000\" />\r\n      <workItem from=\"1630643641024\" duration=\"4132000\" />\r\n      <workItem from=\"1630917116141\" duration=\"1850000\" />\r\n      <workItem from=\"1631087289739\" duration=\"1873000\" />\r\n      <workItem from=\"1631091521259\" duration=\"25107000\" />\r\n      <workItem from=\"1631178332727\" duration=\"2974000\" />\r\n      <workItem from=\"1631191000585\" duration=\"2402000\" />\r\n      <workItem from=\"1631199249037\" duration=\"1894000\" />\r\n      <workItem from=\"1631204635102\" duration=\"1308000\" />\r\n      <workItem from=\"1631217444647\" duration=\"834000\" />\r\n      <workItem from=\"1631256034466\" duration=\"4077000\" />\r\n      <workItem from=\"1631277105150\" duration=\"760000\" />\r\n      <workItem from=\"1631512803663\" duration=\"25842000\" />\r\n      <workItem from=\"1631598888628\" duration=\"12181000\" />\r\n      <workItem from=\"1631678717770\" duration=\"1312000\" />\r\n      <workItem from=\"1631848448271\" duration=\"4081000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -5,8 +5,7 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/services/AuthentificationServiceJwt.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/AuthentificationServiceJwt.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -93,7 +92,7 @@
+       <workItem from="1631512803663" duration="25842000" />
+       <workItem from="1631598888628" duration="12181000" />
+       <workItem from="1631678717770" duration="1312000" />
+-      <workItem from="1631848448271" duration="4081000" />
++      <workItem from="1631848448271" duration="4484000" />
+     </task>
+     <servers />
+   </component>
+Index: src/api/services/AuthentificationServiceJwt.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport {API_URL} from \"../../Constants\";\r\n\r\n\r\nclass AuthenticationServiceJwt {\r\n    registerSuccessfulLogin(username) {\r\n        console.log('registerSuccessfulLogin')\r\n        if (!sessionStorage.getItem(null)) {\r\n            this.logout();\r\n        }\r\n        sessionStorage.setItem('authenticatedUser', username);\r\n        // this.setupAxiosInterceptors()\r\n    }\r\n\r\n    logout() {\r\n        sessionStorage.removeItem('authenticatedUser')\r\n        sessionStorage.removeItem('authenticatedClub')\r\n        // sessionStorage.removeItem('authenticatedUserPassword')\r\n    }\r\n\r\n    isUserLoggedIn() {\r\n        let user = sessionStorage.getItem('authenticatedUser')\r\n        return user !== null;\r\n    }\r\n\r\n    getLoggedInUserName() {\r\n        let user = sessionStorage.getItem('authenticatedUser')\r\n        if (user===null) return ''\r\n        return user;\r\n    }\r\n\r\n    registerClubSuccessfulLogin(clubname) {\r\n        console.log('registerSuccessfulLogin')\r\n        if (!sessionStorage.getItem(null)) {\r\n            this.logout();\r\n        }\r\n        sessionStorage.setItem('authenticatedClub', clubname);\r\n        // this.setupAxiosInterceptors()\r\n    }\r\n\r\n    isClubLoggedIn() {\r\n        let club = sessionStorage.getItem('authenticatedClub')\r\n        return club !== null;\r\n    }\r\n\r\n    getLoggedInClubName() {\r\n        let club = sessionStorage.getItem('authenticatedClub')\r\n        if (club===null) return ''\r\n        return club;\r\n    }\r\n\r\n    executeJwtAuthenticationService(username, password) {\r\n        return axios.post(`${API_URL}/authenticate`, {\r\n            username,\r\n            password\r\n        })\r\n    }\r\n\r\n    registerSuccessfulLoginForJwt(username, token) {\r\n        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);\r\n        this.setupAxiosInterceptors(this.createJWTToken(token))\r\n    }\r\n\r\n    createJWTToken(token) {\r\n        return 'Bearer ' + token;\r\n    }\r\n\r\n    setupAxiosInterceptors(token) {\r\n        axios.interceptors.request.use(\r\n            (config) => {\r\n                if (this.isUserLoggedIn()) {\r\n                    config.headers.authorization = token\r\n                }\r\n                return config\r\n            }\r\n        )\r\n    }\r\n}\r\n\r\nexport default new AuthenticationServiceJwt()
+===================================================================
+diff --git a/src/api/services/AuthentificationServiceJwt.js b/src/api/services/AuthentificationServiceJwt.js
+--- a/src/api/services/AuthentificationServiceJwt.js	
++++ b/src/api/services/AuthentificationServiceJwt.js	
+@@ -1,80 +1,80 @@
+-import axios from "axios";
+-import {API_URL} from "../../Constants";
+-
+-
+-class AuthenticationServiceJwt {
+-    registerSuccessfulLogin(username) {
+-        console.log('registerSuccessfulLogin')
+-        if (!sessionStorage.getItem(null)) {
+-            this.logout();
+-        }
+-        sessionStorage.setItem('authenticatedUser', username);
+-        // this.setupAxiosInterceptors()
+-    }
+-
+-    logout() {
+-        sessionStorage.removeItem('authenticatedUser')
+-        sessionStorage.removeItem('authenticatedClub')
+-        // sessionStorage.removeItem('authenticatedUserPassword')
+-    }
+-
+-    isUserLoggedIn() {
+-        let user = sessionStorage.getItem('authenticatedUser')
+-        return user !== null;
+-    }
+-
+-    getLoggedInUserName() {
+-        let user = sessionStorage.getItem('authenticatedUser')
+-        if (user===null) return ''
+-        return user;
+-    }
+-
+-    registerClubSuccessfulLogin(clubname) {
+-        console.log('registerSuccessfulLogin')
+-        if (!sessionStorage.getItem(null)) {
+-            this.logout();
+-        }
+-        sessionStorage.setItem('authenticatedClub', clubname);
+-        // this.setupAxiosInterceptors()
+-    }
+-
+-    isClubLoggedIn() {
+-        let club = sessionStorage.getItem('authenticatedClub')
+-        return club !== null;
+-    }
+-
+-    getLoggedInClubName() {
+-        let club = sessionStorage.getItem('authenticatedClub')
+-        if (club===null) return ''
+-        return club;
+-    }
+-
+-    executeJwtAuthenticationService(username, password) {
+-        return axios.post(`${API_URL}/authenticate`, {
+-            username,
+-            password
+-        })
+-    }
+-
+-    registerSuccessfulLoginForJwt(username, token) {
+-        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);
+-        this.setupAxiosInterceptors(this.createJWTToken(token))
+-    }
+-
+-    createJWTToken(token) {
+-        return 'Bearer ' + token;
+-    }
+-
+-    setupAxiosInterceptors(token) {
+-        axios.interceptors.request.use(
+-            (config) => {
+-                if (this.isUserLoggedIn()) {
+-                    config.headers.authorization = token
+-                }
+-                return config
+-            }
+-        )
+-    }
+-}
+-
+-export default new AuthenticationServiceJwt()
+\ No newline at end of file
++// import axios from "axios";
++// import {API_URL} from "../../Constants";
++//
++//
++// class AuthenticationServiceJwt {
++//     registerSuccessfulLogin(username) {
++//         console.log('registerSuccessfulLogin')
++//         if (!sessionStorage.getItem(null)) {
++//             this.logout();
++//         }
++//         sessionStorage.setItem('authenticatedUser', username);
++//         // this.setupAxiosInterceptors()
++//     }
++//
++//     logout() {
++//         sessionStorage.removeItem('authenticatedUser')
++//         sessionStorage.removeItem('authenticatedClub')
++//         // sessionStorage.removeItem('authenticatedUserPassword')
++//     }
++//
++//     isUserLoggedIn() {
++//         let user = sessionStorage.getItem('authenticatedUser')
++//         return user !== null;
++//     }
++//
++//     getLoggedInUserName() {
++//         let user = sessionStorage.getItem('authenticatedUser')
++//         if (user===null) return ''
++//         return user;
++//     }
++//
++//     registerClubSuccessfulLogin(clubname) {
++//         console.log('registerSuccessfulLogin')
++//         if (!sessionStorage.getItem(null)) {
++//             this.logout();
++//         }
++//         sessionStorage.setItem('authenticatedClub', clubname);
++//         // this.setupAxiosInterceptors()
++//     }
++//
++//     isClubLoggedIn() {
++//         let club = sessionStorage.getItem('authenticatedClub')
++//         return club !== null;
++//     }
++//
++//     getLoggedInClubName() {
++//         let club = sessionStorage.getItem('authenticatedClub')
++//         if (club===null) return ''
++//         return club;
++//     }
++//
++//     executeJwtAuthenticationService(username, password) {
++//         return axios.post(`${API_URL}/authenticate`, {
++//             username,
++//             password
++//         })
++//     }
++//
++//     registerSuccessfulLoginForJwt(username, token) {
++//         sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username);
++//         this.setupAxiosInterceptors(this.createJWTToken(token))
++//     }
++//
++//     createJWTToken(token) {
++//         return 'Bearer ' + token;
++//     }
++//
++//     setupAxiosInterceptors(token) {
++//         axios.interceptors.request.use(
++//             (config) => {
++//                 if (this.isUserLoggedIn()) {
++//                     config.headers.authorization = token
++//                 }
++//                 return config
++//             }
++//         )
++//     }
++// }
++//
++// export default new AuthenticationServiceJwt()
+\ No newline at end of file

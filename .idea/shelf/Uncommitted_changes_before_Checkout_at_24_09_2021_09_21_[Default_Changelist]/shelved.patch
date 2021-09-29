@@ -1,0 +1,75 @@
+Index: src/api/services/PlayersDataService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport {API_URL} from \"../../Constants\";\r\n\r\nclass PlayersDataService {\r\n    // retrieveAllClubs() {\r\n    //     return axios.get(`${API_URL}/clubs`)\r\n    // }\r\n    //\r\n    retrievePlayer(username) {\r\n        return axios.get(`${API_URL}/players/${username}`);\r\n    }\r\n\r\n    deletePlayer(username, id) {\r\n        return axios.delete(`${API_URL}/players/${username}/${id}`)\r\n    }\r\n\r\n    updatePlayer(username, id, player) {\r\n        return axios.put(`${API_URL}/players/${username}/${id}`, player);\r\n    }\r\n\r\n    createPlayer(username, player) {\r\n        return axios.post(`${API_URL}/players/${username}`, player);\r\n    }\r\n}\r\n\r\nexport default new PlayersDataService()\r\n\r\n
+===================================================================
+diff --git a/src/api/services/PlayersDataService.js b/src/api/services/PlayersDataService.js
+--- a/src/api/services/PlayersDataService.js	
++++ b/src/api/services/PlayersDataService.js	
+@@ -6,8 +6,8 @@
+     //     return axios.get(`${API_URL}/clubs`)
+     // }
+     //
+-    retrievePlayer(username) {
+-        return axios.get(`${API_URL}/players/${username}`);
++    retrievePlayer(username, password) {
++        return axios.get(`${API_URL}/players/${username}${password}`);
+     }
+ 
+     deletePlayer(username, id) {
+Index: src/api/services/AuthenticationServiceJwt.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport {API_URL} from \"../../Constants\";\r\n\r\n\r\nclass AuthenticationServiceJwt {\r\n\r\n    registerSuccessfulLoginForJwt(username, token) {\r\n        if (!sessionStorage.getItem(null)) {\r\n            this.logout();\r\n        }\r\n        sessionStorage.setItem('authenticatedUser', username);\r\n        this.setupAxiosInterceptors(this.createJWTToken(token))\r\n    }\r\n\r\n    registerClubSuccessfulLogin(clubname, token) {\r\n        if (!sessionStorage.getItem(null)) {\r\n            this.logout();\r\n        }\r\n        sessionStorage.setItem('authenticatedClub', clubname);\r\n        this.setupAxiosInterceptors(this.createJWTToken(token))\r\n    }\r\n\r\n    logout() {\r\n        sessionStorage.removeItem('authenticatedUser')\r\n        sessionStorage.removeItem('authenticatedClub')\r\n    }\r\n\r\n    isUserLoggedIn() {\r\n        let user = sessionStorage.getItem('authenticatedUser')\r\n        return user !== null;\r\n    }\r\n\r\n    getLoggedInUserName() {\r\n        let user = sessionStorage.getItem('authenticatedUser')\r\n        if (user===null) return ''\r\n        return user;\r\n    }\r\n\r\n    isClubLoggedIn() {\r\n        let club = sessionStorage.getItem('authenticatedClub')\r\n        return club !== null;\r\n    }\r\n\r\n    getLoggedInClubName() {\r\n        let club = sessionStorage.getItem('authenticatedClub')\r\n        if (club===null) return ''\r\n        return club;\r\n    }\r\n\r\n    executeUserJwtAuthenticationService(username, password) {\r\n        return axios.post(`${API_URL}/authenticatePlayer`, {\r\n            username,\r\n            password\r\n        })\r\n    }\r\n\r\n    executeClubJwtAuthenticationService(clubUsername, password) {\r\n        return axios.post(`${API_URL}/authenticateClub`, {\r\n           clubUsername,\r\n            password\r\n        })\r\n    }\r\n\r\n    createJWTToken(token) {\r\n        return 'Bearer ' + token;\r\n    }\r\n\r\n    setupAxiosInterceptors(token) {\r\n        axios.interceptors.request.use(\r\n            (config) => {\r\n                if (this.isUserLoggedIn()) {\r\n                    config.headers.authorization = token\r\n                }\r\n                return config\r\n            }\r\n        )\r\n    }\r\n}\r\n\r\nexport default new AuthenticationServiceJwt()
+===================================================================
+diff --git a/src/api/services/AuthenticationServiceJwt.js b/src/api/services/AuthenticationServiceJwt.js
+--- a/src/api/services/AuthenticationServiceJwt.js	
++++ b/src/api/services/AuthenticationServiceJwt.js	
+@@ -5,29 +5,33 @@
+ class AuthenticationServiceJwt {
+ 
+     registerSuccessfulLoginForJwt(username, token) {
+-        if (!sessionStorage.getItem(null)) {
+-            this.logout();
+-        }
++        // if (!sessionStorage.getItem(null)) {
++        //     this.logout();
++        // }
+         sessionStorage.setItem('authenticatedUser', username);
++        sessionStorage.setItem('token', token);
+         this.setupAxiosInterceptors(this.createJWTToken(token))
+     }
+ 
+-    registerClubSuccessfulLogin(clubname, token) {
++    registerClubSuccessfulLoginForJwt(clubname, token) {
+         if (!sessionStorage.getItem(null)) {
+             this.logout();
+         }
+         sessionStorage.setItem('authenticatedClub', clubname);
++        sessionStorage.setItem('token', token);
+         this.setupAxiosInterceptors(this.createJWTToken(token))
+     }
+ 
+     logout() {
+         sessionStorage.removeItem('authenticatedUser')
++        sessionStorage.removeItem('token')
+         sessionStorage.removeItem('authenticatedClub')
+     }
+ 
+     isUserLoggedIn() {
+         let user = sessionStorage.getItem('authenticatedUser')
+-        return user !== null;
++        // let token = sessionStorage.getItem('token')
++        return (user !== null );
+     }
+ 
+     getLoggedInUserName() {
+@@ -68,7 +72,7 @@
+     setupAxiosInterceptors(token) {
+         axios.interceptors.request.use(
+             (config) => {
+-                if (this.isUserLoggedIn()) {
++                if (this.isUserLoggedIn() || this.isClubLoggedIn()) {
+                     config.headers.authorization = token
+                 }
+                 return config

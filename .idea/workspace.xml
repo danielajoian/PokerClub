@@ -6,31 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/ClubsDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ClubsDataService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/GameDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/GameDataService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/services/PlayersDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/PlayersDataService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubInfo.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubOwnersPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubOwnersPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubRegisterSuccessful.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubRegisterSuccessful.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubsList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/games/GameComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GameComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/games/GameDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GameDetails.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/games/GamesList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/games/GamesList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/FirstPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/FirstPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/AuthenticatedRoute.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/AuthenticatedRoute.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Footer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Logout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Logout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Welcome.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Welcome.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Header.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/players/PlayerLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerLogin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerRegisterSuccessful.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerRegisterSuccessful.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/switcher.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/switcher.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +109,14 @@
       <workItem from="1631217444647" duration="834000" />
       <workItem from="1631256034466" duration="4077000" />
     </task>
+    <task id="LOCAL-00001" summary="...">
+      <created>1632941229135</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1632941229135</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,5 +133,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="..." />
+    <option name="LAST_COMMIT_MESSAGE" value="..." />
   </component>
 </project>

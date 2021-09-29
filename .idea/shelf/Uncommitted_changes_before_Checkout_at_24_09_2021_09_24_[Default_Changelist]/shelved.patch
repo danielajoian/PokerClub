@@ -1,0 +1,303 @@
+Index: src/components/pages/AuthenticatedRoute.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from \"react\";\r\nimport AuthenticationService from \"../../api/services/AuthenticationService.js\";\r\nimport {Redirect, Route} from \"react-router-dom\";\r\n\r\nclass AuthenticatedRoute extends Component {\r\n    render() {\r\n        if (AuthenticationService.isUserLoggedIn() || AuthenticationService.isClubLoggedIn()){\r\n           return <Route {...this.props}/>\r\n        }else {\r\n           return <Redirect to=\"/\" />\r\n        }\r\n    }\r\n}\r\n\r\nexport default AuthenticatedRoute
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/pages/AuthenticatedRoute.jsx b/src/components/pages/AuthenticatedRoute.jsx
+--- a/src/components/pages/AuthenticatedRoute.jsx	(revision 00add4bfbd89ca306e1024aa6fa3346f9a27ef86)
++++ b/src/components/pages/AuthenticatedRoute.jsx	(date 1632464622192)
+@@ -1,6 +1,7 @@
+ import React, {Component} from "react";
+ import AuthenticationService from "../../api/services/AuthenticationService.js";
+ import {Redirect, Route} from "react-router-dom";
++// import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+ 
+ class AuthenticatedRoute extends Component {
+     render() {
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2307688c-85a4-477c-9157-0f1b5423bb45\" name=\"Default Changelist\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/api/services/ClubsDataService.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/api/services/ClubsDataService.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/api/services/PlayersDataService.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/api/services/PlayersDataService.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerAccount.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerAccount.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerPage.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerPage.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/components/players/PlayerRegister.jsx\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/components/players/PlayerRegister.jsx\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/switch.scss\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/switch.scss\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1oYqQ6EKw47fnXbH6LtJxD0aBz1\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/src\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.standard\" value=\"true\" />\r\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\r\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\r\n    <property name=\"node.js.path.for.package.tslint\" value=\"project\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n    <property name=\"node.js.selected.package.standard\" value=\"\" />\r\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"editor.preferences.fonts.default\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club-frontend\\src\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club-frontend\\src\\api\\services\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\public\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\pages\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\players\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\games\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\components\\clubs\" />\r\n      <recent name=\"C:\\Users\\Dani\\Desktop\\ADVANCED JAVA\\PokerClub\\poker-club\\src\\api\\clubs\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2307688c-85a4-477c-9157-0f1b5423bb45\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1613473869090</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1613473869090</updated>\r\n      <workItem from=\"1613473886378\" duration=\"1144000\" />\r\n      <workItem from=\"1613475313729\" duration=\"14235000\" />\r\n      <workItem from=\"1619151077003\" duration=\"4555000\" />\r\n      <workItem from=\"1620315608665\" duration=\"12443000\" />\r\n      <workItem from=\"1620915673236\" duration=\"1087000\" />\r\n      <workItem from=\"1622707298674\" duration=\"364000\" />\r\n      <workItem from=\"1622786059493\" duration=\"11128000\" />\r\n      <workItem from=\"1626257819529\" duration=\"24033000\" />\r\n      <workItem from=\"1626289474419\" duration=\"682000\" />\r\n      <workItem from=\"1626328757016\" duration=\"27099000\" />\r\n      <workItem from=\"1626416051368\" duration=\"3071000\" />\r\n      <workItem from=\"1629112655260\" duration=\"8478000\" />\r\n      <workItem from=\"1629198146016\" duration=\"25300000\" />\r\n      <workItem from=\"1629358763284\" duration=\"10795000\" />\r\n      <workItem from=\"1629439924259\" duration=\"3633000\" />\r\n      <workItem from=\"1630565166284\" duration=\"24870000\" />\r\n      <workItem from=\"1630643641024\" duration=\"4132000\" />\r\n      <workItem from=\"1630917116141\" duration=\"1850000\" />\r\n      <workItem from=\"1631087289739\" duration=\"1873000\" />\r\n      <workItem from=\"1631091521259\" duration=\"25107000\" />\r\n      <workItem from=\"1631178332727\" duration=\"2974000\" />\r\n      <workItem from=\"1631191000585\" duration=\"2402000\" />\r\n      <workItem from=\"1631199249037\" duration=\"1894000\" />\r\n      <workItem from=\"1631204635102\" duration=\"1308000\" />\r\n      <workItem from=\"1631217444647\" duration=\"834000\" />\r\n      <workItem from=\"1631256034466\" duration=\"4077000\" />\r\n      <workItem from=\"1631277105150\" duration=\"760000\" />\r\n      <workItem from=\"1631512803663\" duration=\"25842000\" />\r\n      <workItem from=\"1631598888628\" duration=\"11479000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 00add4bfbd89ca306e1024aa6fa3346f9a27ef86)
++++ b/.idea/workspace.xml	(date 1632464622996)
+@@ -6,18 +6,8 @@
+   <component name="ChangeListManager">
+     <list default="true" id="2307688c-85a4-477c-9157-0f1b5423bb45" name="Default Changelist" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/api/services/ClubsDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/ClubsDataService.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/api/services/PlayersDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/services/PlayersDataService.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubAccount.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubDetailsPage.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubLogin.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/clubs/ClubRegister.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerAccount.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerDetailsPage.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerPage.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/players/PlayerRegister.jsx" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/switch.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/switch.scss" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/components/pages/AuthenticatedRoute.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/AuthenticatedRoute.jsx" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -25,6 +15,11 @@
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="jwt" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="ProjectId" id="1oYqQ6EKw47fnXbH6LtJxD0aBz1" />
+@@ -102,7 +97,9 @@
+       <workItem from="1631256034466" duration="4077000" />
+       <workItem from="1631277105150" duration="760000" />
+       <workItem from="1631512803663" duration="25842000" />
+-      <workItem from="1631598888628" duration="11479000" />
++      <workItem from="1631598888628" duration="12181000" />
++      <workItem from="1631678717770" duration="1312000" />
++      <workItem from="1631848448271" duration="4081000" />
+     </task>
+     <servers />
+   </component>
+Index: package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/package-lock.json b/package-lock.json
+--- a/package-lock.json	(revision 00add4bfbd89ca306e1024aa6fa3346f9a27ef86)
++++ b/package-lock.json	(date 1632464548860)
+@@ -5,6 +5,7 @@
+   "requires": true,
+   "packages": {
+     "": {
++      "name": "poker-club",
+       "version": "0.1.0",
+       "dependencies": {
+         "@testing-library/jest-dom": "^5.12.0",
+@@ -19,9 +20,12 @@
+         "react": "^17.0.2",
+         "react-bootstrap": "^1.5.2",
+         "react-dom": "^17.0.2",
++        "react-form-with-constraints-bootstrap4": "^0.16.1",
+         "react-router": "^5.2.0",
+         "react-router-dom": "^5.2.0",
+         "react-scripts": "4.0.3",
++        "react-validation": "^3.0.7",
++        "validator": "^13.6.0",
+         "web-vitals": "^1.1.2"
+       },
+       "devDependencies": {
+@@ -12948,6 +12952,11 @@
+       "resolved": "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz",
+       "integrity": "sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4="
+     },
++    "node_modules/lodash.omit": {
++      "version": "4.5.0",
++      "resolved": "https://registry.npmjs.org/lodash.omit/-/lodash.omit-4.5.0.tgz",
++      "integrity": "sha1-brGa5aHuHdnfC5aeZs4Lf6MLXmA="
++    },
+     "node_modules/lodash.sortby": {
+       "version": "4.7.0",
+       "resolved": "https://registry.npmjs.org/lodash.sortby/-/lodash.sortby-4.7.0.tgz",
+@@ -16771,6 +16780,27 @@
+       "resolved": "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz",
+       "integrity": "sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw=="
+     },
++    "node_modules/react-form-with-constraints": {
++      "version": "0.16.1",
++      "resolved": "https://registry.npmjs.org/react-form-with-constraints/-/react-form-with-constraints-0.16.1.tgz",
++      "integrity": "sha512-SWlErEffFTYdW8BoFYAs4rn2PSmbAylLKNgYzh2/cMZYetSy4pM7MDMMVoy1+GOMuI4jc1axdNSH5MF0LUrGFQ==",
++      "peer": true,
++      "dependencies": {
++        "prop-types": "^15.7.2"
++      },
++      "peerDependencies": {
++        "react": ">=16"
++      }
++    },
++    "node_modules/react-form-with-constraints-bootstrap4": {
++      "version": "0.16.1",
++      "resolved": "https://registry.npmjs.org/react-form-with-constraints-bootstrap4/-/react-form-with-constraints-bootstrap4-0.16.1.tgz",
++      "integrity": "sha512-ayuGiel/WTuavgEtX71TcRlA9hG+r/W5+2zum4w2Y1Qq2yMf3I2HbcsABkl/0uACfdAeuVGKJHpuS3uE+HjGXw==",
++      "deprecated": "Use react-form-with-constraints-bootstrap instead",
++      "peerDependencies": {
++        "react-form-with-constraints": "^0.16.0"
++      }
++    },
+     "node_modules/react-is": {
+       "version": "17.0.1",
+       "resolved": "https://registry.npmjs.org/react-is/-/react-is-17.0.1.tgz",
+@@ -16969,6 +16999,40 @@
+         "react-dom": ">=16.6.0"
+       }
+     },
++    "node_modules/react-validation": {
++      "version": "3.0.7",
++      "resolved": "https://registry.npmjs.org/react-validation/-/react-validation-3.0.7.tgz",
++      "integrity": "sha1-tQcL+KbnN7hw2Hu/tyzMpys/N1A=",
++      "dependencies": {
++        "lodash.omit": "^4.5.0",
++        "prop-types": "^15.6.0",
++        "react": "^16.0.0",
++        "shallow-equal": "^1.0.0",
++        "uuid": "^3.1.0"
++      }
++    },
++    "node_modules/react-validation/node_modules/react": {
++      "version": "16.14.0",
++      "resolved": "https://registry.npmjs.org/react/-/react-16.14.0.tgz",
++      "integrity": "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==",
++      "dependencies": {
++        "loose-envify": "^1.1.0",
++        "object-assign": "^4.1.1",
++        "prop-types": "^15.6.2"
++      },
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
++    "node_modules/react-validation/node_modules/uuid": {
++      "version": "3.4.0",
++      "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz",
++      "integrity": "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==",
++      "deprecated": "Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.",
++      "bin": {
++        "uuid": "bin/uuid"
++      }
++    },
+     "node_modules/read-pkg": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/read-pkg/-/read-pkg-2.0.0.tgz",
+@@ -18528,6 +18592,11 @@
+         "sha.js": "bin.js"
+       }
+     },
++    "node_modules/shallow-equal": {
++      "version": "1.2.1",
++      "resolved": "https://registry.npmjs.org/shallow-equal/-/shallow-equal-1.2.1.tgz",
++      "integrity": "sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA=="
++    },
+     "node_modules/shebang-command": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+@@ -20600,6 +20669,14 @@
+         "spdx-expression-parse": "^3.0.0"
+       }
+     },
++    "node_modules/validator": {
++      "version": "13.6.0",
++      "resolved": "https://registry.npmjs.org/validator/-/validator-13.6.0.tgz",
++      "integrity": "sha512-gVgKbdbHgtxpRyR8K0O6oFZPhhB5tT1jeEHZR0Znr9Svg03U0+r9DXWMrnRAB+HtCStDQKlaIZm42tVsVjqtjg==",
++      "engines": {
++        "node": ">= 0.10"
++      }
++    },
+     "node_modules/value-equal": {
+       "version": "1.0.1",
+       "resolved": "https://registry.npmjs.org/value-equal/-/value-equal-1.0.1.tgz",
+@@ -32615,6 +32692,11 @@
+       "resolved": "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz",
+       "integrity": "sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4="
+     },
++    "lodash.omit": {
++      "version": "4.5.0",
++      "resolved": "https://registry.npmjs.org/lodash.omit/-/lodash.omit-4.5.0.tgz",
++      "integrity": "sha1-brGa5aHuHdnfC5aeZs4Lf6MLXmA="
++    },
+     "lodash.sortby": {
+       "version": "4.7.0",
+       "resolved": "https://registry.npmjs.org/lodash.sortby/-/lodash.sortby-4.7.0.tgz",
+@@ -35670,6 +35752,21 @@
+       "resolved": "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz",
+       "integrity": "sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw=="
+     },
++    "react-form-with-constraints": {
++      "version": "0.16.1",
++      "resolved": "https://registry.npmjs.org/react-form-with-constraints/-/react-form-with-constraints-0.16.1.tgz",
++      "integrity": "sha512-SWlErEffFTYdW8BoFYAs4rn2PSmbAylLKNgYzh2/cMZYetSy4pM7MDMMVoy1+GOMuI4jc1axdNSH5MF0LUrGFQ==",
++      "peer": true,
++      "requires": {
++        "prop-types": "^15.7.2"
++      }
++    },
++    "react-form-with-constraints-bootstrap4": {
++      "version": "0.16.1",
++      "resolved": "https://registry.npmjs.org/react-form-with-constraints-bootstrap4/-/react-form-with-constraints-bootstrap4-0.16.1.tgz",
++      "integrity": "sha512-ayuGiel/WTuavgEtX71TcRlA9hG+r/W5+2zum4w2Y1Qq2yMf3I2HbcsABkl/0uACfdAeuVGKJHpuS3uE+HjGXw==",
++      "requires": {}
++    },
+     "react-is": {
+       "version": "17.0.1",
+       "resolved": "https://registry.npmjs.org/react-is/-/react-is-17.0.1.tgz",
+@@ -35838,6 +35935,35 @@
+         "prop-types": "^15.6.2"
+       }
+     },
++    "react-validation": {
++      "version": "3.0.7",
++      "resolved": "https://registry.npmjs.org/react-validation/-/react-validation-3.0.7.tgz",
++      "integrity": "sha1-tQcL+KbnN7hw2Hu/tyzMpys/N1A=",
++      "requires": {
++        "lodash.omit": "^4.5.0",
++        "prop-types": "^15.6.0",
++        "react": "^16.0.0",
++        "shallow-equal": "^1.0.0",
++        "uuid": "^3.1.0"
++      },
++      "dependencies": {
++        "react": {
++          "version": "16.14.0",
++          "resolved": "https://registry.npmjs.org/react/-/react-16.14.0.tgz",
++          "integrity": "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==",
++          "requires": {
++            "loose-envify": "^1.1.0",
++            "object-assign": "^4.1.1",
++            "prop-types": "^15.6.2"
++          }
++        },
++        "uuid": {
++          "version": "3.4.0",
++          "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz",
++          "integrity": "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
++        }
++      }
++    },
+     "read-pkg": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/read-pkg/-/read-pkg-2.0.0.tgz",
+@@ -37063,6 +37189,11 @@
+         "safe-buffer": "^5.0.1"
+       }
+     },
++    "shallow-equal": {
++      "version": "1.2.1",
++      "resolved": "https://registry.npmjs.org/shallow-equal/-/shallow-equal-1.2.1.tgz",
++      "integrity": "sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA=="
++    },
+     "shebang-command": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+@@ -38721,6 +38852,11 @@
+         "spdx-expression-parse": "^3.0.0"
+       }
+     },
++    "validator": {
++      "version": "13.6.0",
++      "resolved": "https://registry.npmjs.org/validator/-/validator-13.6.0.tgz",
++      "integrity": "sha512-gVgKbdbHgtxpRyR8K0O6oFZPhhB5tT1jeEHZR0Znr9Svg03U0+r9DXWMrnRAB+HtCStDQKlaIZm42tVsVjqtjg=="
++    },
+     "value-equal": {
+       "version": "1.0.1",
+       "resolved": "https://registry.npmjs.org/value-equal/-/value-equal-1.0.1.tgz",

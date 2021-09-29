@@ -2,24 +2,24 @@ import axios from "axios";
 import {API_JPA_URL} from "../../Constants";
 
 class GameDataService {
-    retrieveAllGames(clubName) {
-        return axios.get(`${API_JPA_URL}/${clubName}/games`)
+    retrieveAllGames(clubUsername) {
+        return axios.get(`${API_JPA_URL}/${clubUsername}/games`)
     }
 
-    retrieveGame(clubName, id) {
-        return axios.get(`${API_JPA_URL}/${clubName}/games/${id}`)
+    retrieveGame(clubUsername, id) {
+        return axios.get(`${API_JPA_URL}/${clubUsername}/games/${id}`)
     }
 
-    deleteGame(clubName, id) {
-        return axios.delete(`${API_JPA_URL}/${clubName}/games/${id}`)
+    deleteGame(clubUsername, id) {
+        return axios.delete(`${API_JPA_URL}/${clubUsername}/games/${id}`)
     }
 
-    updateGame(clubName, id, game) {
-        return axios.put(`${API_JPA_URL}/${clubName}/games/${id}`, game);
+    updateGame(clubUsername, id, game) {
+        return axios.put(`${API_JPA_URL}/${clubUsername}/games/${id}`, game);
     }
 
-    createGame(clubName, game) {
-        return axios.post(`${API_JPA_URL}/${clubName}/games`, game);
+    createGame(clubUsername, game) {
+        return axios.post(`${API_JPA_URL}/${clubUsername}/games`, game);
     }
 }
 

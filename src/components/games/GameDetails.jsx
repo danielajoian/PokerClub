@@ -21,7 +21,8 @@ class GameDetails extends Component {
     }
 
     refreshClub() {
-        ClubsDataService.retrieveClub(this.state.club.clubUsername)
+        ClubsDataService
+            .retrieveClub(this.state.club.clubUsername)
             .then(response => {
                     this.setState({club: response.data})
                 }
@@ -29,7 +30,8 @@ class GameDetails extends Component {
     }
 
     refreshGames() {
-        GameDataService.retrieveGame(this.state.club.clubUsername, this.state.gameId)
+        GameDataService
+            .retrieveGame(this.state.club.clubUsername, this.state.gameId)
             .then(
                 response => {
                     console.log(response)
@@ -37,6 +39,7 @@ class GameDetails extends Component {
                 }
             )
     }
+
     render() {
         return (
             <div>

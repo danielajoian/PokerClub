@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import GameDataService from "../../api/services/GameDataService";
-import AuthenticationService from "../../api/services/AuthenticationService";
 import moment from "moment";
+import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
 
 class GamesList extends Component {
     constructor(props) {
@@ -12,6 +12,7 @@ class GamesList extends Component {
             games : [],
             message: null
         }
+
         this.deleteGameClicked = this.deleteGameClicked.bind(this);
         this.updateGameClicked = this.updateGameClicked.bind(this)
         this.refreshGames = this.refreshGames.bind(this)
@@ -22,12 +23,12 @@ class GamesList extends Component {
        this.refreshGames();
     }
 
-    componentDidUpdate(){
-        this.componentDidMount();
-    }
+    // componentDidUpdate(){
+    //     this.componentDidMount();
+    // }
 
     refreshGames() {
-        let clubname = AuthenticationService.getLoggedInClubName()
+        let clubname = AuthenticationServiceJwt.getLoggedInClubName()
         GameDataService.retrieveAllGames(clubname)
             .then(
                 response => {
@@ -38,7 +39,7 @@ class GamesList extends Component {
     }
 
     deleteGameClicked(id) {
-        let club = AuthenticationService.getLoggedInClubName()
+        let club = AuthenticationServiceJwt.getLoggedInClubName()
         console.log(id + " " + club);
         if(window.confirm('Are you sure you want to delete this game?')) {
             GameDataService.deleteGame(club, id)
@@ -57,7 +58,6 @@ class GamesList extends Component {
     }
 
     infoGameClicked(id) {
-        // this.refreshClubs();
         console.log("This is the id: " + id)
         this.props.history.push(`/games/${id}/details`)
     }
@@ -65,7 +65,7 @@ class GamesList extends Component {
     render() {
         return (
             <div>
-                <h3>List Of Games for {AuthenticationService.getLoggedInClubName()}  Poker Club</h3>
+                <h3>List Of Games for {AuthenticationServiceJwt.getLoggedInClubName()}  Poker Club</h3>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 &nbsp;
                     <table className="table">
