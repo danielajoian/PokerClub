@@ -37,18 +37,11 @@ class ClubRegister extends Component {
         this.validateAddress = this.validateAddress.bind(this)
         this.validatePhoneNumber = this.validatePhoneNumber.bind(this)
         this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
+        this.validateEmail = this.validateEmail.bind(this)
+        this.validateSite = this.validateSite.bind(this)
     }
 
-    // componentDidMount() {
-    //     console.log("component did mount")
-    //     if (this.state.id !== null) {
-    //         return
-    //     }
-    //
-    //     this.onSubmit(this.values);
-    // }
-
-    validateUsername= () => {
+    validateUsername = () => {
         let error = this.state.errors
         if (!this.state.clubUsername) {
             error.clubUsername = 'Required'
@@ -59,7 +52,7 @@ class ClubRegister extends Component {
         }
     }
 
-    validateCity= () => {
+    validateCity = () => {
         let error = this.state.errors
         if (!this.state.city) {
             error.city = 'Required'
@@ -70,7 +63,7 @@ class ClubRegister extends Component {
         }
     }
 
-    validateCountry= () => {
+    validateCountry = () => {
         let error = this.state.errors
         if (!this.state.country) {
             error.country = 'Required'
@@ -81,7 +74,7 @@ class ClubRegister extends Component {
         }
     }
 
-    validateAddress= () => {
+    validateAddress = () => {
         let error = this.state.errors
         if (!this.state.address) {
             error.address = 'Required'
@@ -92,12 +85,28 @@ class ClubRegister extends Component {
         }
     }
 
-    validatePhoneNumber= () => {
+    validateSite = () => {
+        let error = this.state.errors
+        if (!this.state.site){
+            error.site = ''
+        }else if(this.state.site.length < 3) {
+            error.site = 'Site address has to have at least 3 characters'
+        }else if (!(this.state.site
+            .match(/(www)\.[A-Za-z]*[0-9]*\.[A-Za-z]{2,}/))){
+            error.site = `Web address doesn't have the correct form`
+        }else {
+            error.site = ''
+        }
+    }
+
+    validatePhoneNumber = () => {
         let error = this.state.errors
         if (!this.state.phoneNumber) {
             error.phoneNumber = 'Required'
         } else if(this.state.phoneNumber.length < 3) {
             error.phoneNumber= 'Phone Number has to have at least 3 characters'
+        } else if(this.state.phoneNumber.length > 15) {
+            error.phoneNumber= 'Phone Number is too long'
         }else if(!(this.state.phoneNumber.match(/^[0-9]+$/))) {
             error.phoneNumber= 'Phone Number has to have only digits'
         }else {
@@ -105,7 +114,19 @@ class ClubRegister extends Component {
         }
     }
 
-    validatePassword= () => {
+    validateEmail = () => {
+        let error = this.state.errors
+        if(!this.state.email) {
+            error.email = ''
+        }else if(!(this.state.email
+            .match(/[A-Za-z]+[0-9.]*@[A-Za-z]{3,}\.[A-Za-z]{2,}/))) {
+            error.email = 'Email is not valid'
+        }else {
+            error.email = ''
+        }
+    }
+
+    validatePassword = () => {
         let error = this.state.errors
         if (!this.state.password) {
             error.password = 'Required'
@@ -116,7 +137,7 @@ class ClubRegister extends Component {
         }
     }
 
-    validateConfirmPassword= () => {
+    validateConfirmPassword = () => {
         let error = this.state.errors
         if (!this.state.confirmPassword) {
             error.confirmPassword = 'Required'
@@ -136,21 +157,31 @@ class ClubRegister extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        let club = {
-            email: this.state.email,
-            password: this.state.password,
-            city: this.state.city,
-            country: this.state.country,
-            address: this.state.address,
-            site: this.state.site,
-            phoneNumber: this.state.phoneNumber
-        }
-        ClubsDataService
-            .createClub(this.state.clubUsername, club)
-            .then(response => {
-                console.log(response)
-                this.props.history.push(`/clubRegisterSuccessful`)
-            })
+        if (this.state.errors.clubUsername === '' &&
+            this.state.errors.password === '' &&
+            this.state.errors.confirmPassword === '' &&
+            this.state.errors.city === '' &&
+            this.state.errors.country === '' &&
+            this.state.errors.address === '' &&
+            this.state.errors.email === '' &&
+            this.state.errors.site === '' &&
+            this.state.errors.phoneNumber === '') {
+                let club = {
+                    email: this.state.email,
+                    password: this.state.password,
+                    city: this.state.city,
+                    country: this.state.country,
+                    address: this.state.address,
+                    site: this.state.site,
+                    phoneNumber: this.state.phoneNumber
+                }
+                ClubsDataService
+                    .createClub(this.state.clubUsername, club)
+                    .then(response => {
+                        console.log(response)
+                        this.props.history.push(`/clubRegisterSuccessful`)
+                    })
+        }else return
     }
 
     render() {
@@ -179,7 +210,8 @@ class ClubRegister extends Component {
                            required={this.validateUsername()}
                     />
                     {this.state.errors.clubUsername &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.clubUsername}</p>}
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.clubUsername}</p>}
                     <br/>
                     <br/>
 
@@ -191,7 +223,8 @@ class ClubRegister extends Component {
                            required={this.validateCity()}
                     />
                     {this.state.errors.city &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.city}</p>}
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.city}</p>}
                     <br/>
                     <br/>
 
@@ -204,16 +237,22 @@ class ClubRegister extends Component {
                            required={this.validateCountry()}
                     />
                     {this.state.errors.country &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.country}</p>}
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.country}</p>}
                     <br/>
                     <br/>
 
                     <label>Site Address: </label>
-                    <input type="text"
+                    <input placeholder="www.something23.org"
+                           type="text"
                            name="site"
                            value={site}
                            onChange={this.handleChange}
+                           required={this.validateSite()}
                     />
+                    {this.state.errors.site &&
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.site}</p>}
                     <br/>
                     <br/>
 
@@ -225,7 +264,8 @@ class ClubRegister extends Component {
                            required={this.validateAddress()}
                     />
                     {this.state.errors.address &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.address}</p>}
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.address}</p>}
                     <br/>
                     <br/>
 
@@ -237,17 +277,24 @@ class ClubRegister extends Component {
                            required={this.validatePhoneNumber()}
                     />
                     {this.state.errors.phoneNumber &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.phoneNumber}</p>}
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.phoneNumber}</p>}
                     <br/>
                     <br/>
 
 
                     <label>Email: </label>
-                    <input type="email"
+                    <input placeholder="something@mail.com"
+                           type="email"
                            name="email"
                            value={email}
                            onChange={this.handleChange}
+                           required={this.validateEmail()}
+                           // onBlur={this.validateEmail()}
                     />
+                    {this.state.errors.email &&
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.email}</p>}
                     <br/>
                     <br/>
 
@@ -259,7 +306,8 @@ class ClubRegister extends Component {
                            required={this.validatePassword()}
                     />
                     {this.state.errors.password &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.password}</p>}
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.password}</p>}
                     <br/>
                     <br/>
                     <label>Confirm Password: </label>
@@ -270,7 +318,8 @@ class ClubRegister extends Component {
                            required={this.validateConfirmPassword()}
                     />
                     {this.state.errors.confirmPassword &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.confirmPassword}</p>}
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.confirmPassword}</p>}
                     <br/>
                     <button className="btn btn-success"
                             type="submit"

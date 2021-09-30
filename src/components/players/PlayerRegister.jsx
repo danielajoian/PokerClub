@@ -26,19 +26,6 @@ class PlayerRegister extends Component {
         this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
     }
 
-    // componentDidMount() {
-    //     this.handleSubmit();
-    // }
-
-    // componentDidMount() {
-    //     console.log("component did mount")
-    //     if (this.state.id !== null) {
-    //         return
-    //     }
-    //
-    //     this.onSubmit(this.values);
-    // }
-
     validateUsername= () => {
         let error = this.state.errors
         if (!this.state.username) {
@@ -52,17 +39,10 @@ class PlayerRegister extends Component {
 
     validateEmail= () => {
         let error = this.state.errors
-        let lastAtPos = this.state.email.lastIndexOf("@");
-        let lastDotPos = this.state.email.lastIndexOf(".");
         if (!this.state.email) {
             error.email = 'Required'
-        } else if(!(
-            lastAtPos < lastDotPos &&
-            lastAtPos > 0 &&
-            this.state.email.indexOf("@@") === -1 &&
-            lastDotPos > 2 &&
-            this.state.email.length - lastDotPos > 2
-        )) {
+        } else if(!(this.state.email
+            .match(/[A-Za-z]+[0-9.]*@[A-Za-z]{3,}\.[A-Za-z]{2,}/))) {
             error.email = 'Email is not valid'
         }else {
             error.email = ''
@@ -102,16 +82,21 @@ class PlayerRegister extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        let player = {
-            email: this.state.email,
-            password: this.state.password
-        }
-        PlayersDataService
-            .createPlayer(this.state.username, player)
-            .then(response => {
-                console.log(response)
-                this.props.history.push(`/registerSuccessful`)
-            })
+        if (this.state.errors.username === '' &&
+            this.state.errors.email === '' &&
+            this.state.errors.password === '' &&
+            this.state.errors.confirmPassword === '') {
+                let player = {
+                    email: this.state.email,
+                    password: this.state.password
+                }
+                PlayersDataService
+                    .createPlayer(this.state.username, player)
+                    .then(response => {
+                        console.log(response)
+                        this.props.history.push(`/registerSuccessful`)
+                    })
+        }else return
     }
 
     render() {

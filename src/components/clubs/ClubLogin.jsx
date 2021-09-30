@@ -57,14 +57,16 @@ class ClubLogin extends Component {
                                value={this.state.clubUsername}
                                onChange={this.handleChange}
                         />
-
+                    <br/>
+                    <br/>
                     <label>Password: </label>
                         <input type="password"
                                name="password"
                                value={this.state.password}
                                onChange={this.handleChange}
                         />
-
+                    <br/>
+                    <br/>
                     <button className="btn btn-success"
                             onClick={this.handleSubmit}>
                         Login

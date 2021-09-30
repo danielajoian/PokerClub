@@ -43,7 +43,6 @@ class ClubDetailsPage extends Component {
                 .then(response => {
                     console.log(response)
                 })
-            AuthenticationServiceJwt.logout();
         }
     }
 
@@ -76,7 +75,7 @@ class ClubDetailsPage extends Component {
                         style={{width: "200px"}}
                         onClick={() => this.deleteAccount(id)}
                 >
-                    <Link to="/" className="link">
+                    <Link to="/clubDeletedSuccessful" className="link">
                         Delete Account
                     </Link>
                 </button>

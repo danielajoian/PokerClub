@@ -8,11 +8,11 @@ class PlayersDataService {
     }
 
     deletePlayer(username, id) {
-        return axios.delete(`${API_URL}/${username}/${id}`)
+        return axios.delete(`${API_URL}/players/${username}/${id}`)
     }
 
     updatePlayer(username, id, player) {
-        return axios.put(`${API_URL}/${username}/${id}`, player);
+        return axios.put(`${API_URL}/players/${username}/${id}`, player);
     }
 
     createPlayer(username, player) {

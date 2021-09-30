@@ -11,15 +11,15 @@ class ClubsDataService {
     }
 
     deleteClub(clubUsername, id) {
-        return axios.delete(`${API_URL}/${clubUsername}/${id}`)
+        return axios.delete(`${API_URL}/clubs/${clubUsername}/${id}`)
     }
 
     updateClub(clubUsername, id, club) {
-        return axios.put(`${API_URL}/${clubUsername}/${id}`, club);
+        return axios.put(`${API_URL}/clubs/${clubUsername}/${id}`, club);
     }
 
     createClub(clubUsername, club) {
-        return axios.post(`${API_URL}/${clubUsername}`, club);
+        return axios.post(`${API_URL}/clubs/${clubUsername}`, club);
     }
 }
 

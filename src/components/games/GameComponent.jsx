@@ -12,11 +12,21 @@ class GameComponent extends Component {
             id: this.props.match.params.id,
             title: '',
             details: '',
-            beginDate: moment(new Date()).format('YYYY-MM-DD')
+            beginDate: moment(new Date()).format('YYYY-MM-DD'),
+            errors: {
+                id: '',
+                title: '',
+                details: '',
+                beginDate: ''
+            }
         }
 
-        this.onSubmit = this.onSubmit.bind(this)
-        this.validate = this.validate.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.refreshGames = this.refreshGames.bind(this)
+        this.validateTitle = this.validateTitle.bind(this)
+        this.validateDetails = this.validateDetails.bind(this)
+        this.validateDate = this.validateDate.bind(this)
     }
 
     componentDidMount() {
@@ -24,56 +34,82 @@ class GameComponent extends Component {
             return
         }
 
+        this.refreshGames()
+    }
+
+    refreshGames() {
         let clubName = AuthenticationServiceJwt.getLoggedInClubName()
         GameDataService.retrieveGame(clubName, this.state.id)
-            .then(response => this.setState({
-                title: response.data.title,
-                details: response.data.details,
-                beginDate: moment(response.data.beginDate).format('YYYY-MM-DD')
+            .then(response =>
+                this.setState({
+                    title: response.data.title,
+                    details: response.data.details,
+                    beginDate: moment(response.data.beginDate).format('YYYY-MM-DD')
             }))
     }
 
-    validate(values) {
-        console.log(values)
-        let errors = {}
-        if (!values.title) {
-            errors.title = 'Enter a Title'
-        } else if (values.title.length < 5) {
-            errors.title = 'Enter at least 5 characters in the title'
-        } else if (values.title.length > 25) {
-            errors.title = 'The title has too many characters!'
+    validateTitle = () => {
+        let error = this.state.errors
+        if (!this.state.title) {
+            error.title = 'Required'
+        } else if (this.state.title.length < 5) {
+            error.title = 'Enter at least 5 characters in the title'
+        } else if (this.state.title.length > 25) {
+            error.title = 'The title has too many characters!'
+        }else {
+            error.title = ''
         }
-
-        if (!values.details) {
-            errors.details = 'Enter details about the game'
-        } else if (values.details.length < 5) {
-            errors.details = 'Enter at least 15 characters for details'
-        }
-
-        if (!moment(values.beginDate).isValid()) {
-            errors.beginDate = 'Enter a valid begin date'
-        }
-        return errors
     }
 
-    onSubmit(values) {
-        console.log(values)
-        let clubName = AuthenticationServiceJwt.getLoggedInClubName();
-
-        let game = {
-            id: this.state.id,
-            title: values.title,
-            details: values.details,
-            beginDate: values.beginDate
-        }
-
-        if (this.state.id === -1) {
-            GameDataService.createGame(clubName, game)
-                .then(() => this.props.history.push('/games'))
+    validateDetails = () => {
+        let error = this.state.errors
+        if (!this.state.details) {
+            error.details = 'Required'
+        } else if (this.state.details.length < 5) {
+            error.details = 'Enter at least 15 characters for details'
         } else {
-            GameDataService.updateGame(clubName, this.state.id, game)
-                .then(() => this.props.history.push(`/games`))
+            error.details = ''
         }
+    }
+
+    validateDate = () => {
+        let error = this.state.errors
+        if (!moment(this.state.beginDate).isValid()) {
+            error.beginDate = 'Enter a valid begin date'
+        }else {
+            error.beginDate = ''
+        }
+    }
+
+    handleChange = (event) => {
+        console.log(event.target.name);
+        this.setState(
+            {
+                [event.target.name]: event.target.value
+            }
+        )
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        let clubUsername = AuthenticationServiceJwt.getLoggedInClubName();
+        if (this.state.errors.title === '' &&
+            this.state.errors.details === '' &&
+            this.state.errors.beginDate === '') {
+                let game = {
+                    // id: this.state.id,
+                    title: this.state.title,
+                    details: this.state.details,
+                    beginDate: this.state.beginDate
+                }
+                if (this.state.id === -1) {
+                    GameDataService.createGame(clubUsername, game)
+                        .then(() => this.props.history.push('/games'))
+                } else {
+                    GameDataService.updateGame(clubUsername, this.state.id, game)
+                        .then(() => this.props.history.push(`/games`))
+                }
+        }else return
     }
 
     render() {
@@ -82,60 +118,52 @@ class GameComponent extends Component {
         return (
             <div>
                 <h3>Game Component</h3>
-                <Formik
-                    initialValues={{title, details, beginDate}}
-                    onSubmit={this.onSubmit}
-                    validateOnChange={false}
-                    validateOnBlur={false}
-                    validate={this.validate}
-                    enableReinitialize={true}
-                >
-                    {
-                        (props) => (
-                            <Form>
-                                <ErrorMessage name="title"
-                                              component="div"
-                                              className="alert alert-warning"
-                                />
-                                <ErrorMessage name="details"
-                                              component="div"
-                                              className="alert alert-warning"
-                                />
-                                <ErrorMessage name="beginDate"
-                                              component="div"
-                                              className="alert alert-warning"
-                                />
-                                <fieldset className="form-group">
-                                    <label>Title</label>
-                                    <Field className="form-control"
-                                           type="text"
-                                           name="title"
-                                    />
-                                </fieldset>
+                <form onSubmit={this.handleSubmit}>
+                    <label>Title</label>
+                    <input type="text"
+                           name="title"
+                           value={title}
+                           onChange={this.handleChange}
+                           required={this.validateTitle()}
+                    />
+                    {this.state.errors.title &&
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.title}</p>}
 
-                                <fieldset className="form-group">
-                                    <label>Details</label>
-                                    <Field className="form-control"
-                                           type="text-area"
-                                           name="details"
-                                    />
-                                </fieldset>
-                                <fieldset className="form-group">
-                                    <label>Begin Date</label>
-                                    <Field className="form-control"
-                                           type="date"
-                                           name="beginDate"
-                                    />
-                                </fieldset>
-                                <button className="btn btn-success"
-                                        type="submit"
-                                        >
-                                    Save
-                                </button>
-                            </Form>
-                        )
-                    }
-                </Formik>
+                    <label>Details</label>
+                    <br/>
+                    <textarea placeholder="Type your description here..."
+                        name="details"
+                        value={details}
+                        onChange={this.handleChange}
+                        required={this.validateDetails()}
+                    />
+                    {this.state.errors.details &&
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.details}</p>}
+                    <br/><br/><br/>
+                    <br/><br/><br/>
+                    <br/>
+
+                    <label>Begin Date</label>
+                    <input type="date"
+                           name="beginDate"
+                           value={beginDate}
+                           onChange={this.handleChange}
+                           required={this.validateDate()}
+                    />
+                    {this.state.errors.beginDate &&
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.beginDate}</p>}
+                    <br/>
+                    <br/>
+
+                    <button className="btn btn-success"
+                            type="submit"
+                            >
+                        Save
+                    </button>
+                </form>
             </div>
         )
     }

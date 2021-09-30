@@ -23,9 +23,9 @@ class GamesList extends Component {
        this.refreshGames();
     }
 
-    // componentDidUpdate(){
-    //     this.componentDidMount();
-    // }
+    componentDidUpdate(){
+        this.refreshGames();
+    }
 
     refreshGames() {
         let clubname = AuthenticationServiceJwt.getLoggedInClubName()
