@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import ClubsDataService from "../../api/services/ClubsDataService";
 import SearchBar from "../pages/SearchBar";
+import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+import PlayersDataService from "../../api/services/PlayersDataService";
+import {logDOM} from "@testing-library/react";
 
 class ClubsList extends Component {
     constructor(props) {
@@ -8,12 +11,14 @@ class ClubsList extends Component {
 
         this.state = {
             search: '',
-            clubs: []
+            clubs: [],
+            players: []
         }
 
         this.refreshClubs = this.refreshClubs.bind(this)
         this.infoClubClicked = this.infoClubClicked.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleCity = this.handleCity.bind(this)
     }
 
     componentDidMount() {
@@ -46,7 +51,21 @@ class ClubsList extends Component {
         )
     }
 
+    handleCity = () => {
+        let player = AuthenticationServiceJwt.getLoggedInUserName()
+        PlayersDataService.retrievePlayer(player)
+            .then(response => {
+                console.log('player city: ' + response.data.city)
+                this.setState({
+                    players: response.data
+                })
+                    this.props.history.push(`/clubsListByCity/${response.data.city}`)
+            } )
+
+    }
+
     render() {
+        const isUserLoggedIn = AuthenticationServiceJwt.isUserLoggedIn();
         let {search} = this.state
         let {clubs} = this.state
 
@@ -63,6 +82,17 @@ class ClubsList extends Component {
                 <br/>
                 <br/>
                 <br/>
+
+                {isUserLoggedIn &&
+                    <button className="btn btn-success"
+                            type="submit"
+                            style={{width: "300px"}}
+                            onClick={this.handleCity}
+                    >
+                        Show Clubs in my City
+                    </button>
+                }
+
 
                 <h3 className="card-header">List of Poker Clubs</h3>
                 {clubs.filter((club) => {
@@ -89,7 +119,8 @@ class ClubsList extends Component {
                         club.clubUsername.toLowerCase().includes(search.toLowerCase())) {
                         return club
                     }
-                }).map((club, key) => {
+                })
+                    .map((club, key) => {
                     return (
                         <div key={key} className="container col" style={{display: "inline-block"}}>
                             <h5 className="card-header">{club.clubUsername}  Poker Club</h5>

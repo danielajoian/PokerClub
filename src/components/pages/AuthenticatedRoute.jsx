@@ -7,7 +7,7 @@ class AuthenticatedRoute extends Component {
         if (AuthenticationServiceJwt.isUserLoggedIn() || AuthenticationServiceJwt.isClubLoggedIn()){
            return <Route {...this.props}/>
         }else {
-           return <Redirect to="/" />
+           return <Redirect to="/*" />
         }
     }
 }

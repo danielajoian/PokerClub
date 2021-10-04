@@ -9,13 +9,15 @@ class PlayerAccount extends Component {
             id: this.props.match.params.id,
             username: this.props.match.params.name,
             email: '',
+            city: '',
             password: '',
-            confirmPassword: '',
+            // confirmPassword: '',
             errors: {
                 username: '',
                 email: '',
-                password: '',
-                confirmPassword: ''
+                city: '',
+                // password: '',
+                // confirmPassword: ''
             }
         }
         this.refreshPlayers = this.refreshPlayers.bind(this)
@@ -23,7 +25,8 @@ class PlayerAccount extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.validateUsername = this.validateUsername.bind(this)
         this.validateEmail= this.validateEmail.bind(this)
-        this.validatePassword = this.validatePassword.bind(this)
+        this.validateCity= this.validateCity.bind(this)
+        // this.validatePassword = this.validatePassword.bind(this)
         // this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
     }
 
@@ -41,7 +44,8 @@ class PlayerAccount extends Component {
                         id : response.data.id,
                         username: response.data.username,
                         email: response.data.email,
-                        password: response.data.password
+                        password: response.data.password,
+                        city: response.data.city
                     })
                 }
             )
@@ -60,10 +64,13 @@ class PlayerAccount extends Component {
         event.preventDefault()
         if (this.state.errors.username === '' &&
             this.state.errors.email === '' &&
-            this.state.errors.password === '') {
+            // this.state.errors.password === '' &&
+            this.state.errors.city === ''
+        ) {
                 let player = {
                     email: this.state.email,
-                    password: this.state.password
+                    password: this.state.password,
+                    city: this.state.city
                 }
                 PlayersDataService.updatePlayer(this.state.username, this.state.id, player)
                     .then(response => {
@@ -96,16 +103,27 @@ class PlayerAccount extends Component {
         }
     }
 
-    validatePassword= () => {
+    validateCity = () => {
         let error = this.state.errors
-        if (!this.state.password) {
-            error.password = 'Required'
-        } else if(this.state.password.length < 4) {
-            error.password = 'Password has to have at least 4 characters'
+        if (!this.state.city) {
+            error.city = 'Required'
+        } else if(this.state.city.length < 3) {
+            error.city = 'Username has to have at least 3 characters'
         }else {
-            error.password = ''
+            error.city = ''
         }
     }
+
+    // validatePassword= () => {
+    //     let error = this.state.errors
+    //     if (!this.state.password) {
+    //         error.password = 'Required'
+    //     } else if(this.state.password.length < 4) {
+    //         error.password = 'Password has to have at least 4 characters'
+    //     }else {
+    //         error.password = ''
+    //     }
+    // }
 
     // validateConfirmPassword= () => {
     //     let error = this.state.errors
@@ -120,7 +138,7 @@ class PlayerAccount extends Component {
 
 
     render() {
-        let {username, email, password, confirmPassword} = this.state
+        let {username, email, city, password, confirmPassword} = this.state
         return (
             <div>
                 <h2>Player Account Details</h2>
@@ -137,6 +155,7 @@ class PlayerAccount extends Component {
                     <p style={{color: "red", display: "inline"}}>{this.state.errors.username}</p>}
                     <br/>
                     <br/>
+
                     <label>Email: </label>
                     <input type="email"
                            name="email"
@@ -149,18 +168,30 @@ class PlayerAccount extends Component {
                     <br/>
                     <br/>
 
-                    <label>Password: </label>
-                    <input type="password"
-                           name="password"
-                           value={password}
+                    <label>City:</label>
+                    <input type="text"
+                           name="city"
+                           value={city}
                            onChange={this.handleChange}
-                           required={this.validatePassword()}
+                           required={this.validateCity()}
                     />
-                    {this.state.errors.password &&
-                    <p style={{color: "red", display: "inline"}}>
-                        {this.state.errors.password}</p>}
+                    {this.state.errors.city &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.city}</p>}
                     <br/>
                     <br/>
+
+                    {/*<label>Password: </label>*/}
+                    {/*<input type="password"*/}
+                    {/*       name="password"*/}
+                    {/*       value={password}*/}
+                    {/*       onChange={this.handleChange}*/}
+                    {/*       required={this.validatePassword()}*/}
+                    {/*/>*/}
+                    {/*{this.state.errors.password &&*/}
+                    {/*<p style={{color: "red", display: "inline"}}>*/}
+                    {/*    {this.state.errors.password}</p>}*/}
+                    {/*<br/>*/}
+                    {/*<br/>*/}
 
                     {/*{(this.state.errors.password === 'Required' || this.state.errors.password === ' ')*/}
                     {/*&& <label>Confirm Password:</label>}*/}
@@ -178,6 +209,7 @@ class PlayerAccount extends Component {
                     {/*    {this.state.errors.confirmPassword}</p>}*/}
                     {/*<br/>*/}
                     {/*<br/>*/}
+
                     <button className="btn btn-success"
                             type="submit"
                             style={{width: "220px"}}

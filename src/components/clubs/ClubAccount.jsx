@@ -17,8 +17,8 @@ class ClubAccount extends Component {
             phoneNumber: '',
             errors: {
                 clubUsername: '',
-                password: '',
-                confirmPassword: '',
+                // password: '',
+                // confirmPassword: '',
                 city: '',
                 country: '',
                 address: '',
@@ -33,11 +33,11 @@ class ClubAccount extends Component {
         this.refreshClubs = this.refreshClubs.bind(this)
         this.validateUsername = this.validateUsername.bind(this)
         this.validateCity= this.validateCity.bind(this)
-        this.validatePassword = this.validatePassword.bind(this)
+        // this.validatePassword = this.validatePassword.bind(this)
         this.validateCountry = this.validateCountry.bind(this)
         this.validateAddress = this.validateAddress.bind(this)
         this.validatePhoneNumber = this.validatePhoneNumber.bind(this)
-        this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
+        // this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
         this.validateEmail = this.validateEmail.bind(this)
         this.validateSite = this.validateSite.bind(this)
     }
@@ -77,7 +77,7 @@ class ClubAccount extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         if (this.state.errors.clubUsername === '' &&
-            this.state.errors.password === '' &&
+            // this.state.errors.password === '' &&
             this.state.errors.city === '' &&
             this.state.errors.country === '' &&
             this.state.errors.address === '' &&
@@ -187,27 +187,27 @@ class ClubAccount extends Component {
         }
     }
 
-    validatePassword = () => {
-        let error = this.state.errors
-        if (!this.state.password) {
-            error.password = 'Required'
-        } else if(this.state.password.length < 4) {
-            error.password = 'Password has to have at least 4 characters'
-        }else {
-            error.password = ''
-        }
-    }
+    // validatePassword = () => {
+    //     let error = this.state.errors
+    //     if (!this.state.password) {
+    //         error.password = 'Required'
+    //     } else if(this.state.password.length < 4) {
+    //         error.password = 'Password has to have at least 4 characters'
+    //     }else {
+    //         error.password = ''
+    //     }
+    // }
 
-    validateConfirmPassword = () => {
-        let error = this.state.errors
-        if (!this.state.confirmPassword) {
-            error.confirmPassword = 'Required'
-        } else if(!(this.state.confirmPassword === this.state.password)) {
-            error.confirmPassword = 'Passwords have to match'
-        }else {
-            error.confirmPassword = ''
-        }
-    }
+    // validateConfirmPassword = () => {
+    //     let error = this.state.errors
+    //     if (!this.state.confirmPassword) {
+    //         error.confirmPassword = 'Required'
+    //     } else if(!(this.state.confirmPassword === this.state.password)) {
+    //         error.confirmPassword = 'Passwords have to match'
+    //     }else {
+    //         error.confirmPassword = ''
+    //     }
+    // }
 
     render() {
         let {
@@ -317,17 +317,17 @@ class ClubAccount extends Component {
                     <br/>
                     <br/>
 
-                    <label>Password: </label>
-                    <input type="password"
-                           name="password"
-                           value={password}
-                           onChange={this.handleChange}
-                           />
-                    {this.state.errors.password &&
-                    <p style={{color: "red", display: "inline"}}>
-                        {this.state.errors.password}</p>}
-                    <br/>
-                    <br/>
+                    {/*<label>Password: </label>*/}
+                    {/*<input type="password"*/}
+                    {/*       name="password"*/}
+                    {/*       value={password}*/}
+                    {/*       onChange={this.handleChange}*/}
+                    {/*       />*/}
+                    {/*{this.state.errors.password &&*/}
+                    {/*<p style={{color: "red", display: "inline"}}>*/}
+                    {/*    {this.state.errors.password}</p>}*/}
+                    {/*<br/>*/}
+                    {/*<br/>*/}
 
                     <button className="btn btn-success"
                             type="submit"

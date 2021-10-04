@@ -30,6 +30,7 @@ import ClubInfo from "./components/clubs/ClubInfo";
 import GameDetails from "./components/games/GameDetails";
 import PlayerDeletedSuccessful from "./components/players/PlayerDeletedSuccessful";
 import ClubDeletedSuccessful from "./components/clubs/ClubDeletedSuccessful";
+import ClubsListByCity from "./components/clubs/ClubsListByCity";
 
 function App() {
 
@@ -88,6 +89,7 @@ function App() {
                                 <Route path="/clubRegister" component={ClubRegister} />
                                 <Route path="/registerSuccessful" component={PlayerRegisterSuccessful} />
                                 <Route path="/clubRegisterSuccessful" component={ClubRegisterSuccessful} />
+                                <AuthenticatedRoute exact path="/clubsListByCity/:name" component={ClubsListByCity} />
                                 <AuthenticatedRoute exact path="/deletedSuccessful" component={PlayerDeletedSuccessful} />
                                 <AuthenticatedRoute exact path="/clubDeletedSuccessful" component={ClubDeletedSuccessful} />
                                 <AuthenticatedRoute path="/playerDetailsPage" component={PlayerDetailsPage} />

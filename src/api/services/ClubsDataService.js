@@ -10,6 +10,10 @@ class ClubsDataService {
         return axios.get(`${API_URL}/clubs/${clubUsername}`)
     }
 
+    retrieveClubByCity(city) {
+        return axios.get(`${API_URL}/allClubs/${city}`)
+    }
+
     deleteClub(clubUsername, id) {
         return axios.delete(`${API_URL}/clubs/${clubUsername}/${id}`)
     }

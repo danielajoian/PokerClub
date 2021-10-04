@@ -8,11 +8,13 @@ class PlayerRegister extends Component {
         this.state = {
             username: '',
             email: '',
+            city: '',
             password: '',
             confirmPassword: '',
             errors: {
                 username: '',
                 email: '',
+                city: '',
                 password: '',
                 confirmPassword: ''
             }
@@ -22,6 +24,7 @@ class PlayerRegister extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.validateUsername = this.validateUsername.bind(this)
         this.validateEmail= this.validateEmail.bind(this)
+        this.validateCity= this.validateCity.bind(this)
         this.validatePassword = this.validatePassword.bind(this)
         this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
     }
@@ -34,6 +37,17 @@ class PlayerRegister extends Component {
             error.username = 'Username has to have at least 3 characters'
         }else {
             error.username = ''
+        }
+    }
+
+    validateCity = () => {
+        let error = this.state.errors
+        if (!this.state.city) {
+            error.city = 'Required'
+        } else if(this.state.city.length < 3) {
+            error.city = 'Username has to have at least 3 characters'
+        }else {
+            error.city = ''
         }
     }
 
@@ -84,10 +98,12 @@ class PlayerRegister extends Component {
         event.preventDefault()
         if (this.state.errors.username === '' &&
             this.state.errors.email === '' &&
+            this.state.errors.city === '' &&
             this.state.errors.password === '' &&
             this.state.errors.confirmPassword === '') {
                 let player = {
                     email: this.state.email,
+                    city: this.state.city,
                     password: this.state.password
                 }
                 PlayersDataService
@@ -100,7 +116,7 @@ class PlayerRegister extends Component {
     }
 
     render() {
-        let {username, email, password, confirmPassword} = this.state
+        let {username, email, city, password, confirmPassword} = this.state
 
         return (
             <div className="container content-box">
@@ -115,7 +131,8 @@ class PlayerRegister extends Component {
                            required={this.validateUsername()}
                     />
                     {this.state.errors.username &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.username}</p>}
+                    <p style={{color: "red", display: "inline"}}>
+                        {this.state.errors.username}</p>}
                     <br/>
                     <br/>
 
@@ -128,6 +145,18 @@ class PlayerRegister extends Component {
                     />
                     {this.state.errors.email &&
                     <p style={{color: "red", display: "inline"}}>{this.state.errors.email}</p>}
+                    <br/>
+                    <br/>
+
+                    <label>City:</label>
+                    <input type="text"
+                           name="city"
+                           value={city}
+                           onChange={this.handleChange}
+                           required={this.validateCity()}
+                    />
+                    {this.state.errors.city &&
+                    <p style={{color: "red", display: "inline"}}>{this.state.errors.city}</p>}
                     <br/>
                     <br/>
 
