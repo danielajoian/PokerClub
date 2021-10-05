@@ -285,6 +285,7 @@ class ClubAccount extends Component {
                            name="address"
                            value={address}
                            onChange={this.handleChange}
+                           required={this.validateAddress()}
                            />
                     {this.state.errors.address &&
                     <p style={{color: "red", display: "inline"}}>
@@ -297,6 +298,7 @@ class ClubAccount extends Component {
                            name="phoneNumber"
                            value={phoneNumber}
                            onChange={this.handleChange}
+                           // required={this.validatePhoneNumber()}
                            />
                     {this.state.errors.phoneNumber &&
                     <p style={{color: "red", display: "inline"}}>
@@ -310,6 +312,7 @@ class ClubAccount extends Component {
                            name="email"
                            value={email}
                            onChange={this.handleChange}
+                           required={this.validateEmail()}
                            />
                     {this.state.errors.email &&
                     <p style={{color: "red", display: "inline"}}>

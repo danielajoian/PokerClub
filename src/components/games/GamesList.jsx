@@ -13,18 +13,14 @@ class GamesList extends Component {
             message: null
         }
 
-        this.deleteGameClicked = this.deleteGameClicked.bind(this);
         this.updateGameClicked = this.updateGameClicked.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
         this.refreshGames = this.refreshGames.bind(this)
         this.addGameClicked = this.addGameClicked.bind(this)
     }
 
     componentDidMount() {
        this.refreshGames();
-    }
-
-    componentDidUpdate(){
-        this.refreshGames();
     }
 
     refreshGames() {
@@ -38,16 +34,16 @@ class GamesList extends Component {
             )
     }
 
-    deleteGameClicked(id) {
-        let club = AuthenticationServiceJwt.getLoggedInClubName()
-        console.log(id + " " + club);
-        if(window.confirm('Are you sure you want to delete this game?')) {
-            GameDataService.deleteGame(club, id)
-                .then(response => {
-                    this.setState({message: `Delete of game ${id} successful`})
-                })
-        }
-    }
+    // deleteGameClicked(id) {
+    //     let club = AuthenticationServiceJwt.getLoggedInClubName()
+    //     console.log(id + " " + club);
+    //     if(window.confirm('Are you sure you want to delete this game?')) {
+    //         GameDataService.deleteGame(club, id)
+    //             .then(response => {
+    //                 this.setState({message: `Delete of game ${id} successful`})
+    //             })
+    //     }
+    // }
 
     updateGameClicked(id) {
         this.props.history.push(`/games/${id}`)
@@ -60,6 +56,10 @@ class GamesList extends Component {
     infoGameClicked(id) {
         console.log("This is the id: " + id)
         this.props.history.push(`/games/${id}/details`)
+    }
+
+    handleDelete = (id) => {
+        this.props.history.push(`/gameDeleteModal/${id}`)
     }
 
     render() {
@@ -102,7 +102,7 @@ class GamesList extends Component {
                                         </td>
                                         <td>
                                             <button className="btn btn-warning btn-primary delete"
-                                                    onClick={() => this.deleteGameClicked(game.id)}
+                                                    onClick={() => this.handleDelete(game.id)}
                                             >
                                                 Delete
                                             </button>

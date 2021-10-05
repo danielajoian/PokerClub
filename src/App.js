@@ -31,6 +31,9 @@ import GameDetails from "./components/games/GameDetails";
 import PlayerDeletedSuccessful from "./components/players/PlayerDeletedSuccessful";
 import ClubDeletedSuccessful from "./components/clubs/ClubDeletedSuccessful";
 import ClubsListByCity from "./components/clubs/ClubsListByCity";
+import PlayerDeleteModal from "./components/players/PlayerDeleteModal";
+import ClubDeleteModal from "./components/clubs/ClubDeleteModal";
+import GameDeleteModal from "./components/games/GameDeleteModal";
 
 function App() {
 
@@ -89,17 +92,20 @@ function App() {
                                 <Route path="/clubRegister" component={ClubRegister} />
                                 <Route path="/registerSuccessful" component={PlayerRegisterSuccessful} />
                                 <Route path="/clubRegisterSuccessful" component={ClubRegisterSuccessful} />
+                                <Route exact path="/games/:id/details" component={GameDetails} />
                                 <AuthenticatedRoute exact path="/clubsListByCity/:name" component={ClubsListByCity} />
                                 <AuthenticatedRoute exact path="/deletedSuccessful" component={PlayerDeletedSuccessful} />
                                 <AuthenticatedRoute exact path="/clubDeletedSuccessful" component={ClubDeletedSuccessful} />
                                 <AuthenticatedRoute path="/playerDetailsPage" component={PlayerDetailsPage} />
+                                <AuthenticatedRoute path="/playerDeleteModal" component={PlayerDeleteModal} />
+                                <AuthenticatedRoute path="/clubDeleteModal" component={ClubDeleteModal} />
+                                <AuthenticatedRoute path="/gameDeleteModal/:id" component={GameDeleteModal} />
                                 <AuthenticatedRoute path="/clubDetailsPage" component={ClubDetailsPage} />
                                 <AuthenticatedRoute exact path="/welcome/:name" component={Welcome} />
                                 <AuthenticatedRoute exact path="/games" component={GamesList} />
                                 <AuthenticatedRoute exact path="/playerAccount/:name/:id" component={PlayerAccount} />
                                 <AuthenticatedRoute exact path="/clubAccount/:name/:id" component={ClubAccount} />
                                 <AuthenticatedRoute exact path="/games/:id" component={GameComponent} />
-                                <Route exact path="/games/:id/details" component={GameDetails} />
                                 <Route path="*" component={Error} />
                             </Switch>
                         </div>

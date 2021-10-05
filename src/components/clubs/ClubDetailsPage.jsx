@@ -13,8 +13,8 @@ class ClubDetailsPage extends Component {
         }
 
         this.refreshClubs = this.refreshClubs.bind(this)
-        this.deleteAccount = this.deleteAccount.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -35,23 +35,26 @@ class ClubDetailsPage extends Component {
             )
     }
 
-    deleteAccount(id) {
-        let clubName = this.state.clubUsername
-        console.log(id + " " + clubName);
-        if(window.confirm('Are you sure you want to delete this account?')) {
-            ClubsDataService.deleteClub(clubName, id)
-                .then(response => {
-                    console.log(response)
-                })
-        }
-    }
+    // deleteAccount(id) {
+    //     let clubName = this.state.clubUsername
+    //     console.log(id + " " + clubName);
+    //     if(window.confirm('Are you sure you want to delete this account?')) {
+    //         ClubsDataService.deleteClub(clubName, id)
+    //             .then(response => {
+    //                 console.log(response)
+    //             })
+    //     }
+    // }
 
     handleClick = () => {
         this.props.history.push(`/clubAccount/${this.state.clubUsername}/${this.state.id}`)
     }
 
+    handleDelete = () => {
+        this.props.history.push(`/clubDeleteModal`)
+    }
+
     render() {
-        let {id} = this.state
 
         return (
             <div>
@@ -73,11 +76,9 @@ class ClubDetailsPage extends Component {
                 <button className="btn btn-warning"
                         type="submit"
                         style={{width: "200px"}}
-                        onClick={() => this.deleteAccount(id)}
+                        onClick={this.handleDelete}
                 >
-                    <Link to="/clubDeletedSuccessful" className="link">
                         Delete Account
-                    </Link>
                 </button>
             </div>
         )

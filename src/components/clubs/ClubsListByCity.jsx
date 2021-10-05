@@ -9,16 +9,17 @@ class ClubsListByCity extends Component {
 
         this.state = {
             city: this.props.match.params.name,
-            clubs: []
+            clubs: [],
+            isEmpty: true
         }
 
         this.refreshClubs = this.refreshClubs.bind(this)
         this.infoClubClicked = this.infoClubClicked.bind(this)
-        this.emptyList = this.emptyList.bind(this)
     }
 
     componentDidMount() {
         console.log(this.state.clubs)
+        console.log(this.state.isEmpty)
         this.refreshClubs();
     }
 
@@ -30,16 +31,10 @@ class ClubsListByCity extends Component {
                     this.setState({
                         clubs : response.data
                     })
+                    if (response.data.length !== 0) {
+                        this.setState({isEmpty: false})                    }
                 }
             )
-    }
-
-    emptyList = () => {
-        if (this.state.clubs){
-            console.log('Empty list ' + this.state.clubs)
-            return true;
-        }else
-            return false;
     }
 
     infoClubClicked(clubName) {
@@ -50,16 +45,16 @@ class ClubsListByCity extends Component {
     render() {
         let {clubs} = this.state
         let {city} = this.state
-        // const found = this.emptyList()
+        let {isEmpty} = this.state
 
         return (
             <div>
-                <h3 className="card-header">List of Poker Clubs from {city}</h3>
+                {!isEmpty &&
+                    <h3 className="card-header">List of Poker Clubs from {city}</h3>}
 
-
-                {/*{found &&*/}
-                {/*    <h5 className="card-header">No Clubs Found in {city}!</h5>*/}
-                {/*}*/}
+                {isEmpty &&
+                    <h5 className="card-header">No Clubs Found in {city}!</h5>
+                }
 
 
                 {clubs.map(

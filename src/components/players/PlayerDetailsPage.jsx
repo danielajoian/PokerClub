@@ -12,8 +12,8 @@ class PlayerDetailsPage extends Component {
             username: ''
         }
         this.refreshPlayers = this.refreshPlayers.bind(this)
-        this.deleteAccount = this.deleteAccount.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -34,23 +34,15 @@ class PlayerDetailsPage extends Component {
             )
     }
 
-    deleteAccount(id) {
-        let playerName = this.state.username
-        console.log(id + " " + playerName);
-        if(window.confirm('Are you sure you want to delete this account?')) {
-            PlayersDataService.deletePlayer(playerName, id)
-                .then(response => {
-                    console.log(response)
-                })
-        }
-    }
-
     handleClick = () => {
         this.props.history.push(`/playerAccount/${this.state.username}/${this.state.id}`)
     }
 
+    handleDelete = () => {
+       this.props.history.push(`/playerDeleteModal`)
+    }
+
     render() {
-        let {id} = this.state
 
         return (
             <div>
@@ -82,12 +74,12 @@ class PlayerDetailsPage extends Component {
                 <button className="btn btn-warning"
                         type="submit"
                         style={{width: "300px"}}
-                        onClick={() => this.deleteAccount(id)}
+                        // onClick={() => this.deleteAccount(id)}
+                        onClick={this.handleDelete}
                 >
-                    <Link to="/deletedSuccessful" className="link">
                         Delete Account
-                    </Link>
                 </button>
+
             </div>
         )
     }
