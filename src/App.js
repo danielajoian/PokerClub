@@ -34,6 +34,11 @@ import ClubsListByCity from "./components/clubs/ClubsListByCity";
 import PlayerDeleteModal from "./components/players/PlayerDeleteModal";
 import ClubDeleteModal from "./components/clubs/ClubDeleteModal";
 import GameDeleteModal from "./components/games/GameDeleteModal";
+import GamePrivateComponent from "./components/games/GamePrivateComponent";
+import GamePrivateDetails from "./components/games/GamePrivateDetails";
+import GamePrivateDeleteModal from "./components/games/GamePrivateDeleteModal";
+import PlayerPrivateGame from "./components/players/PlayerPrivateGame";
+import PlayerPrivateGameList from "./components/players/PlayerPrivateGameList";
 
 function App() {
 
@@ -93,19 +98,24 @@ function App() {
                                 <Route path="/registerSuccessful" component={PlayerRegisterSuccessful} />
                                 <Route path="/clubRegisterSuccessful" component={ClubRegisterSuccessful} />
                                 <Route exact path="/games/:id/details" component={GameDetails} />
+                                <AuthenticatedRoute exact path="/privateGames/:id/details" component={GamePrivateDetails} />
                                 <AuthenticatedRoute exact path="/clubsListByCity/:name" component={ClubsListByCity} />
                                 <AuthenticatedRoute exact path="/deletedSuccessful" component={PlayerDeletedSuccessful} />
                                 <AuthenticatedRoute exact path="/clubDeletedSuccessful" component={ClubDeletedSuccessful} />
                                 <AuthenticatedRoute path="/playerDetailsPage" component={PlayerDetailsPage} />
+                                <AuthenticatedRoute path="/playerPrivateGame" component={PlayerPrivateGame} />
+                                <AuthenticatedRoute path="/playerPrivateGameList/:id" component={PlayerPrivateGameList} />
                                 <AuthenticatedRoute path="/playerDeleteModal" component={PlayerDeleteModal} />
                                 <AuthenticatedRoute path="/clubDeleteModal" component={ClubDeleteModal} />
                                 <AuthenticatedRoute path="/gameDeleteModal/:id" component={GameDeleteModal} />
+                                <AuthenticatedRoute path="/gamePrivateDeleteModal/:id" component={GamePrivateDeleteModal} />
                                 <AuthenticatedRoute path="/clubDetailsPage" component={ClubDetailsPage} />
                                 <AuthenticatedRoute exact path="/welcome/:name" component={Welcome} />
                                 <AuthenticatedRoute exact path="/games" component={GamesList} />
                                 <AuthenticatedRoute exact path="/playerAccount/:name/:id" component={PlayerAccount} />
                                 <AuthenticatedRoute exact path="/clubAccount/:name/:id" component={ClubAccount} />
                                 <AuthenticatedRoute exact path="/games/:id" component={GameComponent} />
+                                <AuthenticatedRoute exact path="/privateGames/:id" component={GamePrivateComponent} />
                                 <Route path="*" component={Error} />
                             </Switch>
                         </div>

@@ -2,10 +2,10 @@ import React, {Component} from "react";
 import "../../modalStyle.css"
 import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
 import {Link} from "react-router-dom";
-import GameDataService from "../../api/services/GameDataService";
 import moment from "moment";
+import GamePrivateDataService from "../../api/services/GamePrivateDataService";
 
-class GameDeleteModal extends Component {
+class GamePrivateDeleteModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,7 +29,7 @@ class GameDeleteModal extends Component {
 
     refreshGames() {
         let clubName = AuthenticationServiceJwt.getLoggedInClubName()
-        GameDataService.retrieveGame(clubName, this.state.id)
+        GamePrivateDataService.retrievePrivateGame(clubName, this.state.id)
             .then(response =>
                 this.setState({
                     title: response.data.title,
@@ -42,11 +42,11 @@ class GameDeleteModal extends Component {
         let club = AuthenticationServiceJwt.getLoggedInClubName()
         console.log(gameId + " " + club);
         // if(window.confirm('Are you sure you want to delete this game?')) {
-            GameDataService.deleteGame(club, gameId)
-                .then(response => {
-                    // this.setState({message: `Delete of game ${id} successful`})
-                    console.log(gameId)
-                })
+        GamePrivateDataService.deletePrivateGame(club, gameId)
+            .then(response => {
+                // this.setState({message: `Delete of game ${id} successful`})
+                console.log(gameId)
+            })
         // }
     }
 
@@ -90,4 +90,4 @@ class GameDeleteModal extends Component {
     }
 }
 
-export default GameDeleteModal
+export default GamePrivateDeleteModal

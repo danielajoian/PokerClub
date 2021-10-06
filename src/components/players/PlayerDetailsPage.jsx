@@ -66,7 +66,7 @@ class PlayerDetailsPage extends Component {
                 &nbsp;
                 <button className="btn btn-success"
                         style={{width: "300px"}}>
-                    <Link to="/" className="link">
+                    <Link to="/playerPrivateGame" className="link">
                         Go to Private Games
                     </Link>
                 </button>
