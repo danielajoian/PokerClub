@@ -90,7 +90,7 @@ class GamesList extends Component {
     render() {
         return (
             <div>
-                <h3>List Of Games for {AuthenticationServiceJwt.getLoggedInClubName()}  Poker Club</h3>
+                <h3 className="card-header">List Of Games for {AuthenticationServiceJwt.getLoggedInClubName()}  Poker Club</h3>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 &nbsp;
                     <table className="table">

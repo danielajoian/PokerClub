@@ -141,7 +141,7 @@ class PlayerAccount extends Component {
         let {username, email, city, password, confirmPassword} = this.state
         return (
             <div>
-                <h2>Player Account Details</h2>
+                <h2 className="card-header">Player Account Details</h2>
                 &nbsp;
                 <form onSubmit={this.handleSubmit}>
                     <label>UserName: </label>

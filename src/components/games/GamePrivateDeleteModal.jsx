@@ -61,6 +61,7 @@ class GamePrivateDeleteModal extends Component {
                 <div className="modalContainer">
                     <div className="titleCloseBtn">
                         <button className="btn btn-success"
+                                style={{backgroundColor: "white"}}
                                 onClick={this.handleCancel}>
                             X
                         </button>
@@ -69,7 +70,7 @@ class GamePrivateDeleteModal extends Component {
                         <p>Delete Game</p>
                     </div>
                     <div className="body">
-                        <p>Are you sure you want to delete this game?</p>
+                        <p className="card-header">Are you sure you want to delete this game?</p>
                     </div>
                     <div className="footer">
                         <button className="btn btn-success"

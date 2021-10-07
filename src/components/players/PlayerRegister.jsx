@@ -120,7 +120,7 @@ class PlayerRegister extends Component {
 
         return (
             <div className="container content-box">
-                <h3>Player Register Form</h3>
+                <h3 className="card-header">Player Register Form</h3>
                 &nbsp;
                 <form onSubmit={this.handleSubmit}>
                     <label>UserName:</label>

@@ -46,7 +46,8 @@ class PlayerDetailsPage extends Component {
 
         return (
             <div>
-                <h4>Welcome to your page, {sessionStorage.getItem('authenticatedUser')}!</h4>
+                <h4 className="card-header">
+                    Welcome to your page, {sessionStorage.getItem('authenticatedUser')}!</h4>
                 &nbsp;
                 <button className="btn btn-success"
                         onClick={this.handleClick}

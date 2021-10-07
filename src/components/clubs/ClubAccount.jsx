@@ -223,7 +223,7 @@ class ClubAccount extends Component {
 
         return (
             <div>
-                <h2>Club Account Details</h2>
+                <h2 className="card-header">Club Account Details</h2>
                 &nbsp;
 
                 <form onSubmit={this.handleSubmit}>

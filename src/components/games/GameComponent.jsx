@@ -116,7 +116,7 @@ class GameComponent extends Component {
 
         return (
             <div>
-                <h3>Game Component</h3>
+                <h3 className="card-header">Game Component</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label>Title</label>
                     <input type="text"

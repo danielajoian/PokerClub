@@ -66,13 +66,14 @@ class PlayerPrivateGame extends Component {
                 <div className="modalContainer">
                     <div className="titleCloseBtn">
                         <button className="btn btn-success"
+                                style={{backgroundColor: "white"}}
                                 onClick={this.handleCancel}>
                             X
                         </button>
                     </div>
                     <div className="title">
                         {/*<p>Private Game Code</p>*/}
-                        <h3>Do you have a secret code?</h3>
+                        <h3 className="card-header">Do you have a secret code?</h3>
                     </div>
                     <div className="body">
                         {/*<label>Do you have a secret code?</label>*/}
