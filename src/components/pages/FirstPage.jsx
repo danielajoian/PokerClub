@@ -5,8 +5,8 @@ class FirstPage extends Component {
     render() {
         return (
             <div className='content-box'>
-                <h1>PokerApp</h1>
-                <h3>Are you a Player or you own a Club?</h3>
+                <h1 className="card-header">PokerApp</h1>
+                <h3 className="card-header">Are you a Player or you own a Club?</h3>
                 <button className="btn btn-success"
                         style={{border: "2px solid", height: "50px", width: "220px"}}>
                     <Link to="/playerPage" className="link">

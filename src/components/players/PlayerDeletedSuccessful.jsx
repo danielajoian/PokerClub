@@ -6,7 +6,7 @@ class PlayerDeletedSuccessful extends Component {
     render() {
         return (
             <div className="container content-box">
-                <h4>Player was deleted!</h4>
+                <h4 className="card-header">Player was deleted!</h4>
                 <button className="btn btn-success"
                         style={{width: "170px", height: "35px"}}
                     onClick={() => AuthenticationServiceJwt.logout()}

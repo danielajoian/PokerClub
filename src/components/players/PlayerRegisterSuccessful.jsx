@@ -4,7 +4,7 @@ class PlayerRegisterSuccessful extends Component {
     render() {
         return (
             <div className="container content-box">
-                <h4>Player was registered!</h4>
+                <h4 className="card-header">Player was registered!</h4>
                 &nbsp;
                 <img
                     style={{maxWidth: "300px"}}

@@ -199,7 +199,7 @@ class ClubRegister extends Component {
 
         return (
             <div className="container content-box">
-                <h3>Club Register Form</h3>
+                <h3 className="card-header">Club Register Form</h3>
                 &nbsp;
                 <form onSubmit={this.handleSubmit}>
                     <label>Club Name: </label>

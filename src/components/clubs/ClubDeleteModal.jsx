@@ -56,6 +56,7 @@ class ClubDeleteModal extends Component {
                 <div className="modalContainer">
                     <div className="titleCloseBtn">
                         <button className="btn btn-success"
+                                style={{backgroundColor: "white"}}
                                 onClick={this.handleCancel}>
                             X
                         </button>

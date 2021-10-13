@@ -46,7 +46,7 @@ class ClubLogin extends Component {
     render() {
         return (
             <div className="container content-box">
-                <h3>Club Login</h3>
+                <h3 className="card-header">Club Login</h3>
                 {this.state.hasLoginFailed && <div className="alert alert-warning">
                     Invalid Credentials</div>}
                 &nbsp;

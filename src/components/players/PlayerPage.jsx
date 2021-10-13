@@ -5,7 +5,7 @@ class PlayerPage extends Component {
     render() {
         return (
             <div>
-                <h3>Welcome to the Players Page!</h3>
+                <h3 className="card-header">Welcome to the Players Page!</h3>
                 &nbsp;
                 <h6>If you have an account, then
                     <button className="btn btn-success">

@@ -4,7 +4,7 @@ class Logout extends Component {
     render() {
         return(
             <div>
-                <h3>You are logged out</h3>
+                <h3 className="card-header">You are logged out</h3>
                 &nbsp;
                 <div className="container">
                     Thank you for using our App!

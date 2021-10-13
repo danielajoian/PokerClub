@@ -46,7 +46,7 @@ class PlayerLogin extends Component {
     render() {
         return (
             <div className="container content-box">
-                <h3>Player Login</h3>
+                <h3 className="card-header">Player Login</h3>
                 &nbsp;
                 {this.state.hasLoginFailed && <div className="alert alert-warning">
                                 Invalid Credentials</div>}

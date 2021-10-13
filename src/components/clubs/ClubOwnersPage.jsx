@@ -5,9 +5,9 @@ class ClubOwnersPage extends Component {
     render() {
         return (
             <div>
-                <h3> Welcome to Club Owners Page! </h3>
+                <h3 className="card-header"> Welcome to Club Owners Page! </h3>
                &nbsp;
-                <h6> If you already have an account then you should
+                <h6 className="card-text"> If you already have an account then you should
                     <button className="btn btn-success">
                         <Link to="/clubLogin" className="link">
                             Login
@@ -15,7 +15,7 @@ class ClubOwnersPage extends Component {
                     </button>
                 </h6>
                 &nbsp;
-                <h6>If you don't then you should
+                <h6 className="card-text">If you don't then you should
                     <button className="btn btn-success">
                         <Link to="/clubRegister" className="link">
                             Register
