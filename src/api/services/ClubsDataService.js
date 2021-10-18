@@ -14,8 +14,8 @@ class ClubsDataService {
         return axios.get(`${API_URL}/allClubs/${city}`)
     }
 
-    deleteClub(clubUsername, id) {
-        return axios.delete(`${API_URL}/clubs/${clubUsername}/${id}`)
+    deleteClub(clubUsername, id, imageLink) {
+        return axios.delete(`${API_URL}/clubs/${clubUsername}/${id}/${imageLink}`)
     }
 
     updateClub(clubUsername, id, club) {
@@ -24,6 +24,18 @@ class ClubsDataService {
 
     createClub(clubUsername, club) {
         return axios.post(`${API_URL}/clubs/${clubUsername}`, club);
+    }
+
+    addClubImage(id, file) {
+        return axios.post(`${API_URL}/${id}/clubImage/upload`, file, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+    }
+
+    retrieveClubImage(id, imgName) {
+        return axios.get(`${API_URL}/${id}/clubImage/download/${imgName}`)
     }
 }
 

@@ -1,4 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker:400');
+/*@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Merienda&family=Princess+Sofia&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Bonbon&family=Merienda&family=Princess+Sofia&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Creepster&display=swap');
 
 * {
     box-sizing: border-box;
@@ -12,7 +24,10 @@ html {
 }
 
 body {
-    font-family: 'Merienda', cursive;
+    //font-family: 'Merienda', cursive;
+    //font-family: 'Rampart One', cursive;
+    //font-family: 'Bungee Inline', cursive;
+    font-family: 'Creepster', cursive;
     //background-image: url("./pictures/background-cards1.png");
     //background-image: url("./pictures/full-house.png");
     //background-image: url("./pictures/ace.jpg");
@@ -24,8 +39,10 @@ body {
     margin: 0;
     padding: 0;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 1.6;
+    //font-size: 16px;
+    font-size: 18px;
+    //line-height: 1.6;
+    line-height: 2;
     height: auto;
 //background-color: #fff;
 //color: #222;
@@ -37,6 +54,7 @@ body {
 .App {
     text-align: left;
     min-height: 100vh;
+    min-width: 100%;
     padding-top: 10px;
 }
 
@@ -45,7 +63,7 @@ body {
     max-width: 800px;
     margin: 0 auto;
     text-align: right;
-    padding: 20px 0;
+    padding: 0;
 div {
     cursor: pointer;
     width: 20px;
@@ -77,8 +95,8 @@ div {
     margin: 0 auto;
     border-radius: 8px;
     padding: 30px 30px 40px 30px;
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 90%;
+    max-height: 90%;
     min-height: 50%;
     opacity: 0.9;
 h1 {
@@ -131,6 +149,16 @@ textarea {
     margin: 5px;
     height: 150px;
 }
+
+}
+
+.images {
+    display: block;
+    float: right;
+    margin: 5px;
+    height: 250px;
+    width: 350px;
+    border: groove;
 }
 
 .foot {

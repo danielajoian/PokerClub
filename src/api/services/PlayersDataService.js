@@ -11,8 +11,8 @@ class PlayersDataService {
         return axios.get(`${API_URL}/playersByGame/${privateGameId}`);
     }
 
-    deletePlayer(username, id) {
-        return axios.delete(`${API_URL}/players/${username}/${id}`)
+    deletePlayer(username, id, imageLink) {
+        return axios.delete(`${API_URL}/players/${username}/${id}/${imageLink}`)
     }
 
     updatePlayer(username, id, player) {
@@ -25,6 +25,18 @@ class PlayersDataService {
 
     addPlayer(privateGameId, username, player) {
         return axios.put(`${API_URL}/playersAddGame/${privateGameId}/${username}`, player)
+    }
+
+    addPlayerImage(id, file) {
+        return axios.post(`${API_URL}/${id}/playerImage/upload`, file, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+    }
+
+    retrievePlayerImage(id, imgName) {
+        return axios.get(`${API_URL}/${id}/playerImage/download/${imgName}`)
     }
 }
 

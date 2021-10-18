@@ -70,7 +70,9 @@ class ClubsList extends Component {
         let {clubs} = this.state
 
         return (
-            <div>
+            <div
+                className="container col"
+            >
                 <input className="content-box"
                        style={{width: "200px", height: "50px", padding: "10px"}}
                        placeholder="Search for clubs..."
@@ -99,9 +101,17 @@ class ClubsList extends Component {
                     if (search === '') {
                         return clubs.map(
                             club =>
-                                <div className="container col" style={{display: "inline-block"}} key={club.id}>
-                                    <h5 className="card-header">{club.clubUsername}  Poker Club</h5>
-                                    <div className="card-body">
+                                <div className="row"
+                                     // style={{display: "block"}}
+                                     key={club.id}>
+                                    <div className="card-body col">
+                                        <img className="card-body col images"
+                                             src={`http://localhost:8081/${club.id}/clubImage/download/${club.imageLink}`}
+                                             alt="No image to show"
+                                        />
+                                        {/*<br/><br/><br/><br/><br/>*/}
+                                        {/*<br/><br/><br/><br/><br/>*/}
+                                        <h5 className="card-header">{club.clubUsername}  Poker Club</h5>
                                         <h5 className="card-title">Country: {club.country}</h5>
                                         <h5>City: {club.city}</h5>
                                         <p className="card-text">Address: {club.address}</p>
@@ -111,6 +121,9 @@ class ClubsList extends Component {
                                         >
                                             Details
                                         </button>
+                                    {/*</div>*/}
+                                    {/*<div className="col">*/}
+
                                     </div>
                                 </div>
                         )
@@ -122,10 +135,17 @@ class ClubsList extends Component {
                 })
                     .map((club, key) => {
                     return (
-                        <div key={key} className="container col" style={{display: "inline-block"}}>
-                            <h5 className="card-header">{club.clubUsername}  Poker Club</h5>
-                            <div className="card-body">
-                                <h5 className="card-title">Country: {club.country}</h5>
+                        <div key={key} className="container row"
+                             // style={{display: "block"}}
+                        >
+                            <div className="card-body col">
+                                <img className="card-body col images"
+                                     src={`http://localhost:8081/${club.id}/clubImage/download/${club.imageLink}`}
+                                     alt="No image to show"
+                                />
+
+                                <h5 className="card-header">{club.clubUsername}  Poker Club</h5>
+                                <h5>Country: {club.country}</h5>
                                 <h5>City: {club.city}</h5>
                                 <p className="card-text">Address: {club.address}</p>
                                 <p className="card-text">Phone: {club.phoneNumber}</p>
@@ -134,6 +154,9 @@ class ClubsList extends Component {
                                 >
                                     Details
                                 </button>
+                            {/*</div>*/}
+                            {/*<div className="col">*/}
+
                             </div>
                         </div>
                     )

@@ -179,7 +179,7 @@ class ClubRegister extends Component {
                     .createClub(this.state.clubUsername, club)
                     .then(response => {
                         console.log(response)
-                        this.props.history.push(`/clubRegisterSuccessful`)
+                        this.props.history.push(`/clubRegisterAddImage/${this.state.clubUsername}`)
                     })
         }else return
     }
@@ -209,10 +209,10 @@ class ClubRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateUsername()}
                     />
+                    <br/>
                     {this.state.errors.clubUsername &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.clubUsername}</p>}
-                    <br/>
                     <br/>
 
                     <label>City: </label>
@@ -222,10 +222,10 @@ class ClubRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateCity()}
                     />
+                    <br/>
                     {this.state.errors.city &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.city}</p>}
-                    <br/>
                     <br/>
 
 
@@ -236,10 +236,10 @@ class ClubRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateCountry()}
                     />
+                    <br/>
                     {this.state.errors.country &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.country}</p>}
-                    <br/>
                     <br/>
 
                     <label>Site Address: </label>
@@ -250,10 +250,10 @@ class ClubRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateSite()}
                     />
+                    <br/>
                     {this.state.errors.site &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.site}</p>}
-                    <br/>
                     <br/>
 
                     <label>Address: </label>
@@ -263,10 +263,10 @@ class ClubRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateAddress()}
                     />
+                    <br/>
                     {this.state.errors.address &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.address}</p>}
-                    <br/>
                     <br/>
 
                     <label>Phone Number: </label>
@@ -276,10 +276,10 @@ class ClubRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validatePhoneNumber()}
                     />
+                    <br/>
                     {this.state.errors.phoneNumber &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.phoneNumber}</p>}
-                    <br/>
                     <br/>
 
 
@@ -292,10 +292,10 @@ class ClubRegister extends Component {
                            required={this.validateEmail()}
                            // onBlur={this.validateEmail()}
                     />
+                    <br/>
                     {this.state.errors.email &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.email}</p>}
-                    <br/>
                     <br/>
 
                     <label>Password: </label>
@@ -305,10 +305,10 @@ class ClubRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validatePassword()}
                     />
+                    <br/>
                     {this.state.errors.password &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.password}</p>}
-                    <br/>
                     <br/>
                     <label>Confirm Password: </label>
                     <input type="password"
@@ -317,9 +317,11 @@ class ClubRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateConfirmPassword()}
                     />
+                    <br/>
                     {this.state.errors.confirmPassword &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.confirmPassword}</p>}
+                    <br/>
                     <br/>
                     <button className="btn btn-success"
                             type="submit"

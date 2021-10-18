@@ -51,9 +51,16 @@ class ClubInfo extends Component {
     render() {
         return (
             <div>
-                <div className="container">
-                    <h4 className="card-header">Club {this.state.clubUsername} Info</h4>
-                    <div className="card-body">
+                <div className="container col">
+                    <div className="row">
+                    <div className="card-body col">
+                        <img className="card-body col images"
+                             src={`http://localhost:8081/${this.state.club.id}/clubImage/download/${this.state.club.imageLink}`}
+                             alt="No image to show"
+                        />
+                        <br/><br/><br/><br/><br/><br/><br/>
+
+                        <h4 className="card-header">Club {this.state.clubUsername} Info</h4>
                         <h5 className="card-title">Country: {this.state.club.country}</h5>
                         <h5 className="card-title">City: {this.state.club.city}</h5>
                         <p className="card-text">Address: {this.state.club.address}</p>
@@ -92,6 +99,7 @@ class ClubInfo extends Component {
                         </table>
 
                     </div>
+                </div>
                 </div>
             </div>
         )

@@ -11,6 +11,7 @@ class PlayerAccount extends Component {
             email: '',
             city: '',
             password: '',
+            imageLink: '',
             // confirmPassword: '',
             errors: {
                 username: '',
@@ -45,10 +46,20 @@ class PlayerAccount extends Component {
                         username: response.data.username,
                         email: response.data.email,
                         password: response.data.password,
-                        city: response.data.city
+                        city: response.data.city,
+                        imageLink: response.data.imageLink
                     })
                 }
             )
+
+        // PlayersDataService.retrievePlayerImage(this.state.id, this.state.imageLink)
+        //     .then(
+        //         response => {
+        //             this.setState({
+        //                 imageLink: response.data.imageLink
+        //             })
+        //         }
+        //     )
     }
 
     handleChange = (event) => {
@@ -138,11 +149,17 @@ class PlayerAccount extends Component {
 
 
     render() {
-        let {username, email, city, password, confirmPassword} = this.state
+        let {id, username, email, city, imageLink, password, confirmPassword} = this.state
         return (
             <div>
                 <h2 className="card-header">Player Account Details</h2>
                 &nbsp;
+               <img className="images"
+                   src={`http://localhost:8081/${id}/playerImage/download/${imageLink}`}
+                    alt="No image to show"
+               />
+
+
                 <form onSubmit={this.handleSubmit}>
                     <label>UserName: </label>
                     <input type="text"
