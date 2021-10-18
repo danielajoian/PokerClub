@@ -39,6 +39,8 @@ import GamePrivateDetails from "./components/games/GamePrivateDetails";
 import GamePrivateDeleteModal from "./components/games/GamePrivateDeleteModal";
 import PlayerPrivateGame from "./components/players/PlayerPrivateGame";
 import PlayerPrivateGameList from "./components/players/PlayerPrivateGameList";
+import PlayerRegisterAddImage from "./components/players/PlayerRegisterAddImage";
+import ClubRegisterAddImage from "./components/clubs/ClubRegisterAddImage";
 
 function App() {
 
@@ -88,6 +90,8 @@ function App() {
                                 <Route path="/" exact component={FirstPage} />
                                 <Route path="/playerLogin" component={PlayerLogin} />
                                 <Route path="/playerRegister" component={PlayerRegister} />
+                                <Route path="/playerRegisterAddImage/:name" component={PlayerRegisterAddImage} />
+                                <Route path="/clubRegisterAddImage/:name" component={ClubRegisterAddImage} />
                                 <Route path="/logout" component={Logout} />
                                 <Route exact path="/clubs" component={ClubsList} />
                                 <Route path="/playerPage" component={PlayerPage} />

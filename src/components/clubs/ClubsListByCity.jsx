@@ -48,7 +48,7 @@ class ClubsListByCity extends Component {
         let {isEmpty} = this.state
 
         return (
-            <div>
+            <div className="container col">
                 {!isEmpty &&
                     <h3 className="card-header">List of Poker Clubs from {city}</h3>}
 
@@ -59,9 +59,19 @@ class ClubsListByCity extends Component {
 
                 {clubs.map(
                     club =>
-                        <div className="container col" style={{display: "inline-block"}} key={club.id}>
-                            <h5 className="card-header">{club.clubUsername} Poker Club</h5>
-                            <div className="card-body">
+                        <div className="row"
+                             // style={{display: "inline-block"}}
+                             key={club.id}>
+
+                            <div className="card-body col">
+                                <img className="card-body col images"
+                                     src={`http://localhost:8081/${club.id}/clubImage/download/${club.imageLink}`}
+                                     alt="No image to show"
+                                />
+                                {/*<br/><br/><br/><br/><br/>*/}
+                                {/*<br/><br/><br/><br/><br/>*/}
+
+                                <h5 className="card-header">{club.clubUsername} Poker Club</h5>
                                 <h5 className="card-title">Country: {club.country}</h5>
                                 <h5>City: {club.city}</h5>
                                 <p className="card-text">Address: {club.address}</p>
@@ -71,6 +81,9 @@ class ClubsListByCity extends Component {
                                 >
                                     Details
                                 </button>
+                            {/*</div>*/}
+                            {/*<div className="card-body col">*/}
+
                             </div>
                         </div>
                 )

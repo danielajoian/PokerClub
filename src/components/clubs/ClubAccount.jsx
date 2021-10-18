@@ -15,6 +15,7 @@ class ClubAccount extends Component {
             address: '',
             site: '',
             phoneNumber: '',
+            imageLink: '',
             errors: {
                 clubUsername: '',
                 // password: '',
@@ -61,7 +62,8 @@ class ClubAccount extends Component {
                         country: response.data.country,
                         address: response.data.address,
                         site: response.data.site,
-                        phoneNumber: response.data.phoneNumber
+                        phoneNumber: response.data.phoneNumber,
+                        imageLink: response.data.imageLink
                     })
                 }
             )
@@ -211,6 +213,8 @@ class ClubAccount extends Component {
 
     render() {
         let {
+            id,
+            imageLink,
             clubUsername,
             password,
             city,
@@ -225,6 +229,10 @@ class ClubAccount extends Component {
             <div>
                 <h2 className="card-header">Club Account Details</h2>
                 &nbsp;
+                <img className="images"
+                    src={`http://localhost:8081/${id}/clubImage/download/${imageLink}`}
+                     alt="No image to show"
+                />
 
                 <form onSubmit={this.handleSubmit}>
                     <label>Club Name: </label>

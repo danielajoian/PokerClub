@@ -110,7 +110,7 @@ class PlayerRegister extends Component {
                     .createPlayer(this.state.username, player)
                     .then(response => {
                         console.log(response)
-                        this.props.history.push(`/registerSuccessful`)
+                        this.props.history.push(`/playerRegisterAddImage/${this.state.username}`)
                     })
         }else return
     }
@@ -130,10 +130,10 @@ class PlayerRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateUsername()}
                     />
+                    <br/>
                     {this.state.errors.username &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.username}</p>}
-                    <br/>
                     <br/>
 
                     <label>Email:</label>
@@ -143,9 +143,9 @@ class PlayerRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateEmail()}
                     />
+                    <br/>
                     {this.state.errors.email &&
                     <p style={{color: "red", display: "inline"}}>{this.state.errors.email}</p>}
-                    <br/>
                     <br/>
 
                     <label>City:</label>
@@ -155,9 +155,9 @@ class PlayerRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validateCity()}
                     />
+                    <br/>
                     {this.state.errors.city &&
                     <p style={{color: "red", display: "inline"}}>{this.state.errors.city}</p>}
-                    <br/>
                     <br/>
 
                     <label>Password:</label>
@@ -167,9 +167,9 @@ class PlayerRegister extends Component {
                            onChange={this.handleChange}
                            required={this.validatePassword()}
                     />
+                    <br/>
                     {this.state.errors.password &&
                     <p style={{color: "red", display: "inline"}}>{this.state.errors.password}</p>}
-                    <br/>
                     <br/>
 
 

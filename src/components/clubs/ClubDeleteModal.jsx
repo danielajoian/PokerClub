@@ -9,7 +9,8 @@ class ClubDeleteModal extends Component {
         super(props);
         this.state = {
             id: '',
-            clubUsername: ''
+            clubUsername: '',
+            imageLink: ''
         }
         this.handleCancel = this.handleCancel.bind(this)
         this.refreshClubs = this.refreshClubs.bind(this)
@@ -28,7 +29,8 @@ class ClubDeleteModal extends Component {
                     console.log(response)
                     this.setState({
                         id : response.data.id,
-                        clubUsername: response.data.clubUsername
+                        clubUsername: response.data.clubUsername,
+                        imageLink: response.data.imageLink
                     })
                 }
             )
@@ -36,9 +38,10 @@ class ClubDeleteModal extends Component {
 
     deleteAccount(id) {
         let clubName = this.state.clubUsername
+        let clubImage = this.state.imageLink
         console.log(id + " " + clubName);
         // if(window.confirm('Are you sure you want to delete this account?')) {
-            ClubsDataService.deleteClub(clubName, id)
+            ClubsDataService.deleteClub(clubName, id, clubImage)
                 .then(response => {
                     console.log(response)
                 })

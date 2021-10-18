@@ -9,7 +9,8 @@ class PlayerDeleteModal extends Component {
         super(props);
         this.state = {
             id: '',
-            username: ''
+            username: '',
+            imageLink: ''
         }
         this.handleCancel = this.handleCancel.bind(this)
         this.refreshPlayers = this.refreshPlayers.bind(this)
@@ -28,7 +29,8 @@ class PlayerDeleteModal extends Component {
                     console.log(response)
                     this.setState({
                         id : response.data.id,
-                        username: response.data.username
+                        username: response.data.username,
+                        imageLink: response.data.imageLink
                     })
                 }
             )
@@ -36,9 +38,10 @@ class PlayerDeleteModal extends Component {
 
     deleteAccount(id) {
         let playerName = this.state.username
+        let playerImage = this.state.imageLink
         console.log(id + " " + playerName);
         // if(window.confirm('Are you sure you want to delete this account?')) {
-            PlayersDataService.deletePlayer(playerName, id)
+            PlayersDataService.deletePlayer(playerName, id, playerImage)
                 .then(response => {
                     console.log(response)
                 })
