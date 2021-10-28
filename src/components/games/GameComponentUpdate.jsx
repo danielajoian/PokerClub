@@ -3,7 +3,7 @@ import moment from "moment";
 import GameDataService from "../../api/services/GameDataService";
 import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
 
-class GameComponent extends Component {
+class GameComponentUpdate extends Component {
     constructor(props) {
         super(props);
 
@@ -29,10 +29,6 @@ class GameComponent extends Component {
     }
 
     componentDidMount() {
-        if (this.state.id === -1) {
-            return
-        }
-
         this.refreshGames()
     }
 
@@ -44,7 +40,7 @@ class GameComponent extends Component {
                     title: response.data.title,
                     details: response.data.details,
                     beginDate: moment(response.data.beginDate).format('YYYY-MM-DD')
-            }))
+                }))
     }
 
     validateTitle = () => {
@@ -95,19 +91,16 @@ class GameComponent extends Component {
         if (this.state.errors.title === '' &&
             this.state.errors.details === '' &&
             this.state.errors.beginDate === '') {
-                let game = {
-                    // id: this.state.id,
-                    title: this.state.title,
-                    details: this.state.details,
-                    beginDate: this.state.beginDate
-                }
-                if (this.state.id === -1) {
-                    GameDataService.createGame(clubUsername, game)
-                        .then(() => this.props.history.push('/games'))
-                } else {
+            let game = {
+                // id: this.state.id,
+                title: this.state.title,
+                details: this.state.details,
+                beginDate: this.state.beginDate
+            }
+            if(this.state.id !== -1){
                     GameDataService.updateGame(clubUsername, this.state.id, game)
                         .then(() => this.props.history.push(`/games`))
-                }
+            }
         }else return
     }
 
@@ -125,23 +118,23 @@ class GameComponent extends Component {
                            onChange={this.handleChange}
                            required={this.validateTitle()}
                     />
+
                     {this.state.errors.title &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.title}</p>}
+                    <br/>
 
                     <label>Details</label>
-                    <br/>
                     <textarea placeholder="Type your description here..."
-                        name="details"
-                        value={details}
-                        onChange={this.handleChange}
-                        required={this.validateDetails()}
+                              name="details"
+                              value={details}
+                              onChange={this.handleChange}
+                              required={this.validateDetails()}
                     />
+
                     {this.state.errors.details &&
                     <p style={{color: "red", display: "inline"}}>
                         {this.state.errors.details}</p>}
-                    <br/><br/><br/>
-                    <br/><br/><br/>
                     <br/>
 
                     <label>Begin Date</label>
@@ -159,7 +152,7 @@ class GameComponent extends Component {
 
                     <button className="btn btn-success"
                             type="submit"
-                            >
+                    >
                         Save
                     </button>
                 </form>
@@ -168,4 +161,4 @@ class GameComponent extends Component {
     }
 }
 
-export default GameComponent
+export default GameComponentUpdate

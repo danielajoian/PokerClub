@@ -16,10 +16,9 @@ class ClubAccount extends Component {
             site: '',
             phoneNumber: '',
             imageLink: '',
+            selectedFile: null,
             errors: {
                 clubUsername: '',
-                // password: '',
-                // confirmPassword: '',
                 city: '',
                 country: '',
                 address: '',
@@ -34,13 +33,13 @@ class ClubAccount extends Component {
         this.refreshClubs = this.refreshClubs.bind(this)
         this.validateUsername = this.validateUsername.bind(this)
         this.validateCity= this.validateCity.bind(this)
-        // this.validatePassword = this.validatePassword.bind(this)
         this.validateCountry = this.validateCountry.bind(this)
         this.validateAddress = this.validateAddress.bind(this)
         this.validatePhoneNumber = this.validatePhoneNumber.bind(this)
-        // this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
         this.validateEmail = this.validateEmail.bind(this)
         this.validateSite = this.validateSite.bind(this)
+        this.addImage = this.addImage.bind(this)
+        this.onFileChange = this.onFileChange.bind(this)
     }
 
     componentDidMount() {
@@ -76,10 +75,31 @@ class ClubAccount extends Component {
         })
     }
 
+    onFileChange = (event) => {
+        this.setState( {
+            selectedFile: event.target.files[0]
+        })
+    }
+
+    addImage = () => {
+        const formData = new FormData();
+        formData.append("file",
+            this.state.selectedFile
+            // this.state.selectedFile.name
+        );
+
+        console.log(this.state.selectedFile)
+
+        ClubsDataService.addClubImage(this.state.id, formData)
+            .then(response => {
+                console.log(response)
+                this.props.history.push(`/clubAccount/${this.state.clubUsername}/${this.state.id}`)
+            })
+    }
+
     handleSubmit = (event) => {
         event.preventDefault()
         if (this.state.errors.clubUsername === '' &&
-            // this.state.errors.password === '' &&
             this.state.errors.city === '' &&
             this.state.errors.country === '' &&
             this.state.errors.address === '' &&
@@ -93,7 +113,8 @@ class ClubAccount extends Component {
                 country: this.state.country,
                 address: this.state.address,
                 site: this.state.site,
-                phoneNumber: this.state.phoneNumber
+                phoneNumber: this.state.phoneNumber,
+                imageLink: this.state.imageLink
             }
             ClubsDataService
                 .updateClub(this.state.clubUsername, this.state.id, club)
@@ -189,28 +210,6 @@ class ClubAccount extends Component {
         }
     }
 
-    // validatePassword = () => {
-    //     let error = this.state.errors
-    //     if (!this.state.password) {
-    //         error.password = 'Required'
-    //     } else if(this.state.password.length < 4) {
-    //         error.password = 'Password has to have at least 4 characters'
-    //     }else {
-    //         error.password = ''
-    //     }
-    // }
-
-    // validateConfirmPassword = () => {
-    //     let error = this.state.errors
-    //     if (!this.state.confirmPassword) {
-    //         error.confirmPassword = 'Required'
-    //     } else if(!(this.state.confirmPassword === this.state.password)) {
-    //         error.confirmPassword = 'Passwords have to match'
-    //     }else {
-    //         error.confirmPassword = ''
-    //     }
-    // }
-
     render() {
         let {
             id,
@@ -229,23 +228,35 @@ class ClubAccount extends Component {
             <div>
                 <h2 className="card-header">Club Account Details</h2>
                 &nbsp;
-                <img className="images"
-                    src={`http://localhost:8081/${id}/clubImage/download/${imageLink}`}
-                     alt="No image to show"
-                />
 
                 <form onSubmit={this.handleSubmit}>
-                    <label>Club Name: </label>
-                    <input type="text"
-                           name="clubUsername"
-                           value={clubUsername}
-                           onChange={this.handleChange}
-                           required={this.validateUsername()}
-                           />
-                    {this.state.errors.clubUsername &&
-                    <p style={{color: "red", display: "inline"}}>
-                        {this.state.errors.clubUsername}</p>}
-                    <br/>
+                    <img className="images"
+                        src={`http://localhost:8081/${id}/clubImage/download/${imageLink}`}
+                         alt="No image to show"
+                    />
+                    <h2>Change profile picture</h2>
+                    <input type="file"
+                           onChange={this.onFileChange}
+                    />
+                    <button className="btn btn-success"
+                            style={{width: "220px"}}
+                            type="submit"
+                            onClick={this.addImage}
+                    >
+                        Add Picture
+                    </button>
+
+                    {/*<label>Club Name: </label>*/}
+                    {/*<input type="text"*/}
+                    {/*       name="clubUsername"*/}
+                    {/*       value={clubUsername}*/}
+                    {/*       onChange={this.handleChange}*/}
+                    {/*       required={this.validateUsername()}*/}
+                    {/*       />*/}
+                    {/*{this.state.errors.clubUsername &&*/}
+                    {/*<p style={{color: "red", display: "inline"}}>*/}
+                    {/*    {this.state.errors.clubUsername}</p>}*/}
+                    {/*<br/>*/}
                     <br/>
 
                     <label>City: </label>
@@ -306,7 +317,7 @@ class ClubAccount extends Component {
                            name="phoneNumber"
                            value={phoneNumber}
                            onChange={this.handleChange}
-                           // required={this.validatePhoneNumber()}
+                           required={this.validatePhoneNumber()}
                            />
                     {this.state.errors.phoneNumber &&
                     <p style={{color: "red", display: "inline"}}>
@@ -328,21 +339,9 @@ class ClubAccount extends Component {
                     <br/>
                     <br/>
 
-                    {/*<label>Password: </label>*/}
-                    {/*<input type="password"*/}
-                    {/*       name="password"*/}
-                    {/*       value={password}*/}
-                    {/*       onChange={this.handleChange}*/}
-                    {/*       />*/}
-                    {/*{this.state.errors.password &&*/}
-                    {/*<p style={{color: "red", display: "inline"}}>*/}
-                    {/*    {this.state.errors.password}</p>}*/}
-                    {/*<br/>*/}
-                    {/*<br/>*/}
-
                     <button className="btn btn-success"
                             type="submit"
-                            style={{width: "220px"}}
+                            style={{width: "240px"}}
                             >
                         Submit Changes
                     </button>

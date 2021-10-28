@@ -74,21 +74,19 @@ class ClubsList extends Component {
                 className="container col"
             >
                 <input className="content-box"
-                       style={{width: "200px", height: "50px", padding: "10px"}}
+                       style={{width: "320px", height: "50px", padding: "10px"}}
                        placeholder="Search for clubs..."
                        type="search"
                        name="search"
                        value={search}
                        onChange={this.handleChange}
                 />
-                <br/>
-                <br/>
-                <br/>
+                <br/><br/>
 
                 {isUserLoggedIn &&
                     <button className="btn btn-success"
                             type="submit"
-                            style={{width: "300px"}}
+                            style={{width: "320px"}}
                             onClick={this.handleCity}
                     >
                         Show Clubs in my City

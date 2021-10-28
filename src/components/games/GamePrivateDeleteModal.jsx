@@ -80,7 +80,7 @@ class GamePrivateDeleteModal extends Component {
                         <button className="btn btn-warning" id="cancelBtn"
                                 onClick={() => this.deleteGameClicked(this.state.id)}
                         >
-                            <Link to="/games" className="link">
+                            <Link to="/gamePrivateDeleteSuccessful" className="link">
                                 Yes
                             </Link>
                         </button>

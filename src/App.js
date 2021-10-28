@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 // import './switcher.scss';
 // import './switch.scss';
+
 import './App.css';
 import Header from "./components/pages/Header.jsx";
 import Footer from "./components/pages/Footer.jsx";
@@ -23,7 +24,7 @@ import PlayerRegisterSuccessful from "./components/players/PlayerRegisterSuccess
 import ClubRegisterSuccessful from "./components/clubs/ClubRegisterSuccessful";
 import GamesList from "./components/games/GamesList";
 import ClubDetailsPage from "./components/clubs/ClubDetailsPage";
-import GameComponent from "./components/games/GameComponent";
+import GameComponentCreate from "./components/games/GameComponentCreate";
 import PlayerAccount from "./components/players/PlayerAccount";
 import ClubAccount from "./components/clubs/ClubAccount";
 import ClubInfo from "./components/clubs/ClubInfo";
@@ -41,6 +42,13 @@ import PlayerPrivateGame from "./components/players/PlayerPrivateGame";
 import PlayerPrivateGameList from "./components/players/PlayerPrivateGameList";
 import PlayerRegisterAddImage from "./components/players/PlayerRegisterAddImage";
 import ClubRegisterAddImage from "./components/clubs/ClubRegisterAddImage";
+import GameComponentUpdate from "./components/games/GameComponentUpdate";
+import GameDeleteSuccessful from "./components/games/GameDeleteSuccessful";
+import GamePrivateDeleteSuccessful from "./components/games/GamePrivateDeleteSuccessful";
+import ClubForgotPassword from "./components/clubs/ClubForgotPassword";
+import PlayerForgotPassword from "./components/players/PlayerForgotPassword";
+import ClubForgotPasswordUsername from "./components/clubs/ClubForgotPasswordUsername";
+import PlayerForgotPasswordUsername from "./components/players/PlayerForgotPasswordUsername";
 
 function App() {
 
@@ -83,6 +91,11 @@ function App() {
                                  className={`${colorTheme === 'theme-pink' ? 'active' : ''}`}
                             >🎀
                             </div>
+                            <div id='theme-pumpkin'
+                                 onClick={() => handleClick('theme-pumpkin')}
+                                 className={`${colorTheme === 'theme-pumpkin' ? 'active' : ''}`}
+                            >🎃
+                            </div>
                         </div>
 
                         <div className='content-box'>
@@ -102,6 +115,10 @@ function App() {
                                 <Route path="/registerSuccessful" component={PlayerRegisterSuccessful} />
                                 <Route path="/clubRegisterSuccessful" component={ClubRegisterSuccessful} />
                                 <Route exact path="/games/:id/details" component={GameDetails} />
+                                <Route exact path="/clubForgotPassword/:name" component={ClubForgotPassword} />
+                                <Route exact path="/clubForgotPasswordUsername" component={ClubForgotPasswordUsername} />
+                                <Route exact path="/playerForgotPassword/:name" component={PlayerForgotPassword} />
+                                <Route exact path="/playerForgotPasswordUsername" component={PlayerForgotPasswordUsername} />
                                 <AuthenticatedRoute exact path="/privateGames/:id/details" component={GamePrivateDetails} />
                                 <AuthenticatedRoute exact path="/clubsListByCity/:name" component={ClubsListByCity} />
                                 <AuthenticatedRoute exact path="/deletedSuccessful" component={PlayerDeletedSuccessful} />
@@ -112,13 +129,16 @@ function App() {
                                 <AuthenticatedRoute path="/playerDeleteModal" component={PlayerDeleteModal} />
                                 <AuthenticatedRoute path="/clubDeleteModal" component={ClubDeleteModal} />
                                 <AuthenticatedRoute path="/gameDeleteModal/:id" component={GameDeleteModal} />
+                                <AuthenticatedRoute path="/gameDeleteSuccessful" component={GameDeleteSuccessful} />
+                                <AuthenticatedRoute path="/gamePrivateDeleteSuccessful" component={GamePrivateDeleteSuccessful} />
                                 <AuthenticatedRoute path="/gamePrivateDeleteModal/:id" component={GamePrivateDeleteModal} />
                                 <AuthenticatedRoute path="/clubDetailsPage" component={ClubDetailsPage} />
                                 <AuthenticatedRoute exact path="/welcome/:name" component={Welcome} />
                                 <AuthenticatedRoute exact path="/games" component={GamesList} />
                                 <AuthenticatedRoute exact path="/playerAccount/:name/:id" component={PlayerAccount} />
                                 <AuthenticatedRoute exact path="/clubAccount/:name/:id" component={ClubAccount} />
-                                <AuthenticatedRoute exact path="/games/:id" component={GameComponent} />
+                                <AuthenticatedRoute exact path="/games/-1" component={GameComponentCreate} />
+                                <AuthenticatedRoute exact path="/games/:id" component={GameComponentUpdate} />
                                 <AuthenticatedRoute exact path="/privateGames/:id" component={GamePrivateComponent} />
                                 <Route path="*" component={Error} />
                             </Switch>

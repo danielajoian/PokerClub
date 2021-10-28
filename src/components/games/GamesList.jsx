@@ -27,12 +27,12 @@ class GamesList extends Component {
     }
 
     componentDidMount() {
-       this.refreshGames();
+       this.refreshGames()
     }
 
-    componentDidUpdate(){
-        this.refreshGames()
-    }
+    // componentDidUpdate(){
+    //     this.refreshGames()
+    // }
 
     refreshGames() {
         let clubname = AuthenticationServiceJwt.getLoggedInClubName()
@@ -171,14 +171,14 @@ class GamesList extends Component {
                     </table>
                 <div className="row">
                     <button className="btn btn-success"
-                            style={{width: "230px"}}
+                            style={{width: "260px"}}
                             onClick={this.addGameClicked}
                     >
                         Add Public Game
                     </button>
 
                     <button className="btn btn-success"
-                            style={{width: "230px"}}
+                            style={{width: "260px"}}
                             onClick={this.addPrivateGameClicked}
                     >
                         Add Private Game

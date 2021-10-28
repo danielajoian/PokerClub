@@ -61,7 +61,7 @@ class ClubDetailsPage extends Component {
                 <h4 className="card-header">Welcome to your page, {sessionStorage.getItem('authenticatedClub')}!</h4>
                 &nbsp;
                 <button className="btn btn-success"
-                        style={{width: "200px"}}>
+                        style={{width: "230px"}}>
                     <Link to="/games" className="link">
                         Add Games
                     </Link>
@@ -69,13 +69,13 @@ class ClubDetailsPage extends Component {
                 &nbsp;
                 <button className="btn btn-success"
                         onClick={this.handleClick}
-                        style={{width: "200px"}}>
+                        style={{width: "230px"}}>
                     Change Details
                 </button>
                 &nbsp;
                 <button className="btn btn-warning"
                         type="submit"
-                        style={{width: "200px"}}
+                        style={{width: "230px"}}
                         onClick={this.handleDelete}
                 >
                         Delete Account

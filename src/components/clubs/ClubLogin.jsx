@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import AuthenticationServiceJwt from "../../api/services/AuthenticationServiceJwt";
+import {Link} from "react-router-dom";
 
 class ClubLogin extends Component {
     constructor(props) {
@@ -72,6 +73,9 @@ class ClubLogin extends Component {
                         Login
                     </button>
                 </form>
+                <Link to="/clubForgotPasswordUsername" className="link">
+                    Forgot your password? Click here!
+                </Link>
             </div>
         )
     }

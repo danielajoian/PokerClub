@@ -72,13 +72,9 @@ class PlayerPrivateGame extends Component {
                         </button>
                     </div>
                     <div className="title">
-                        {/*<p>Private Game Code</p>*/}
                         <h3 className="card-header">Do you have a secret code?</h3>
                     </div>
                     <div className="body">
-                        {/*<label>Do you have a secret code?</label>*/}
-                        {/*<br />*/}
-                        {/*<br />*/}
                         <input placeholder="Enter secret code here"
                                type="text"
                                name="secretCode"

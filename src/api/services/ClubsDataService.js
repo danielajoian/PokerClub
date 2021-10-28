@@ -7,7 +7,7 @@ class ClubsDataService {
     }
 
     retrieveClub(clubUsername) {
-        return axios.get(`${API_URL}/clubs/${clubUsername}`)
+        return axios.get(`${API_URL}/club/${clubUsername}`)
     }
 
     retrieveClubByCity(city) {
@@ -19,7 +19,11 @@ class ClubsDataService {
     }
 
     updateClub(clubUsername, id, club) {
-        return axios.put(`${API_URL}/clubs/${clubUsername}/${id}`, club);
+        return axios.put(`${API_URL}/changeClub/${clubUsername}/${id}`, club);
+    }
+
+    changePassword(clubUsername, club) {
+        return axios.put(`${API_URL}/club/${clubUsername}/changePassword`, club)
     }
 
     createClub(clubUsername, club) {

@@ -45,7 +45,7 @@ class GamePrivateDetails extends Component {
     }
 
     refreshPlayers() {
-        PlayersDataService.retrieveAllPlayers(this.state.gameId)
+        PlayersDataService.retrievePlayersByGame(this.state.gameId)
             .then(response => {
                 console.log("retrieveAllPlayers: " + response)
                 this.setState({
@@ -61,8 +61,9 @@ class GamePrivateDetails extends Component {
 
                 <table className="table">
                     <thead>
+                    <tr>Total number of players that are registered for this game is {this.state.players.length}</tr>
                     <tr>
-                        <th>Name of Player</th>
+                        <th>ID of Player</th>
                         <th>City</th>
                     </tr>
                     </thead>
@@ -71,7 +72,7 @@ class GamePrivateDetails extends Component {
                     {this.state.players.map(
                         player =>
                             <tr key={player.id}>
-                                <td>{player.username}</td>
+                                <td>{player.id}</td>
                                 <td>{player.city}</td>
                             </tr>
                     )}

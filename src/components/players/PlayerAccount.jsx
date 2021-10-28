@@ -12,13 +12,12 @@ class PlayerAccount extends Component {
             city: '',
             password: '',
             imageLink: '',
-            // confirmPassword: '',
+            privateGameId: '',
+            selectedFile: null,
             errors: {
                 username: '',
                 email: '',
                 city: '',
-                // password: '',
-                // confirmPassword: ''
             }
         }
         this.refreshPlayers = this.refreshPlayers.bind(this)
@@ -27,8 +26,8 @@ class PlayerAccount extends Component {
         this.validateUsername = this.validateUsername.bind(this)
         this.validateEmail= this.validateEmail.bind(this)
         this.validateCity= this.validateCity.bind(this)
-        // this.validatePassword = this.validatePassword.bind(this)
-        // this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
+        this.onFileChange = this.onFileChange.bind(this)
+        this.addImage = this.addImage.bind(this)
     }
 
     componentDidMount() {
@@ -47,19 +46,33 @@ class PlayerAccount extends Component {
                         email: response.data.email,
                         password: response.data.password,
                         city: response.data.city,
-                        imageLink: response.data.imageLink
+                        imageLink: response.data.imageLink,
+                        privateGameId: response.data.privateGameId,
                     })
                 }
             )
+    }
 
-        // PlayersDataService.retrievePlayerImage(this.state.id, this.state.imageLink)
-        //     .then(
-        //         response => {
-        //             this.setState({
-        //                 imageLink: response.data.imageLink
-        //             })
-        //         }
-        //     )
+    onFileChange = (event) => {
+        this.setState( {
+            selectedFile: event.target.files[0]
+        })
+    }
+
+    addImage = () => {
+        const formData = new FormData();
+        formData.append("file",
+            this.state.selectedFile
+            // this.state.selectedFile.name
+        );
+
+        console.log(this.state.selectedFile)
+
+        PlayersDataService.addPlayerImage(this.state.id, formData)
+            .then(response => {
+                console.log(response)
+                this.props.history.push(`/playerAccount/${this.state.username}/${this.state.id}`)
+            })
     }
 
     handleChange = (event) => {
@@ -75,13 +88,14 @@ class PlayerAccount extends Component {
         event.preventDefault()
         if (this.state.errors.username === '' &&
             this.state.errors.email === '' &&
-            // this.state.errors.password === '' &&
             this.state.errors.city === ''
         ) {
                 let player = {
                     email: this.state.email,
                     password: this.state.password,
-                    city: this.state.city
+                    city: this.state.city,
+                    imageLink: this.state.imageLink,
+                    privateGameId: this.state.privateGameId,
                 }
                 PlayersDataService.updatePlayer(this.state.username, this.state.id, player)
                     .then(response => {
@@ -125,52 +139,41 @@ class PlayerAccount extends Component {
         }
     }
 
-    // validatePassword= () => {
-    //     let error = this.state.errors
-    //     if (!this.state.password) {
-    //         error.password = 'Required'
-    //     } else if(this.state.password.length < 4) {
-    //         error.password = 'Password has to have at least 4 characters'
-    //     }else {
-    //         error.password = ''
-    //     }
-    // }
-
-    // validateConfirmPassword= () => {
-    //     let error = this.state.errors
-    //     if (!this.state.confirmPassword) {
-    //         error.confirmPassword = 'Required'
-    //     } else if(!(this.state.confirmPassword === this.state.password)) {
-    //         error.confirmPassword = 'Passwords have to match'
-    //     }else {
-    //         error.confirmPassword = ''
-    //     }
-    // }
-
-
     render() {
-        let {id, username, email, city, imageLink, password, confirmPassword} = this.state
+        let {id, username, email, city, imageLink} = this.state
         return (
             <div>
                 <h2 className="card-header">Player Account Details</h2>
                 &nbsp;
-               <img className="images"
-                   src={`http://localhost:8081/${id}/playerImage/download/${imageLink}`}
-                    alt="No image to show"
-               />
 
 
                 <form onSubmit={this.handleSubmit}>
-                    <label>UserName: </label>
-                    <input type="text"
-                           name="username"
-                           value={username}
-                           onChange={this.handleChange}
-                           required={this.validateUsername()}
+                   <img className="images"
+                       src={`http://localhost:8081/${id}/playerImage/download/${imageLink}`}
+                        alt="No image to show"
+                   />
+                    <h3>Change profile picture</h3>
+                    <input type="file"
+                           onChange={this.onFileChange}
                     />
-                    {this.state.errors.username &&
-                    <p style={{color: "red", display: "inline"}}>{this.state.errors.username}</p>}
-                    <br/>
+                    <button className="btn btn-success"
+                            type="submit"
+                            style={{width: "220px"}}
+                            onClick={this.addImage}
+                    >
+                        Add Picture
+                    </button>
+
+                    {/*<label>UserName: </label>*/}
+                    {/*<input type="text"*/}
+                    {/*       name="username"*/}
+                    {/*       value={username}*/}
+                    {/*       onChange={this.handleChange}*/}
+                    {/*       required={this.validateUsername()}*/}
+                    {/*/>*/}
+                    {/*{this.state.errors.username &&*/}
+                    {/*<p style={{color: "red", display: "inline"}}>{this.state.errors.username}</p>}*/}
+                    {/*<br/>*/}
                     <br/>
 
                     <label>Email: </label>
@@ -197,39 +200,9 @@ class PlayerAccount extends Component {
                     <br/>
                     <br/>
 
-                    {/*<label>Password: </label>*/}
-                    {/*<input type="password"*/}
-                    {/*       name="password"*/}
-                    {/*       value={password}*/}
-                    {/*       onChange={this.handleChange}*/}
-                    {/*       required={this.validatePassword()}*/}
-                    {/*/>*/}
-                    {/*{this.state.errors.password &&*/}
-                    {/*<p style={{color: "red", display: "inline"}}>*/}
-                    {/*    {this.state.errors.password}</p>}*/}
-                    {/*<br/>*/}
-                    {/*<br/>*/}
-
-                    {/*{(this.state.errors.password === 'Required' || this.state.errors.password === ' ')*/}
-                    {/*&& <label>Confirm Password:</label>}*/}
-                    {/*{(this.state.errors.password === 'Required' || this.state.errors.password === ' ')*/}
-                    {/*&&*/}
-                    {/*<input type="password"*/}
-                    {/*       name="confirmPassword"*/}
-                    {/*       value={confirmPassword}*/}
-                    {/*       onChange={this.handleChange}*/}
-                    {/*       required={this.validateConfirmPassword()}*/}
-                    {/*/>*/}
-                    {/*}*/}
-                    {/*{this.state.errors.confirmPassword &&*/}
-                    {/*<p style={{color: "red", display: "inline"}}>*/}
-                    {/*    {this.state.errors.confirmPassword}</p>}*/}
-                    {/*<br/>*/}
-                    {/*<br/>*/}
-
                     <button className="btn btn-success"
                             type="submit"
-                            style={{width: "220px"}}
+                            style={{width: "240px"}}
                     >
                         Submit Changes
                     </button>

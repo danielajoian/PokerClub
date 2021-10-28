@@ -11,6 +11,8 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap');*/
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Creepster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 * {
     box-sizing: border-box;
@@ -25,9 +27,7 @@ html {
 
 body {
     //font-family: 'Merienda', cursive;
-    //font-family: 'Rampart One', cursive;
-    //font-family: 'Bungee Inline', cursive;
-    font-family: 'Creepster', cursive;
+    //font-family: 'Creepster', cursive;
     //background-image: url("./pictures/background-cards1.png");
     //background-image: url("./pictures/full-house.png");
     //background-image: url("./pictures/ace.jpg");
@@ -72,7 +72,7 @@ div {
     margin: 2px 10px;
 //border: 1px solid blue;
     display: inline-block;
-    opacity: 0.5;
+    opacity: 0.2;
 &.active {
      opacity: 1;
  }
@@ -194,7 +194,7 @@ textarea {
 }
 
 .App.theme-white {
-
+    font-family: 'Anton', sans-serif;
     //background: url("./pictures/Poker Wallpapers HD.jpg") no-repeat transparent;
     background: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.96),
             rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.92));
@@ -231,6 +231,7 @@ h1, h2, h3, h4, h5, h6, p, tr, td, th, button, .link, .container, input, label {
 }
 
 .App.theme-black {
+    font-family: 'Irish Grover', cursive;
     //background-color: rgba(0, 0, 0);
     background: radial-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.98),
             rgba(0, 0, 0, 0.96),
@@ -279,6 +280,7 @@ h1, h2, h3, h4, h5, h6, p, tr, td, th, button, .container, .link, input, label {
 }
 
 .App.theme-pink {
+    font-family: 'Merienda', cursive;
     //background-color: salmon;
     background: radial-gradient(rgba(250, 128, 114, 1), rgba(250, 128, 114, 0.98),
             rgba(250, 128, 114, 0.96), rgba(250, 128, 114, 0.94), rgba(250, 128, 114, 0.92));
@@ -312,6 +314,55 @@ h1, h2, h3, h4, h5, h6, p, tr, td, th, button, .link, .container, input, label {
         --accent-color: #FF3479;
         color: #400D1E;
   }
+}
+
+.App.theme-pumpkin {
+    font-family: 'Creepster', cursive;
+    //background-color: rgba(0, 0, 0);
+    background: radial-gradient(rgba(38, 0, 0, 1), rgba(38, 0, 0, 0.98),
+            rgba(38, 0, 0, 0.96),
+            rgba(38, 0, 0, 0.94),
+            rgba(38, 0, 0, 0.92)
+    );
+    .content-box {
+        //background-color: tan;
+        //background-color: rgba(34, 34, 34, 0.5);
+        h1, h2, h3, h4, h5, h6, p, tr, td, th, button, .container, .link, input, label {
+            //--accent-color: #FD4E5A;
+            --accent-color: #80010A;
+            //color: #80010A;
+            color: #fc0202;
+            .card-body {
+                background-color: rgba(86, 85, 85, 0.3);
+            }
+            .delete {
+                background-color: #f32424;
+            }
+            .update {
+                background-color: rgb(1, 133, 10);
+            }
+            //.delete {
+            //    background-color: red;
+            //}
+            //.update {
+            //    background-color: aqua;
+            //}
+        }
+    }
+    .head {
+        .nav-link, .link, .navbar-brand {
+            //background-color: #222222;
+            //background-color: rgba(34, 34, 34, 0.5);
+            --accent-color: #80010A;
+            color:#fc0202;
+        }
+    }
+    .foot {
+        //background-color: #222222;
+        //background-color: rgba(34, 34, 34, 0.5);
+        --accent-color: #80010A;
+        color: #fc0202;
+    }
 }
 
 .link:hover {

@@ -7,7 +7,11 @@ class PlayersDataService {
         return axios.get(`${API_URL}/players/${username}`);
     }
 
-    retrieveAllPlayers(privateGameId) {
+    retrieveAllPlayers() {
+        return axios.get(`${API_URL}/getAllPlayers`);
+    }
+
+    retrievePlayersByGame(privateGameId) {
         return axios.get(`${API_URL}/playersByGame/${privateGameId}`);
     }
 
@@ -25,6 +29,10 @@ class PlayersDataService {
 
     addPlayer(privateGameId, username, player) {
         return axios.put(`${API_URL}/playersAddGame/${privateGameId}/${username}`, player)
+    }
+
+    changePassword(username, player) {
+        return axios.put(`${API_URL}/player/${username}/changePassword`, player)
     }
 
     addPlayerImage(id, file) {

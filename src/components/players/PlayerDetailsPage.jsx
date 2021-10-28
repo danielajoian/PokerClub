@@ -51,12 +51,12 @@ class PlayerDetailsPage extends Component {
                 &nbsp;
                 <button className="btn btn-success"
                         onClick={this.handleClick}
-                        style={{width: "300px"}}>
+                        style={{width: "330px"}}>
                     Change Account Details
                 </button>
                 &nbsp;
                 <button className="btn btn-success"
-                        style={{width: "300px"}}>
+                        style={{width: "330px"}}>
                     <a href="https://www.pokerstars.ro/poker/games/rules/"
                        target="_blank"
                        rel="noreferrer"
@@ -66,7 +66,7 @@ class PlayerDetailsPage extends Component {
                 </button>
                 &nbsp;
                 <button className="btn btn-success"
-                        style={{width: "300px"}}>
+                        style={{width: "330px"}}>
                     <Link to="/playerPrivateGame" className="link">
                         Go to Private Games
                     </Link>
@@ -74,7 +74,7 @@ class PlayerDetailsPage extends Component {
                 &nbsp;
                 <button className="btn btn-warning"
                         type="submit"
-                        style={{width: "300px"}}
+                        style={{width: "330px"}}
                         // onClick={() => this.deleteAccount(id)}
                         onClick={this.handleDelete}
                 >

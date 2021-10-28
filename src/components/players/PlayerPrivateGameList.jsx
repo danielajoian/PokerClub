@@ -29,7 +29,8 @@ class PlayerPrivateGameList extends Component {
                 city: '',
                 id: '',
                 password: '',
-                privateGameId: ''
+                privateGameId: '',
+                imageLink: '',
             }
         }
 
@@ -81,7 +82,7 @@ class PlayerPrivateGameList extends Component {
     }
 
     refreshPlayers() {
-        PlayersDataService.retrieveAllPlayers(this.state.privateGames.id)
+        PlayersDataService.retrievePlayersByGame(this.state.privateGames.id)
             .then(response => {
                 console.log("retrieveAllPlayers: " + response)
                 this.setState({
@@ -101,7 +102,8 @@ class PlayerPrivateGameList extends Component {
                         city: response.data.city,
                         id: response.data.id,
                         password: response.data.password,
-                        privateGameId: response.data.privateGameId
+                        privateGameId: response.data.privateGameId,
+                        imageLink: response.data.imageLink
                     }
                 })
             })
@@ -118,7 +120,8 @@ class PlayerPrivateGameList extends Component {
             email: this.state.playerDetails.email,
             city: this.state.playerDetails.city,
             id: this.state.playerDetails.id,
-            password: this.state.playerDetails.password
+            password: this.state.playerDetails.password,
+            imageLink: this.state.playerDetails.imageLink
         }
 
         PlayersDataService.addPlayer(this.state.privateGames.id, username, player)
